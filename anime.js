@@ -602,4 +602,4 @@
 
   return animation;
 
-});
+}));
