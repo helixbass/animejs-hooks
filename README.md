@@ -37,15 +37,27 @@ var myAnimation = anime({
 [Live example on CodePen](http://codepen.io/juliangarnier/pen/42673ea42700509510c80dcf83d5fc22?editors=0010)
 
 ### Browser support
+
 * Chrome
 * Safari
 * Opera
 * Firefox
 * IE 10+
 
+### Quick start
+
+`npm instal animejs` or [download](https://github.com/juliangarnier/anime/archive/master.zip) 
+
+Then insert `anime.min.js` in your html :
+
+```html
+<script src="anime.min.js"></script>
+```
+
 ## API
 
 ### targets
+
 Defines the elements or JS Objects to animate.
 
 | Accept | Examples
@@ -57,6 +69,7 @@ Defines the elements or JS Objects to animate.
 | Javascript Array | `['.thing-1', 'div']`
 
 ### Parameters
+
 | Names | Defaults | Types
 | --- | --- | ---
 | delay | `0` | `number`, `function` (el, index, total)
@@ -140,6 +153,7 @@ anime({
 [Live example on CodePen](http://codepen.io/juliangarnier/pen/68ce02709b3b98a6e1ca33f33899b6cf?editors=0010)
 
 ### List of valid animatable properties
+
 Any property can be animated, as long as the property value contains at least one numerical value.
 
 | Types | Examples
@@ -153,6 +167,7 @@ Any property can be animated, as long as the property value contains at least on
 ### Property values
 
 #### Single value
+
 Defines the end value of the animation.
 
 | Types | Examples | Infos
@@ -171,6 +186,7 @@ anime({
 ```
 
 #### From To values
+
 Defines the start and end values of the animation.
 
 Example :
@@ -267,37 +283,49 @@ anime({
 ## Helpers
 
 ### anime.list
+
 Return an array of all active animations objects
+
 ```javascript
 anime.list;
 ```
 
 ### anime.speed = x
+
 Change all animations speed (from 0 to 1).
+
 ```javascript
 anime.speed = .5; // Will slow down all animations by half of their original speed
 ```
 
 ### anime.easings
+
 Return the complete list of anime.js easing functions
+
 ```javascript
 anime.easings;
 ```
 
 ### anime.remove(target)
+
 Remove one or multiple targets from the animation.
+
 ```javascript
 anime.remove('.item-2'); // Will remove all divs with the class '.item-2'
 ```
 
 ### anime.getValue(target, property)
+
 Get current valid value from an element.
+
 ```javascript
 anime.getValue('div', 'translateX'); // Will return '100px'
 ```
 
 ### anime.random(x,y)
+
 Generate a random number between two numbers.
+
 ```javascript
 anime.random(10, 40); // Will return a random number between 10 and 40
 ```
