@@ -46,7 +46,7 @@ var myAnimation = anime({
 
 ### Quick start
 
-`npm install animejs` or [download](https://github.com/juliangarnier/anime/archive/master.zip)
+`npm install animejs` / `bower install animejs` or [download](https://github.com/juliangarnier/anime/archive/master.zip)
 
 Then insert `anime.min.js` in your html:
 
