@@ -273,9 +273,9 @@ var myPath = anime.path('path');
 
 anime({
   targets: 'div',
-  translateX: path,
-  translateY: path,
-  rotate: path
+  translateX: myPath,
+  translateY: myPath,
+  rotate: myPath
 });
 ```
 
