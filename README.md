@@ -266,7 +266,17 @@ myAnimation.play(); // Manually play the animation
 
 ![Follow path](http://anime-js.com/img/gifs/follow-path.gif)
 
-Animate the transforms properties along an SVG path.
+Animate the transform properties along an SVG path by using the `anime.path()` Object.
+
+Transforms compatible with a motion path:
+
+| Names | Infos
+| --- | --- |
+| `translateX` | follow the x path coordinate
+| `translateY` | follow the y path coordinate
+| `rotate` | follow the path angle value
+
+Example:
 
 ```javascript
 var myPath = anime.path('path');
