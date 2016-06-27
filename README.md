@@ -46,7 +46,7 @@ var myAnimation = anime({
 
 ### Quick start
 
-`npm instal animejs` or [download](https://github.com/juliangarnier/anime/archive/master.zip) 
+`npm install animejs` or [download](https://github.com/juliangarnier/anime/archive/master.zip) 
 
 Then insert `anime.min.js` in your html :
 
@@ -153,7 +153,7 @@ anime({
 
 [Live example on CodePen](http://codepen.io/juliangarnier/pen/68ce02709b3b98a6e1ca33f33899b6cf?editors=0010)
 
-### List of valid animatable properties
+### List of valid animateable properties
 
 Any property can be animated, as long as the property value contains at least one numerical value.
 
@@ -257,7 +257,7 @@ var myAnimation = anime({
   autoplay: false
 });
 
-myAnimation.play(); // Manualy play the animation
+myAnimation.play(); // Manually play the animation
 ```
 
 [Live example on CodePen](http://codepen.io/juliangarnier/pen/d1cf92b2af5bb4166cde511e233e8a0d?editors=0010)
