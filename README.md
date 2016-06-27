@@ -11,12 +11,12 @@ It works with CSS, Individual Transforms, SVG, DOM attributes and JS Objects.
 * [Motion path](#motion-path)
 
 
-**Examples and demos :**
+**Examples and demos**
 
+* [CodePen demos and examples](http://codepen.io/collection/b392d3a52d6abf5b8d9fda4e4cab61ab/)
 * [juliangarnier.com](http://juliangarnier.com)
 * [anime-js.com](http://anime-js.com)
 * [kenzo.com/en/thejunglebook](https://kenzo.com/en/thejunglebook)
-* [CodePen demos and examples](http://codepen.io/collection/b392d3a52d6abf5b8d9fda4e4cab61ab/)
 * [Stress test](http://codepen.io/juliangarnier/pen/9aea7f045d7db301eab41bc09dcfc04d?editors=0010)
 
 ### Animation example
@@ -83,6 +83,7 @@ Defines the elements or JS Objects to animate.
 | begin | `undefined` | `function` (animation)
 | update | `undefined` | `function` (animation)
 | complete | `undefined` | `function` (animation)
+
 
 #### Specific animation parameters
 
