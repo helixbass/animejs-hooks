@@ -1,5 +1,5 @@
 # [anime.js](http://anime-js.com) ![](https://badge-size.herokuapp.com/juliangarnier/anime/master/anime.min.js)
-*Anime* `(/ˈæn.ə.meɪ/)` is a polyvalent yet lightweight Javascript animation library.  
+*Anime* `(/ˈæn.ə.meɪ/)` is a flexible yet lightweight Javascript animation library.  
 It works with CSS, Individual Transforms, SVG, DOM attributes and JS Objects.
 
 **Features**
@@ -46,7 +46,7 @@ var myAnimation = anime({
 
 ### Quick start
 
-`npm install animejs` or [download](https://github.com/juliangarnier/anime/archive/master.zip) 
+`npm install animejs` or [download](https://github.com/juliangarnier/anime/archive/master.zip)
 
 Then insert `anime.min.js` in your html:
 
