@@ -46,9 +46,9 @@ var myAnimation = anime({
 
 ### Quick start
 
-`npm instal animejs` or [download](https://github.com/juliangarnier/anime/archive/master.zip) 
+`npm install animejs` or [download](https://github.com/juliangarnier/anime/archive/master.zip) 
 
-Then insert `anime.min.js` in your html :
+Then insert `anime.min.js` in your html:
 
 ```html
 <script src="anime.min.js"></script>
@@ -98,7 +98,7 @@ Specific property parameters are :
 * duration
 * easing
 
-Example :
+Example:
 
 ```javascript
 anime({
@@ -128,7 +128,7 @@ anime({
 
 Delays and durations can be specific to each targeted elements by using a function.
 
-Available function arguments :
+Available function arguments:
 
 | Positions | Names | Infos
 | --- | --- | ---
@@ -136,7 +136,7 @@ Available function arguments :
 | 2 | index | The target index (start at 0)
 | 3 | length of targets | The total number of targets (start at 0)
 
-Example :
+Example:
 
 ```javascript
 anime({
@@ -176,7 +176,7 @@ Defines the end value of the animation.
 | Number | `100` | Will use default units if possible
 | String | `'100rem'` | Will force the animation to use a specific value
 
-Example :
+Example:
 
 ```javascript
 anime({
@@ -190,7 +190,7 @@ anime({
 
 Defines the start and end values of the animation.
 
-Example :
+Example:
 
 ```javascript
 anime({
@@ -205,14 +205,14 @@ anime({
 
 Property values  can be specific to each targeted elements by using a function.
 
-Available function arguments :
+Available function arguments:
 
 | Positions | Names | Infos
 | --- | --- | ---
 | 1 | target | The targeted element
 | 2 | index | The target index (start at 0)
 
-Examples :
+Examples:
 
 ```javascript
 anime({
