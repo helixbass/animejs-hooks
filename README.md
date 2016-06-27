@@ -334,3 +334,5 @@ anime.random(10, 40); // Will return a random number between 10 and 40
 ====
 
 [MIT License](LICENSE.md). © 2016 [Julian Garnier](http://juliangarnier.com).
+
+Big thanks to [Animate Plus](https://github.com/bendc/animateplus) and [Velocity](https://github.com/julianshapiro/velocity) that inspired `anime.js` API, and [jQuery UI](https://jqueryui.com/) from which the easing functions come from.
