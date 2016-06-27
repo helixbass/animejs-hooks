@@ -1,7 +1,7 @@
 {
   "name": "animejs",
   "description": "Polyvalent Javascript animation engine",
-  "main": "anime.min.js",
+  "main": "anime.js",
   "authors": [
     "Julian Garnier <hello@julian.gr>"
   ],
