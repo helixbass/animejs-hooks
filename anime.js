@@ -234,12 +234,16 @@
   var getAnimationType = function(el, prop) {
     if ((is.node(el) || is.svg(el)) && arrayContains(validTransforms, prop)) return 'transform';
     if ((is.node(el) || is.svg(el)) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
-    if ((is.node(el) || is.svg(el)) && (el.getAttribute(prop) || el[prop])) return 'attribute';
+    if ((is.node(el) || is.svg(el)) && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
     if (!is.null(el[prop]) && !is.undef(el[prop])) return 'object';
   }
 
   var getCSSValue = function(el, prop) {
-    return getComputedStyle(el).getPropertyValue(stringToHyphens(prop));
+    // First check if prop is a valid CSS property
+    if (prop in el.style) {
+      // Then return the property value or fallback to '0' when getPropertyValue fails
+      return getComputedStyle(el).getPropertyValue(stringToHyphens(prop)) || '0';
+    }
   }
 
   var getTransformValue = function(el, prop) {
