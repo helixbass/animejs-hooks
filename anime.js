@@ -510,13 +510,15 @@
   var raf = 0;
 
   var engine = (function() {
-    var tick = function() {
-      for (var i = 0; i < animations.length; i++) animations[i].tick(raf);
-      raf = requestAnimationFrame(tick);
+    var play = function() { raf = requestAnimationFrame(step); }
+    var pause = function() { cancelAnimationFrame(raf); raf = 0; }
+    var step = function(time) {
+      for (var i = 0; i < animations.length; i++) animations[i].tick(time);
+      play();
     }
     return {
-      play: function() { raf = requestAnimationFrame(tick); },
-      pause: function() { cancelAnimationFrame(raf); raf = 0; }
+      play: play,
+      pause: pause
     }
   })();
 
@@ -525,17 +527,16 @@
     var anim = createAnimation(params);
     var time = {};
 
-    anim.tick = function() {
+    anim.tick = function(now) {
       if (anim.running) {
         anim.ended = false;
-        var now = performance.now();
         time.current = time.last + now - time.start;
         setAnimationProgress(anim, time.current);
         var s = anim.settings;
         if (s.begin && time.current >= s.delay) { s.begin(anim); s.begin = undefined; };
         if (time.current >= anim.duration) {
           if (s.loop) {
-            time.start = performance.now();
+            time.start = now;
             if (s.direction === 'alternate') reverseTweens(anim, true);
             if (is.number(s.loop)) s.loop--;
           } else {
