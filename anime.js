@@ -509,13 +509,13 @@
   var animations = [];
   var raf = 0;
 
-  var loop = (function() {
-    var step = function() {
+  var engine = (function() {
+    var tick = function() {
       for (var i = 0; i < animations.length; i++) animations[i].tick(raf);
-      raf = requestAnimationFrame(step);
+      raf = requestAnimationFrame(tick);
     }
     return {
-      play: function() { raf = requestAnimationFrame(step); },
+      play: function() { raf = requestAnimationFrame(tick); },
       pause: function() { cancelAnimationFrame(raf); }
     }
   })();
@@ -558,7 +558,7 @@
       removeWillChange(anim);
       var i = animations.indexOf(anim);
       if (i > -1) animations.splice(i, 1);
-      if (!animations.length) loop.pause();
+      if (!animations.length) engine.pause();
     }
 
     anim.play = function(params) {
@@ -572,7 +572,7 @@
       if (s.direction === 'alternate' && !s.loop) s.loop = 1;
       setWillChange(anim);
       animations.push(anim);
-      if (!raf) loop.play();
+      if (!raf) engine.play();
     }
 
     anim.restart = function() {
@@ -614,8 +614,8 @@
   animation.getValue = getInitialTargetValue;
   animation.path = getPathProps;
   animation.random = random;
-  animation.play = loop.play;
-  animation.pause = loop.pause;
+  animation.play = engine.play;
+  animation.pause = engine.pause;
 
   return animation;
 
