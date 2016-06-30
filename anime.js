@@ -465,11 +465,13 @@
     var transforms = undefined;
     anim.time = Math.min(time, anim.duration);
     anim.progress = (anim.time / anim.duration) * 100;
-    for (var t = 0; t < anim.tweens.length; t++) {
+    for (var t = anim.tweens.length-1; t >= 0; t--) {
+    // for (var t = 0; t < anim.tweens.length; t++) {
       var tween = anim.tweens[t];
       tween.currentValue = getTweenProgress(tween, time);
       var progress = tween.currentValue;
-      for (var a = 0; a < tween.animatables.length; a++) {
+      // for (var a = 0; a < tween.animatables.length; a++) {
+      for (var a = tween.animatables.length-1; a >= 0; a--) {
         var animatable = tween.animatables[a];
         var id = animatable.id;
         switch (tween.type) {
@@ -511,7 +513,7 @@
 
   var loop = (function() {
     var step = function() {
-      for (var i = 0; i < animations.length; i++) animations[i].tick(raf);
+      for (var a = animations.length-1; a >= 0; a--) animations[a].tick(raf);
       raf = requestAnimationFrame(step);
     }
     return {
