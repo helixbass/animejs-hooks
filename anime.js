@@ -516,7 +516,7 @@
     }
     return {
       play: function() { raf = requestAnimationFrame(tick); },
-      pause: function() { cancelAnimationFrame(raf); }
+      pause: function() { cancelAnimationFrame(raf); raf = 0; }
     }
   })();
 
