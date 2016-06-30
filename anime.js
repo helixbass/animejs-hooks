@@ -465,10 +465,12 @@
     var transforms = undefined;
     anim.time = Math.min(time, anim.duration);
     anim.progress = (anim.time / anim.duration) * 100;
-    anim.tweens.forEach(function(tween) {
+    for (var t = 0; t < anim.tweens.length; t++) {
+      var tween = anim.tweens[t];
       tween.currentValue = getTweenProgress(tween, time);
       var progress = tween.currentValue;
-      tween.animatables.forEach(function(animatable) {
+      for (var a = 0; a < tween.animatables.length; a++) {
+        var animatable = tween.animatables[a];
         var id = animatable.id;
         switch (tween.type) {
           case 'css': animatable.target.style[tween.name] = progress; break;
@@ -480,8 +482,8 @@
           transforms[id].push(progress);
           break;
         }
-      });
-    });
+      }
+    }
     if (transforms) for (var t in transforms) anim.animatables[t].target.style.transform = transforms[t].join(' ');
     if (anim.settings.update) anim.settings.update(anim);
   }
@@ -505,34 +507,43 @@
   // Public
 
   var animations = [];
+  var raf = 0;
+
+  var loop = (function() {
+    var step = function() {
+      for (var i = 0; i < animations.length; i++) animations[i].tick(raf);
+      raf = requestAnimationFrame(step);
+    }
+    return {
+      play: function() { raf = requestAnimationFrame(step); },
+      pause: function() { cancelAnimationFrame(raf); }
+    }
+  })();
 
   var animation = function(params) {
 
     var anim = createAnimation(params);
     var time = {};
 
-    time.tick = function() {
+    anim.tick = function() {
       if (anim.running) {
         anim.ended = false;
-        time.now = +new Date();
-        time.current = time.last + time.now - time.start;
+        var now = performance.now();
+        time.current = time.last + now - time.start;
         setAnimationProgress(anim, time.current);
         var s = anim.settings;
         if (s.begin && time.current >= s.delay) { s.begin(anim); s.begin = undefined; };
         if (time.current >= anim.duration) {
           if (s.loop) {
-            time.start = +new Date();
+            time.start = performance.now();
             if (s.direction === 'alternate') reverseTweens(anim, true);
             if (is.number(s.loop)) s.loop--;
-            time.raf = requestAnimationFrame(time.tick);
           } else {
             anim.ended = true;
             if (s.complete) s.complete(anim);
             anim.pause();
           }
           time.last = 0;
-        } else {
-          time.raf = requestAnimationFrame(time.tick);
         }
       }
     }
@@ -544,24 +555,24 @@
 
     anim.pause = function() {
       anim.running = false;
-      cancelAnimationFrame(time.raf);
       removeWillChange(anim);
       var i = animations.indexOf(anim);
       if (i > -1) animations.splice(i, 1);
+      if (!animations.length) loop.pause();
     }
 
     anim.play = function(params) {
       if (params) anim = mergeObjects(createAnimation(mergeObjects(params, anim.settings)), anim);
       anim.pause();
       anim.running = true;
-      time.start = +new Date();
+      time.start = performance.now();
       time.last = anim.ended ? 0 : anim.time;
       var s = anim.settings;
       if (s.direction === 'reverse') reverseTweens(anim);
       if (s.direction === 'alternate' && !s.loop) s.loop = 1;
       setWillChange(anim);
       animations.push(anim);
-      time.raf = requestAnimationFrame(time.tick);
+      if (!raf) loop.play();
     }
 
     anim.restart = function() {
@@ -603,6 +614,8 @@
   animation.getValue = getInitialTargetValue;
   animation.path = getPathProps;
   animation.random = random;
+  animation.play = loop.play;
+  animation.pause = loop.pause;
 
   return animation;
 
