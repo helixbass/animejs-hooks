@@ -54,6 +54,12 @@ Then insert `anime.min.js` in your html:
 <script src="anime.min.js"></script>
 ```
 
+Or import it in your JavaScript
+
+```javascript
+import anime from 'animejs'
+```
+
 ## API
 
 ### targets
