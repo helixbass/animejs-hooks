@@ -176,8 +176,6 @@ Defines the end value of the animation.
 | String | `'100rem'` | Recommended technique. Will force the animation to use a specific value, but doesn't convert units.
 | Number | `100` | Will use default units if possible. Doesn't work with properties that aren't specified in the CSS, or non-numerical values (e.g. margin: auto; left: auto; etc..).
 
-Notes : For properties that aren't
-
 Example:
 
 ```CSS
