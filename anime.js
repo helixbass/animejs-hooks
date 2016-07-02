@@ -48,6 +48,7 @@
       html:   function(a) { return (a instanceof NodeList || a instanceof HTMLCollection) },
       node:   function(a) { return a.nodeType },
       svg:    function(a) { return a instanceof SVGElement },
+      dom:    function(a) { return is.node(a) || is.svg(a) },
       number: function(a) { return !isNaN(parseInt(a)) },
       string: function(a) { return typeof a === 'string' },
       func:   function(a) { return typeof a === 'function' },
@@ -60,6 +61,15 @@
       color:  function(a) { return (is.hex(a) || is.rgb(a) || is.rgba(a) || is.hsl(a))}
     }
   })();
+
+  // performance.now() polyfill (Safari 9 and under) https://gist.github.com/paulirish/5438650
+
+  var perf = (window.performance || {
+    offset: Date.now(),
+    now: function now() {
+      return Date.now() - this.offset;
+    }
+  });
 
   // Easings functions adapted from http://jqueryui.com/
 
@@ -232,9 +242,9 @@
   // Values
 
   var getAnimationType = function(el, prop) {
-    if ((is.node(el) || is.svg(el)) && arrayContains(validTransforms, prop)) return 'transform';
-    if ((is.node(el) || is.svg(el)) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
-    if ((is.node(el) || is.svg(el)) && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
+    if ( is.dom(el) && arrayContains(validTransforms, prop)) return 'transform';
+    if ( is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
+    if ( is.dom(el) && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
     if (!is.null(el[prop]) && !is.undef(el[prop])) return 'object';
   }
 
@@ -461,8 +471,11 @@
     return recomposeValue(progress, tween.to.strings, tween.from.strings);
   }
 
+  // Prefixed transforms for old Safari
+  var transform = (getCSSValue(document.body, 'transform') ? '' : '-webkit-') + 'transform';
+
   var setAnimationProgress = function(anim, time) {
-    var transforms = undefined;
+    var transforms = {};
     anim.time = Math.min(time, anim.duration);
     anim.progress = (anim.time / anim.duration) * 100;
     for (var t = 0; t < anim.tweens.length; t++) {
@@ -477,14 +490,17 @@
           case 'attribute': animatable.target.setAttribute(tween.name, progress); break;
           case 'object': animatable.target[tween.name] = progress; break;
           case 'transform':
-          if (!transforms) transforms = {};
           if (!transforms[id]) transforms[id] = [];
           transforms[id].push(progress);
           break;
         }
       }
     }
-    if (transforms) for (var t in transforms) anim.animatables[t].target.style.transform = transforms[t].join(' ');
+    if (transforms) {
+      for (var t in transforms) {
+        anim.animatables[t].target.style[transform] = transforms[t].join(' ');
+      }
+    }
     if (anim.settings.update) anim.settings.update(anim);
   }
 
@@ -503,15 +519,6 @@
     anim.ended = false;
     return anim;
   }
-
-  // performance.now() polyfill (Safari 9 and under) https://gist.github.com/paulirish/5438650
-
-  var perf = (window.performance || {
-    offset: Date.now(),
-    now: function now() {
-      return Date.now() - this.offset;
-    }
-  });
 
   // Public
 
