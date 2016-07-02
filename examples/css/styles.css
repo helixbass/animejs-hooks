@@ -40,6 +40,11 @@ section {
 	min-width: 18rem;
 }
 
+div {
+	width: 2rem;
+	height: 2rem;
+}
+
 .red {
   background-color: #FF324A;
 }
