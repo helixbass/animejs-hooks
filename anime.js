@@ -541,8 +541,8 @@
             if (is.number(s.loop)) s.loop--;
           } else {
             anim.ended = true;
-            if (s.complete) s.complete(anim);
             anim.pause();
+            if (s.complete) s.complete(anim);
           }
           time.last = 0;
         }
