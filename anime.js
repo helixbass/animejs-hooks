@@ -504,6 +504,15 @@
     return anim;
   }
 
+  // performance.now() polyfill (Safari 9 and under) https://gist.github.com/paulirish/5438650
+
+  var perf = (window.performance || {
+    offset: Date.now(),
+    now: function now() {
+      return Date.now() - this.offset;
+    }
+  });
+
   // Public
 
   var animations = [];
@@ -566,7 +575,7 @@
       if (params) anim = mergeObjects(createAnimation(mergeObjects(params, anim.settings)), anim);
       anim.pause();
       anim.running = true;
-      time.start = performance.now();
+      time.start = perf.now();
       time.last = anim.ended ? 0 : anim.time;
       var s = anim.settings;
       if (s.direction === 'reverse') reverseTweens(anim);
