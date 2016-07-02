@@ -611,13 +611,14 @@
     var targets = flattenArray(is.array(elements) ? elements.map(toArray) : toArray(elements));
     for (var i = animations.length-1; i >= 0; i--) {
       var animation = animations[i];
-      for (var t = animation.tweens.length-1; t >= 0; t--) {
-        var tween = animation.tweens[t];
-        for (var a = tween.animatables.length-1; a >= 0; a--) {
-          if (arrayContains(targets, tween.animatables[a].target)) {
-            tween.animatables.splice(a, 1);
-            if (!tween.animatables.length) animation.tweens.splice(t, 1);
-            if (!animation.tweens.length) animation.pause();
+      var tweens = animation.tweens;
+      for (var t = tweens.length-1; t >= 0; t--) {
+        var animatables = tweens[t].animatables;
+        for (var a = animatables.length-1; a >= 0; a--) {
+          if (arrayContains(targets, animatables[a].target)) {
+            animatables.splice(a, 1);
+            if (!animatables.length) tweens.splice(t, 1);
+            if (!tweens.length) animation.pause();
           }
         }
       }
