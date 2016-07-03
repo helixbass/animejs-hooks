@@ -334,6 +334,8 @@
     }
   }
 
+  // Tweens
+
   var getTweenValues = function(prop, values, type, target) {
     var valid = {};
     if (type === 'transform') {
@@ -370,8 +372,6 @@
     return tweensProps;
   }
 
-  // Tweens
-
   var getTweens = function(animatables, props) {
     var tweensProps = getTweensProps(animatables, props);
     var splittedProps = groupArrayByProps(tweensProps, ['name', 'from', 'to', 'delay', 'duration']);
@@ -393,6 +393,10 @@
       if (delays) tween.delay = delayVal;
     });
     anim.reversed = anim.reversed ? false : true;
+  }
+
+  var getTweensDuration = function(tweens) {
+    if (tweens.length) return Math.max.apply(Math, tweens.map(function(tween){ return tween.totalDuration; }));
   }
 
   // will-change
@@ -469,12 +473,10 @@
     return recomposeValue(progress, tween.to.strings, tween.from.strings);
   }
 
-  // Prefixed transforms for old Safari
-  var transform = (getCSSValue(document.body, 'transform') ? '' : '-webkit-') + 'transform';
-
   var setAnimationProgress = function(anim, time) {
-    var transforms = {};
+    var transform, str = 'transform', transforms = {};
     anim.time = Math.min(time, anim.duration);
+    console.log(anim.time, anim.duration);
     anim.progress = (anim.time / anim.duration) * 100;
     for (var t = 0; t < anim.tweens.length; t++) {
       var tween = anim.tweens[t];
@@ -483,10 +485,12 @@
       for (var a = 0; a < tween.animatables.length; a++) {
         var animatable = tween.animatables[a];
         var id = animatable.id;
+        var target = animatable.target;
+        var name = tween.name;
         switch (tween.type) {
-          case 'css': animatable.target.style[tween.name] = progress; break;
-          case 'attribute': animatable.target.setAttribute(tween.name, progress); break;
-          case 'object': animatable.target[tween.name] = progress; break;
+          case 'css': target.style[name] = progress; break;
+          case 'attribute': target.setAttribute(name, progress); break;
+          case 'object': target[name] = progress; break;
           case 'transform':
           if (!transforms[id]) transforms[id] = [];
           transforms[id].push(progress);
@@ -495,6 +499,7 @@
       }
     }
     if (transforms) {
+      if (!transform) transform = (getCSSValue(document.body, str) ? '' : '-webkit-') + str;
       for (var t in transforms) {
         anim.animatables[t].target.style[transform] = transforms[t].join(' ');
       }
@@ -510,7 +515,7 @@
     anim.settings = mergeObjects(params, defaultSettings);
     anim.properties = getProperties(params, anim.settings);
     anim.tweens = getTweens(anim.animatables, anim.properties);
-    anim.duration = anim.tweens.length ? Math.max.apply(Math, anim.tweens.map(function(tween){ return tween.totalDuration; })) : params.duration / animation.speed;
+    anim.duration = getTweensDuration(anim.tweens) || params.duration;
     anim.time = 0;
     anim.progress = 0;
     anim.running = false;
@@ -524,11 +529,14 @@
   var raf = 0;
 
   var engine = (function() {
-    var play = function() { raf = requestAnimationFrame(step); }
-    var pause = function() { cancelAnimationFrame(raf); raf = 0; }
+    var play = function() { raf = requestAnimationFrame(step); };
     var step = function(time) {
       for (var i = 0; i < animations.length; i++) animations[i].tick(time);
       play();
+    }
+    return {
+      play: play,
+      pause: function() { cancelAnimationFrame(raf); raf = 0; }
     }
   })();
 
@@ -574,7 +582,6 @@
 
     anim.play = function(params) {
       if (params) anim = mergeObjects(createAnimation(mergeObjects(params, anim.settings)), anim);
-      anim.pause();
       anim.running = true;
       time.start = perf.now();
       time.last = anim.ended ? 0 : anim.time;
@@ -588,7 +595,6 @@
 
     anim.restart = function() {
       if (anim.reversed) reverseTweens(anim);
-      anim.pause();
       anim.seek(0);
       anim.play();
     }
@@ -599,7 +605,7 @@
 
   }
 
-  // Remove on one or multiple targets from all active animations.
+  // Remove one or multiple targets from all active animations.
 
   var remove = function(elements) {
     var targets = flattenArray(is.array(elements) ? elements.map(toArray) : toArray(elements));
