@@ -45,10 +45,8 @@
     return {
       array:  function(a) { return Array.isArray(a) },
       object: function(a) { return Object.prototype.toString.call(a).indexOf('Object') > -1 },
-      html:   function(a) { return (a instanceof NodeList || a instanceof HTMLCollection) },
-      node:   function(a) { return a.nodeType },
       svg:    function(a) { return a instanceof SVGElement },
-      dom:    function(a) { return is.node(a) || is.svg(a) },
+      dom:    function(a) { return a.nodeType || is.svg(a) },
       number: function(a) { return !isNaN(parseInt(a)) },
       string: function(a) { return typeof a === 'string' },
       func:   function(a) { return typeof a === 'function' },
@@ -143,7 +141,7 @@
   var toArray = function(o) {
     if (is.array(o)) return o;
     if (is.string(o)) o = selectString(o) || o;
-    if (is.html(o)) return [].slice.call(o);
+    if (o instanceof NodeList || o instanceof HTMLCollection) return [].slice.call(o);
     return [o];
   }
 
@@ -532,10 +530,6 @@
       for (var i = 0; i < animations.length; i++) animations[i].tick(time);
       play();
     }
-    return {
-      play: play,
-      pause: pause
-    }
   })();
 
   var animation = function(params) {
@@ -632,8 +626,6 @@
   animation.getValue = getInitialTargetValue;
   animation.path = getPathProps;
   animation.random = random;
-  animation.play = engine.play;
-  animation.pause = engine.pause;
 
   return animation;
 
