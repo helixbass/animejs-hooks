@@ -60,15 +60,6 @@
     }
   })();
 
-  // performance.now() polyfill (Safari 9 and under) https://gist.github.com/paulirish/5438650
-
-  var perf = (window.performance || {
-    offset: Date.now(),
-    now: function now() {
-      return Date.now() - this.offset;
-    }
-  });
-
   // Easings functions adapted from http://jqueryui.com/
 
   var easings = (function() {
@@ -475,9 +466,8 @@
 
   var setAnimationProgress = function(anim, time) {
     var transform, str = 'transform', transforms = {};
-    anim.time = Math.min(time, anim.duration);
-    console.log(anim.time, anim.duration);
-    anim.progress = (anim.time / anim.duration) * 100;
+    anim.time = time;
+    anim.progress = (time / anim.duration) * 100;
     for (var t = 0; t < anim.tweens.length; t++) {
       var tween = anim.tweens[t];
       tween.currentValue = getTweenProgress(tween, time);
@@ -530,8 +520,8 @@
 
   var engine = (function() {
     var play = function() { raf = requestAnimationFrame(step); };
-    var step = function(time) {
-      for (var i = 0; i < animations.length; i++) animations[i].tick(time);
+    var step = function(t) {
+      for (var i = 0; i < animations.length; i++) animations[i].tick(t);
       play();
     }
     return {
@@ -548,6 +538,7 @@
     anim.tick = function(now) {
       if (anim.running) {
         anim.ended = false;
+        if (!time.start) time.start = now;
         time.current = time.last + now - time.start;
         setAnimationProgress(anim, time.current);
         var s = anim.settings;
@@ -574,6 +565,7 @@
 
     anim.pause = function() {
       anim.running = false;
+      time.start = 0;
       removeWillChange(anim);
       var i = animations.indexOf(anim);
       if (i > -1) animations.splice(i, 1);
@@ -583,7 +575,6 @@
     anim.play = function(params) {
       if (params) anim = mergeObjects(createAnimation(mergeObjects(params, anim.settings)), anim);
       anim.running = true;
-      time.start = perf.now();
       time.last = anim.ended ? 0 : anim.time;
       var s = anim.settings;
       if (s.direction === 'reverse') reverseTweens(anim);
@@ -595,6 +586,7 @@
 
     anim.restart = function() {
       if (anim.reversed) reverseTweens(anim);
+      anim.pause();
       anim.seek(0);
       anim.play();
     }
