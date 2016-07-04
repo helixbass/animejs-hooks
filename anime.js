@@ -21,6 +21,9 @@
     root.anime = factory();
   }
 }(this, function () {
+
+  var version = '1.1.0';
+
   // Defaults
 
   var defaultSettings = {
@@ -37,7 +40,10 @@
     complete: undefined
   }
 
+  // Transforms
+
   var validTransforms = ['translateX', 'translateY', 'translateZ', 'rotate', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scaleX', 'scaleY', 'scaleZ', 'skewX', 'skewY'];
+  var transform, transformStr = 'transform';
 
   // Utils
 
@@ -464,15 +470,13 @@
     return recomposeValue(progress, tween.to.strings, tween.from.strings);
   }
 
-  var transform, str = 'transform';
-
   var setAnimationProgress = function(anim, time) {
     var transforms = {};
-    anim.time = time;
-    anim.progress = (Math.min(Math.max(time, 0), anim.duration) / anim.duration) * 100;
+    anim.currentTime = time;
+    anim.progress = (time / anim.duration) * 100;
     for (var t = 0; t < anim.tweens.length; t++) {
       var tween = anim.tweens[t];
-      tween.currentValue = getTweenProgress(tween, time);
+      tween.currentValue = getTweenProgress(tween, anim.currentTime);
       var progress = tween.currentValue;
       for (var a = 0; a < tween.animatables.length; a++) {
         var animatable = tween.animatables[a];
@@ -491,7 +495,7 @@
       }
     }
     if (transforms) {
-      if (!transform) transform = (getCSSValue(document.body, str) ? '' : '-webkit-') + str;
+      if (!transform) transform = (getCSSValue(document.body, transformStr) ? '' : '-webkit-') + transformStr;
       for (var t in transforms) {
         anim.animatables[t].target.style[transform] = transforms[t].join(' ');
       }
@@ -508,9 +512,8 @@
     anim.properties = getProperties(params, anim.settings);
     anim.tweens = getTweens(anim.animatables, anim.properties);
     anim.duration = getTweensDuration(anim.tweens) || params.duration;
-    anim.time = 0;
+    anim.currentTime = 0;
     anim.progress = 0;
-    anim.running = false;
     anim.ended = false;
     return anim;
   }
@@ -525,9 +528,9 @@
     var step = function(t) {
       if (animations.length) {
         for (var i = 0; i < animations.length; i++) animations[i].tick(t);
-        raf = requestAnimationFrame(step);
+        play();
       } else {
-        cancelAnimationFrame(step);
+        cancelAnimationFrame(raf);
         raf = 0;
       }
     }
@@ -540,36 +543,31 @@
     var time = {};
 
     anim.tick = function(now) {
-      if (anim.running) {
-        anim.ended = false;
-        if (!time.start) time.start = now;
-        time.current = time.last + now - time.start;
-        setAnimationProgress(anim, time.current);
-        var s = anim.settings;
-        if (s.begin && time.current >= s.delay) { s.begin(anim); s.begin = undefined; };
-        if (time.current >= anim.duration) {
-          if (s.loop) {
-            time.start = now;
-            if (s.direction === 'alternate') reverseTweens(anim, true);
-            if (is.number(s.loop)) s.loop--;
-          } else {
-            anim.ended = true;
-            anim.pause();
-            if (s.complete) s.complete(anim);
-          }
-          time.last = 0;
+      anim.ended = false;
+      if (!time.start) time.start = now;
+      time.current = Math.min(Math.max(time.last + now - time.start, 0), anim.duration);
+      setAnimationProgress(anim, time.current);
+      var s = anim.settings;
+      if (s.begin && time.current >= s.delay) { s.begin(anim); s.begin = undefined; };
+      if (time.current >= anim.duration) {
+        if (s.loop) {
+          time.start = now;
+          if (s.direction === 'alternate') reverseTweens(anim, true);
+          if (is.number(s.loop)) s.loop--;
+        } else {
+          anim.ended = true;
+          anim.pause();
+          if (s.complete) s.complete(anim);
         }
+        time.last = 0;
       }
     }
 
     anim.seek = function(progress) {
-      var time = (progress / 100) * anim.duration;
-      setAnimationProgress(anim, time);
+      setAnimationProgress(anim, (progress / 100) * anim.duration);
     }
 
     anim.pause = function() {
-      anim.running = false;
-      time.start = 0;
       removeWillChange(anim);
       var i = animations.indexOf(anim);
       if (i > -1) animations.splice(i, 1);
@@ -577,8 +575,8 @@
 
     anim.play = function(params) {
       if (params) anim = mergeObjects(createAnimation(mergeObjects(params, anim.settings)), anim);
-      anim.running = true;
-      time.last = anim.ended ? 0 : anim.time;
+      time.start = 0;
+      time.last = anim.ended ? 0 : anim.currentTime;
       var s = anim.settings;
       if (s.direction === 'reverse') reverseTweens(anim);
       if (s.direction === 'alternate' && !s.loop) s.loop = 1;
@@ -620,6 +618,7 @@
     }
   }
 
+  animation.vers = version;
   animation.speed = 1;
   animation.list = animations;
   animation.remove = remove;

@@ -31,7 +31,7 @@
   <script src="../anime.js"></script>
   <script>
 
-  var maxElements = 300;
+  var maxElements = 200;
   var duration = 7000;
   var toAnimate = [];
   var w = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
@@ -42,6 +42,7 @@
     for (var i = 0; i < maxElements; i++) {
       var el = document.createElement('div');
       el.style.background = colors[anime.random(0, 3)];
+      el.style.transform = 'rotate('+anime.random(-360, 360)+'deg)';
       toAnimate.push(el);
       fragment.appendChild(el);
     }
@@ -51,9 +52,9 @@
   var animate = function(el) {
     anime({
       targets: el,
-      rotate: [anime.random(-360, 360), anime.random(-360, 360)],
-      translateX: [0, w],
-      translateY: [0, w],
+      rotate: anime.getValue(el,'rotate'),
+      translateX: [0, w/2],
+      translateY: [0, w/2],
       scale: [0, 2],
       delay: anime.random(0, duration),
       duration: duration,
