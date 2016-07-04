@@ -159,7 +159,7 @@ anime({
 
 [Live example on CodePen](http://codepen.io/juliangarnier/pen/68ce02709b3b98a6e1ca33f33899b6cf?editors=0010)
 
-### List of valid animateable properties
+### List of valid animatable properties
 
 Any property can be animated, as long as the property value contains at least one numerical value.
 
