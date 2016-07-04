@@ -32,7 +32,7 @@ var myAnimation = anime({
 });
 ```
 
-![Basic animation](http://anime-js.com/img/gifs/basic-anim.gif)
+![Basic animation](/examples/img/documentation/basic-anim.gif)
 
 [Live example on CodePen](http://codepen.io/juliangarnier/pen/42673ea42700509510c80dcf83d5fc22?editors=0010)
 
@@ -93,7 +93,7 @@ Defines the elements or JS Objects to animate.
 
 #### Specific animation parameters
 
-![Specific parameters](http://anime-js.com/img/gifs/specific-parameters.gif)
+![Specific parameters](/examples/img/documentation/specific-parameters.gif)
 
 Parameters can be set individually to properties by using an Object.
 
@@ -130,7 +130,7 @@ anime({
 
 #### Multiple timing values
 
-![Multi timings](http://anime-js.com/img/gifs/multi-timings.gif)
+![Multi timings](/examples/img/documentation/multi-timings.gif)
 
 Delays and durations can be specific to each targeted elements by using a function.
 
@@ -213,7 +213,7 @@ anime({
 
 #### Specific target values
 
-![Random values](http://anime-js.com/img/gifs/random-values.gif)
+![Random values](/examples/img/documentation/random-values.gif)
 
 Property values  can be specific to each targeted elements by using a function.
 
@@ -251,7 +251,7 @@ anime({
 
 ## Playback controls
 
-![Playback controls](http://anime-js.com/img/gifs/playback-controls.gif)
+![Playback controls](/examples/img/documentation/playback-controls.gif)
 
 Play, pause, restart and seek the animation.
 
@@ -276,7 +276,7 @@ myAnimation.play(); // Manually play the animation
 
 ### Motion path
 
-![Follow path](http://anime-js.com/img/gifs/follow-path.gif)
+![Follow path](/examples/img/documentation/follow-path.gif)
 
 Animate the transform properties along an SVG path by using the `anime.path()` Object.
 
