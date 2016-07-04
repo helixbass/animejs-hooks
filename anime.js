@@ -467,7 +467,7 @@
   var setAnimationProgress = function(anim, time) {
     var transform, str = 'transform', transforms = {};
     anim.time = time;
-    anim.progress = (time / anim.duration) * 100;
+    anim.progress = (Math.min(Math.max(time, 0), anim.duration) / anim.duration) * 100;
     for (var t = 0; t < anim.tweens.length; t++) {
       var tween = anim.tweens[t];
       tween.currentValue = getTweenProgress(tween, time);
@@ -489,9 +489,10 @@
       }
     }
     if (transforms) {
-      if (!transform) transform = (getCSSValue(document.body, str) ? '' : '-webkit-') + str;
       for (var t in transforms) {
-        anim.animatables[t].target.style[transform] = transforms[t].join(' ');
+        var target = anim.animatables[t].target;
+        if (!transform) transform = (getCSSValue(target, str) ? '' : '-webkit-') + str;
+        target.style[transform] = transforms[t].join(' ');
       }
     }
     if (anim.settings.update) anim.settings.update(anim);
@@ -521,13 +522,15 @@
   var engine = (function() {
     var play = function() { raf = requestAnimationFrame(step); };
     var step = function(t) {
-      for (var i = 0; i < animations.length; i++) animations[i].tick(t);
-      play();
+      if (animations.length) {
+        for (var i = 0; i < animations.length; i++) animations[i].tick(t);
+        raf = requestAnimationFrame(step);
+      } else {
+        cancelAnimationFrame(step);
+        raf = 0;
+      }
     }
-    return {
-      play: play,
-      pause: function() { cancelAnimationFrame(raf); raf = 0; }
-    }
+    return play;
   })();
 
   var animation = function(params) {
@@ -569,7 +572,6 @@
       removeWillChange(anim);
       var i = animations.indexOf(anim);
       if (i > -1) animations.splice(i, 1);
-      if (!animations.length) engine.pause();
     }
 
     anim.play = function(params) {
@@ -581,7 +583,7 @@
       if (s.direction === 'alternate' && !s.loop) s.loop = 1;
       setWillChange(anim);
       animations.push(anim);
-      if (!raf) engine.play();
+      if (!raf) engine();
     }
 
     anim.restart = function() {

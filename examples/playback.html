@@ -42,6 +42,7 @@
       <button class="play">Play</button>
       <button class="pause">Pause</button>
       <button class="restart">Restart</button>
+      <input class="percents" type="text"></input>
     </fieldset>
   </section>
   <script src="../anime.js"></script>
@@ -51,6 +52,7 @@
     var pauseButton = document.querySelector('.pause');
     var restartButton = document.querySelector('.restart');
     var progress = document.querySelector('.progress');
+    var percents = document.querySelector('.percents');
 
     var myAnimation = anime({
       targets: 'div',
@@ -61,6 +63,7 @@
       easing: 'easeOutQuad',
       update: function(animation) {
         progress.value = animation.progress;
+        percents.value = animation.progress + '%';
       }
     });
 
