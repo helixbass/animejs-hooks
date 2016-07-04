@@ -575,6 +575,7 @@
     }
 
     anim.play = function(params) {
+      anim.pause();
       if (params) anim = mergeObjects(createAnimation(mergeObjects(params, anim.settings)), anim);
       time.start = 0;
       time.last = anim.ended ? 0 : anim.currentTime;
