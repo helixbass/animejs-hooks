@@ -1,4 +1,4 @@
-# [anime.js](http://anime-js.com) ![](https://badge-size.herokuapp.com/juliangarnier/anime/master/anime.min.js)
+# [anime.js](http://anime-js.com) ![](https://badge-size.herokuapp.com/juliangarnier/anime/master/anime.min.js?&color=0FCE7B)
 *Anime* `(/ˈæn.ə.meɪ/)` is a flexible yet lightweight JavaScript animation library.  
 It works with CSS, Individual Transforms, SVG, DOM attributes and JS Objects.
 
