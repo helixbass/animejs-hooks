@@ -236,13 +236,6 @@
 
   // Values
 
-  var getAnimationType = function(el, prop) {
-    if ( is.dom(el) && arrayContains(validTransforms, prop)) return 'transform';
-    if ( is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
-    if ( is.dom(el) && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
-    if (!is.null(el[prop]) && !is.undef(el[prop])) return 'object';
-  }
-
   var getCSSValue = function(el, prop) {
     // First check if prop is a valid CSS property
     if (prop in el.style) {
@@ -265,6 +258,13 @@
     }
     var val = values.filter(function(f, i) { return props[i] === prop; });
     return val.length ? val[0] : defaultVal;
+  }
+
+  var getAnimationType = function(el, prop) {
+    if ( is.dom(el) && arrayContains(validTransforms, prop)) return 'transform';
+    if ( is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
+    if ( is.dom(el) && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
+    if (!is.null(el[prop]) && !is.undef(el[prop])) return 'object';
   }
 
   var getInitialTargetValue = function(target, prop) {
@@ -476,7 +476,7 @@
     anim.progress = (time / anim.duration) * 100;
     for (var t = 0; t < anim.tweens.length; t++) {
       var tween = anim.tweens[t];
-      tween.currentValue = getTweenProgress(tween, anim.currentTime);
+      tween.currentValue = getTweenProgress(tween, time);
       var progress = tween.currentValue;
       for (var a = 0; a < tween.animatables.length; a++) {
         var animatable = tween.animatables[a];
@@ -618,7 +618,7 @@
     }
   }
 
-  animation.vers = version;
+  animation.version = version;
   animation.speed = 1;
   animation.list = animations;
   animation.remove = remove;
