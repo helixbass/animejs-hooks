@@ -471,7 +471,7 @@
   }
 
   var setAnimationProgress = function(anim, time) {
-    var transforms = {};
+    var transforms;
     anim.currentTime = time;
     anim.progress = (time / anim.duration) * 100;
     for (var t = 0; t < anim.tweens.length; t++) {
@@ -488,6 +488,7 @@
           case 'attribute': target.setAttribute(name, progress); break;
           case 'object': target[name] = progress; break;
           case 'transform':
+          if (!transforms) transforms = {};
           if (!transforms[id]) transforms[id] = [];
           transforms[id].push(progress);
           break;
