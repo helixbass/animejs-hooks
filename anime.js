@@ -464,8 +464,10 @@
     return recomposeValue(progress, tween.to.strings, tween.from.strings);
   }
 
+  var transform, str = 'transform';
+
   var setAnimationProgress = function(anim, time) {
-    var transform, str = 'transform', transforms = {};
+    var transforms = {};
     anim.time = time;
     anim.progress = (Math.min(Math.max(time, 0), anim.duration) / anim.duration) * 100;
     for (var t = 0; t < anim.tweens.length; t++) {
@@ -489,10 +491,9 @@
       }
     }
     if (transforms) {
+      if (!transform) transform = (getCSSValue(document.body, str) ? '' : '-webkit-') + str;
       for (var t in transforms) {
-        var target = anim.animatables[t].target;
-        if (!transform) transform = (getCSSValue(target, str) ? '' : '-webkit-') + str;
-        target.style[transform] = transforms[t].join(' ');
+        anim.animatables[t].target.style[transform] = transforms[t].join(' ');
       }
     }
     if (anim.settings.update) anim.settings.update(anim);
