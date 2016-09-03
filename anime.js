@@ -1,5 +1,5 @@
 /*
- * Anime v1.1.0
+ * Anime v1.1.1
  * http://anime-js.com
  * JavaScript animation engine
  * Copyright (c) 2016 Julian Garnier
@@ -262,8 +262,8 @@
 
   var getAnimationType = function(el, prop) {
     if ( is.dom(el) && arrayContains(validTransforms, prop)) return 'transform';
-    if ( is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
     if ( is.dom(el) && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
+    if ( is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
     if (!is.null(el[prop]) && !is.undef(el[prop])) return 'object';
   }
 
