@@ -1,4 +1,4 @@
-# [anime.js](http://anime-js.com) ![](https://badge-size.herokuapp.com/juliangarnier/anime/master/anime.min.js?&color=0FCE7B)
+# [anime.js](http://anime-js.com) ![](https://badge-size.herokuapp.com/juliangarnier/anime/master/anime.min.js?&color=319BFF)
 *Anime* `(/ˈæn.ə.meɪ/)` is a flexible yet lightweight JavaScript animation library.  
 It works with CSS, Individual Transforms, SVG, DOM attributes and JS Objects.
 
@@ -304,6 +304,34 @@ anime({
 ```
 
 [Live example on CodePen](http://codepen.io/juliangarnier/pen/cb829a6e62006720bfb7f934734f8c15?editors=0010)
+
+### JS Object
+
+Animate any JS Object attribute.
+
+Example:
+
+```javascript
+var myObject = {
+  one: 0,
+  two: 2000
+}
+
+var myAnimation = anime({
+  targets: myObject,
+  one: 9999,
+  two: 4200,
+  duration: 5000,
+  round: true,
+  easing: 'linear',
+  loop: true,
+  update: function() {
+    console.log(myObject);
+  }
+});
+```
+
+[Live example on CodePen](http://codepen.io/juliangarnier/pen/wWbYjK?editors=0010)
 
 ## Helpers
 
