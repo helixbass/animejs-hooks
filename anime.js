@@ -1,5 +1,5 @@
 /*
- * Anime v1.1.0
+ * Anime v1.1.1
  * http://anime-js.com
  * JavaScript animation engine
  * Copyright (c) 2016 Julian Garnier
@@ -22,7 +22,7 @@
   }
 }(this, function () {
 
-  var version = '1.1.0';
+  var version = '1.1.1';
 
   // Defaults
 
@@ -47,24 +47,21 @@
 
   // Utils
 
-  var is = (function() {
-    return {
-      array:  function(a) { return Array.isArray(a) },
-      object: function(a) { return Object.prototype.toString.call(a).indexOf('Object') > -1 },
-      svg:    function(a) { return a instanceof SVGElement },
-      dom:    function(a) { return a.nodeType || is.svg(a) },
-      number: function(a) { return !isNaN(parseInt(a)) },
-      string: function(a) { return typeof a === 'string' },
-      func:   function(a) { return typeof a === 'function' },
-      undef:  function(a) { return typeof a === 'undefined' },
-      null:   function(a) { return typeof a === 'null' },
-      hex:    function(a) { return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(a) },
-      rgb:    function(a) { return /^rgb/.test(a) },
-      rgba:   function(a) { return /^rgba/.test(a) },
-      hsl:    function(a) { return /^hsl/.test(a) },
-      color:  function(a) { return (is.hex(a) || is.rgb(a) || is.rgba(a) || is.hsl(a))}
-    }
-  })();
+  var is = {
+    arr: function(a) { return Array.isArray(a) },
+    obj: function(a) { return Object.prototype.toString.call(a).indexOf('Object') > -1 },
+    svg: function(a) { return a instanceof SVGElement },
+    dom: function(a) { return a.nodeType || is.svg(a) },
+    num: function(a) { return !isNaN(parseInt(a)) },
+    str: function(a) { return typeof a === 'string' },
+    fnc: function(a) { return typeof a === 'function' },
+    und: function(a) { return typeof a === 'undefined' },
+    nul: function(a) { return typeof a === 'null' },
+    hex: function(a) { return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(a) },
+    rgb: function(a) { return /^rgb/.test(a) },
+    hsl: function(a) { return /^hsl/.test(a) },
+    col: function(a) { return (is.hex(a) || is.rgb(a) || is.hsl(a)) }
+  }
 
   // Easings functions adapted from http://jqueryui.com/
 
@@ -104,7 +101,7 @@
   // Strings
 
   var numberToString = function(val) {
-    return (is.string(val)) ? val : val + '';
+    return (is.str(val)) ? val : val + '';
   }
 
   var stringToHyphens = function(str) {
@@ -112,7 +109,7 @@
   }
 
   var selectString = function(str) {
-    if (is.color(str)) return false;
+    if (is.col(str)) return false;
     try {
       var nodes = document.querySelectorAll(str);
       return nodes;
@@ -131,13 +128,13 @@
 
   var flattenArray = function(arr) {
     return arr.reduce(function(a, b) {
-      return a.concat(is.array(b) ? flattenArray(b) : b);
+      return a.concat(is.arr(b) ? flattenArray(b) : b);
     }, []);
   }
 
   var toArray = function(o) {
-    if (is.array(o)) return o;
-    if (is.string(o)) o = selectString(o) || o;
+    if (is.arr(o)) return o;
+    if (is.str(o)) o = selectString(o) || o;
     if (o instanceof NodeList || o instanceof HTMLCollection) return [].slice.call(o);
     return [o];
   }
@@ -173,7 +170,7 @@
   }
 
   var mergeObjects = function(o1, o2) {
-    for (var p in o2) o1[p] = !is.undef(o1[p]) ? o1[p] : o2[p];
+    for (var p in o2) o1[p] = !is.und(o1[p]) ? o1[p] : o2[p];
     return o1;
   }
 
@@ -216,7 +213,7 @@
   }
 
   var colorToRgb = function(val) {
-    if (is.rgb(val) || is.rgba(val)) return val;
+    if (is.rgb(val)) return val;
     if (is.hex(val)) return hexToRgb(val);
     if (is.hsl(val)) return hslToRgb(val);
   }
@@ -262,9 +259,9 @@
 
   var getAnimationType = function(el, prop) {
     if ( is.dom(el) && arrayContains(validTransforms, prop)) return 'transform';
-    if ( is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
     if ( is.dom(el) && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
-    if (!is.null(el[prop]) && !is.undef(el[prop])) return 'object';
+    if ( is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
+    if (!is.nul(el[prop]) && !is.und(el[prop])) return 'object';
   }
 
   var getInitialTargetValue = function(target, prop) {
@@ -277,7 +274,7 @@
   }
 
   var getValidValue = function(values, val, originalCSS) {
-    if (is.color(val)) return colorToRgb(val);
+    if (is.col(val)) return colorToRgb(val);
     if (getUnit(val)) return val;
     var unit = getUnit(values.to) ? getUnit(values.to) : getUnit(values.from);
     if (!unit && originalCSS) unit = getUnit(originalCSS);
@@ -303,7 +300,7 @@
   // Animatables
 
   var getAnimatables = function(targets) {
-    var targets = targets ? (flattenArray(is.array(targets) ? targets.map(toArray) : toArray(targets))) : [];
+    var targets = targets ? (flattenArray(is.arr(targets) ? targets.map(toArray) : toArray(targets))) : [];
     return targets.map(function(t, i) {
       return { target: t, id: i };
     });
@@ -315,7 +312,7 @@
     var props = [];
     for (var p in params) {
       if (!defaultSettings.hasOwnProperty(p) && p !== 'targets') {
-        var prop = is.object(params[p]) ? cloneObject(params[p]) : {value: params[p]};
+        var prop = is.obj(params[p]) ? cloneObject(params[p]) : {value: params[p]};
         prop.name = p;
         props.push(mergeObjects(prop, settings));
       }
@@ -324,7 +321,7 @@
   }
 
   var getPropertiesValues = function(target, prop, value, i) {
-    var values = toArray( is.func(value) ? value(target, i) : value);
+    var values = toArray( is.fnc(value) ? value(target, i) : value);
     return {
       from: (values.length > 1) ? values[0] : getInitialTargetValue(target, prop),
       to: (values.length > 1) ? values[1] : values[0]
@@ -359,9 +356,9 @@
           tween.type = animType;
           tween.from = getTweenValues(prop.name, values, tween.type, target).from;
           tween.to = getTweenValues(prop.name, values, tween.type, target).to;
-          tween.round = (is.color(values.from) || tween.round) ? 1 : 0;
-          tween.delay = (is.func(tween.delay) ? tween.delay(target, i, animatables.length) : tween.delay) / animation.speed;
-          tween.duration = (is.func(tween.duration) ? tween.duration(target, i, animatables.length) : tween.duration) / animation.speed;
+          tween.round = (is.col(values.from) || tween.round) ? 1 : 0;
+          tween.delay = (is.fnc(tween.delay) ? tween.delay(target, i, animatables.length) : tween.delay) / animation.speed;
+          tween.duration = (is.fnc(tween.duration) ? tween.duration(target, i, animatables.length) : tween.duration) / animation.speed;
           tweensProps.push(tween);
         }
       });
@@ -430,7 +427,7 @@
   /* Svg path */
 
   var getPathProps = function(path) {
-    var el = is.string(path) ? selectString(path)[0] : path;
+    var el = is.str(path) ? selectString(path)[0] : path;
     return {
       path: el,
       value: el.getTotalLength()
@@ -554,7 +551,7 @@
         if (s.loop) {
           time.start = now;
           if (s.direction === 'alternate') reverseTweens(anim, true);
-          if (is.number(s.loop)) s.loop--;
+          if (is.num(s.loop)) s.loop--;
         } else {
           anim.ended = true;
           anim.pause();
@@ -603,7 +600,7 @@
   // Remove one or multiple targets from all active animations.
 
   var remove = function(elements) {
-    var targets = flattenArray(is.array(elements) ? elements.map(toArray) : toArray(elements));
+    var targets = flattenArray(is.arr(elements) ? elements.map(toArray) : toArray(elements));
     for (var i = animations.length-1; i >= 0; i--) {
       var animation = animations[i];
       var tweens = animation.tweens;
