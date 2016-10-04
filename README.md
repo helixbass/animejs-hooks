@@ -247,7 +247,7 @@ anime({
 });
 ```
 
-[Live example on CodePen](http://codepen.io/juliangarnier/pen/d1cf92b2af5bb4166cde511e233e8a0d?editors=0010)
+[Live example on CodePen](http://codepen.io/juliangarnier/pen/zBogap?editors=0010)
 
 ## Playback controls
 
