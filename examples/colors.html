@@ -33,6 +33,7 @@
     color: white;
     line-height: 10vw;
     text-align: center;
+    background-color: #FF324A;
   }
 
 </style>
@@ -48,20 +49,26 @@
     var hex = anime({
       targets: '.hex',
       backgroundColor: '#319BFF',
-      duration: 2000,
-      loop: true
+      duration: 5000,
+      loop: true,
+      direction: 'alternate',
+      easing: 'easeOutQuad'
     });
     var rgb = anime({
       targets: '.rgb',
       backgroundColor: 'rgb(49,155,255)',
-      duration: 2000,
-      loop: true
+      duration: 5000,
+      loop: true,
+      direction: 'alternate',
+      easing: 'easeOutQuad'
     });
     var hsl = anime({
       targets: '.hsl',
       backgroundColor: 'hsl(210,100%,60%)',
-      duration: 2000,
-      loop: true
+      duration: 5000,
+      loop: true,
+      direction: 'alternate',
+      easing: 'easeOutQuad'
     });
   </script>
 </body>
