@@ -1,5 +1,5 @@
 /*
- * Anime v1.1.1
+ * Anime v1.1.2
  * http://anime-js.com
  * JavaScript animation engine
  * Copyright (c) 2016 Julian Garnier
@@ -22,7 +22,7 @@
   }
 }(this, function () {
 
-  var version = '1.1.1';
+  var version = '1.1.2';
 
   // Defaults
 
@@ -394,6 +394,10 @@
     if (tweens.length) return Math.max.apply(Math, tweens.map(function(tween){ return tween.totalDuration; }));
   }
 
+  var getTweensDelay = function(tweens) {
+    if (tweens.length) return Math.min.apply(Math, tweens.map(function(tween){ return tween.delay; }));
+  }
+
   // will-change
 
   var getWillChange = function(anim) {
@@ -499,7 +503,6 @@
         anim.animatables[t].target.style[transform] = transforms[t].join(' ');
       }
     }
-    if (anim.settings.update) anim.settings.update(anim);
   }
 
   // Animation
@@ -511,6 +514,7 @@
     anim.properties = getProperties(params, anim.settings);
     anim.tweens = getTweens(anim.animatables, anim.properties);
     anim.duration = getTweensDuration(anim.tweens) || params.duration;
+    anim.delay = getTweensDelay(anim.tweens) || params.delay;
     anim.currentTime = 0;
     anim.progress = 0;
     anim.ended = false;
@@ -547,7 +551,10 @@
       time.current = Math.min(Math.max(time.last + now - time.start, 0), anim.duration);
       setAnimationProgress(anim, time.current);
       var s = anim.settings;
-      if (s.begin && time.current >= s.delay) { s.begin(anim); s.begin = undefined; };
+      if (time.current >= anim.delay) {
+        if (s.begin) s.begin(anim); s.begin = undefined;
+        if (s.update) s.update(anim);
+      }
       if (time.current >= anim.duration) {
         if (s.loop) {
           time.start = now;
