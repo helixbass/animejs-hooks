@@ -1,5 +1,5 @@
 /*
- * Anime v1.1.2
+ * Anime v1.1.3
  * http://anime-js.com
  * JavaScript animation engine
  * Copyright (c) 2016 Julian Garnier
@@ -22,7 +22,7 @@
   }
 }(this, function () {
 
-  var version = '1.1.2';
+  var version = '1.1.3';
 
   // Defaults
 
@@ -391,11 +391,11 @@
   }
 
   var getTweensDuration = function(tweens) {
-    if (tweens.length) return Math.max.apply(Math, tweens.map(function(tween){ return tween.totalDuration; }));
+    return Math.max.apply(Math, tweens.map(function(tween){ return tween.totalDuration; }));
   }
 
   var getTweensDelay = function(tweens) {
-    if (tweens.length) return Math.min.apply(Math, tweens.map(function(tween){ return tween.delay; }));
+    return Math.min.apply(Math, tweens.map(function(tween){ return tween.delay; }));
   }
 
   // will-change
@@ -513,8 +513,8 @@
     anim.settings = mergeObjects(params, defaultSettings);
     anim.properties = getProperties(params, anim.settings);
     anim.tweens = getTweens(anim.animatables, anim.properties);
-    anim.duration = getTweensDuration(anim.tweens) || params.duration;
-    anim.delay = getTweensDelay(anim.tweens) || params.delay;
+    anim.duration = anim.tweens.length ? getTweensDuration(anim.tweens) : params.duration;
+    anim.delay = anim.tweens.length ? getTweensDelay(anim.tweens) : params.delay;
     anim.currentTime = 0;
     anim.progress = 0;
     anim.ended = false;
