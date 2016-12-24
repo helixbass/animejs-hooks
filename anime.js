@@ -69,7 +69,7 @@
     var eases = {};
     var names = ['Quad', 'Cubic', 'Quart', 'Quint', 'Expo'];
     var functions = {
-      Sine: function(t) { return 1 - Math.cos( t * Math.PI / 2 ); },
+      Sine: function(t) { return 1 + Math.sin(Math.PI / 2 * t - Math.PI / 2); },
       Circ: function(t) { return 1 - Math.sqrt( 1 - t * t ); },
       Elastic: function(t, m) {
         if( t === 0 || t === 1 ) return t;
