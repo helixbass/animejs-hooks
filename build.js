@@ -1,5 +1,7 @@
 const compressor = require('node-minify');
 
+console.log('Compiling... 😤');
+
 compressor.minify({
   compressor: 'gcc',
   input: 'anime.js',
@@ -12,7 +14,7 @@ compressor.minify({
     if (err) {
       console.error(err);
     } else {
-      console.log('Compilation was a success! 👍');
+      console.log('Compilation was a success! 😎 🍺');
     }
   }
 });
