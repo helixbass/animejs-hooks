@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valid targets types | anime.js</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<style>
+
+
+</style>
+
+<body>
+  <header>
+    <h1 class="page-title">Valid targets types</h1>
+  </header>
+  <section class="cells">
+    <div class="cell w-03 h-02 color-01">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el css-selector"></div>
+      </div>
+      <h3 class="demo-title">CSS selector</h3>
+    </div>
+    <div class="cell w-03 h-02 color-02">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el dom-node"></div>
+      </div>
+      <h3 class="demo-title">DOM Node</h3>
+    </div>
+    <div class="cell w-03 h-02 color-04">
+      <div class="demo">
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el node-list"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el node-list"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el node-list"></div>
+        </div>
+      </div>
+      <h3 class="demo-title">Node List</h3>
+    </div>
+    <div class="cell w-03 h-02">
+      <div class="demo">
+        <div class="line color-05">
+          <div class="el shadow"></div>
+          <div class="el array"></div>
+        </div>
+        <div class="line color-06">
+          <div class="el shadow"></div>
+          <div class="el array"></div>
+        </div>
+        <div class="line color-07">
+          <div class="el shadow"></div>
+          <div class="el array"></div>
+        </div>
+      </div>
+      <h3 class="demo-title color-07">JavaScript Array</h3>
+    </div>
+    <div class="cell w-06 h-02 color-03">
+      <div class="demo">
+        <div class="object-data"></div>
+      </div>
+      <h3 class="demo-title">JavaScript Object Value</h3>
+    </div>
+  </section>
+  <script src="../anime.js"></script>
+  <script>
+
+    anime({
+      targets: '.css-selector',
+      translateX: 250,
+      direction: 'alternate',
+      loop: true,
+    });
+
+    anime({
+      targets: document.querySelector('.dom-node'),
+      translateX: 250,
+      direction: 'alternate',
+      loop: true,
+    });
+
+    anime({
+      targets: document.querySelectorAll('.node-list'),
+      translateX: 270,
+      direction: 'alternate',
+      loop: true,
+    });
+
+    var el = document.querySelector('.color-06 .array')
+
+    anime({
+      targets: ['.color-05 .array', el, document.querySelector('.color-07 .array')],
+      translateX: 270,
+      direction: 'alternate',
+      loop: true,
+    });
+
+    var myObject = { data: 2000 };
+
+    anime({
+      targets: myObject,
+      data: 42,
+      direction: 'alternate',
+      loop: true,
+      round: 1000,
+      update: function() {
+        var el = document.querySelector('.object-data');
+        el.innerHTML = 'myObject = {<br>&nbsp;&nbsp;data: '+myObject.data+'<br>}';
+      }
+    });
+
+  </script>
+</body>
+</html>
