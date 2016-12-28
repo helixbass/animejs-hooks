@@ -281,17 +281,17 @@
     const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     const hex = hexValue.replace(rgx, (m, r, g, b) => r + r + g + g + b + b );
     const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    const r = parseInt(rgb[1], 16);
-    const g = parseInt(rgb[2], 16);
-    const b = parseInt(rgb[3], 16);
+    const r = parseFloat(rgb[1], 16);
+    const g = parseFloat(rgb[2], 16);
+    const b = parseFloat(rgb[3], 16);
     return `rgb(${r},${g},${b})`;
   }
 
   function hslToRgb(hslValue) {
     const hsl = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(hslValue);
-    const h = parseInt(hsl[1]) / 360;
-    const s = parseInt(hsl[2]) / 100;
-    const l = parseInt(hsl[3]) / 100;
+    const h = parseFloat(hsl[1]) / 360;
+    const s = parseFloat(hsl[2]) / 100;
+    const l = parseFloat(hsl[3]) / 100;
     function hue2rgb(p, q, t) {
       if (t < 0) t += 1;
       if (t > 1) t -= 1;
@@ -666,7 +666,7 @@
         if (s.loop) {
           startTime = now;
           if (s.direction === 'alternate') toggleInstanceDirection(instance);
-          if (!isNaN(parseInt(s.loop))) s.loop--;
+          if (!isNaN(parseFloat(s.loop))) s.loop--;
         } else {
           instance.ended = true;
           instance.pause();
