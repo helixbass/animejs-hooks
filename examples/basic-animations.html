@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Basic animations | anime.js</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<style>
+
+
+</style>
+
+<body>
+  <div class="cells">
+    <div class="cell w-02 h-02 color-01">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el default-settings"></div>
+      </div>
+      <h3 class="demo-title">Default settings</h3>
+    </div>
+    <div class="cell w-02 h-02 color-02">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el direction-alternate"></div>
+      </div>
+      <h3 class="demo-title">Direction alternate</h3>
+    </div>
+    <div class="cell w-02 h-02 color-03">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el direction-reverse"></div>
+      </div>
+      <h3 class="demo-title">Direction reverse</h3>
+    </div>
+    <div class="cell w-02 h-02 color-04">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el loop"></div>
+      </div>
+      <h3 class="demo-title">Loop (3)</h3>
+    </div>
+    <div class="cell w-02 h-02 color-05">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el loop-alternate"></div>
+      </div>
+      <h3 class="demo-title">Loop alternate Loop (3)</h3>
+    </div>
+    <div class="cell w-02 h-02 color-06">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el loop-reverse"></div>
+      </div>
+      <h3 class="demo-title">Loop reverse(3)</h3>
+    </div>
+    <div class="cell w-02 h-02 color-07">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el infinite-loop"></div>
+      </div>
+      <h3 class="demo-title">Infinite loop</h3>
+    </div>
+    <div class="cell w-02 h-02 color-08">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el infinite-loop-alternate"></div>
+      </div>
+      <h3 class="demo-title">Infinite loop alternate</h3>
+    </div>
+    <div class="cell w-02 h-02 color-09">
+      <div class="demo">
+        <div class="el shadow"></div>
+        <div class="el infinite-loop-reverse"></div>
+      </div>
+      <h3 class="demo-title">Infinite loop reverse</h3>
+    </div>
+  </div>
+  <script src="../anime.js"></script>
+  <script>
+
+    anime({
+      targets: '.default-settings',
+      translateX: 250
+    });
+
+    anime({
+      targets: '.direction-alternate',
+      translateX: 250,
+      direction: 'alternate'
+    });
+
+    anime({
+      targets: '.direction-reverse',
+      translateX: 250,
+      direction: 'reverse'
+    });
+
+    anime({
+      targets: '.loop',
+      translateX: 250,
+      loop: 3
+    });
+
+    anime({
+      targets: '.loop-alternate',
+      translateX: 250,
+      loop: 3,
+      direction: 'alternate'
+    });
+
+    anime({
+      targets: '.loop-reverse',
+      translateX: 250,
+      loop: 3,
+      direction: 'reverse'
+    });
+
+    anime({
+      targets: '.infinite-loop',
+      translateX: 250,
+      loop: true
+    });
+
+    anime({
+      targets: '.infinite-loop-alternate',
+      translateX: 250,
+      loop: true,
+      direction: 'alternate'
+    });
+
+    anime({
+      targets: '.infinite-loop-reverse',
+      translateX: 250,
+      loop: true,
+      direction: 'alternate'
+    });
+
+  </script>
+</body>
+</html>

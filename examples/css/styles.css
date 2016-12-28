@@ -1,17 +1,5 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
 
-@font-face {
-  font-family: 'Circular';
-  src: url('../fonts/Circular-Book.woff') format('woff');
-  font-weight: normal;
-}
-
-@font-face {
-	font-family: 'Circular';
-	src: url('../fonts/Circular-Bold.woff') format('woff');
-	font-weight: bold;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -20,7 +8,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 html,
 body {
-	background: #18212D;
+	background: #17151C;
 }
 
 body {
@@ -28,35 +16,103 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
   height: 100%;
-  flex-wrap: wrap;
   color: white;
-  font-family: 'Circular', sans-serif;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-section {
-	min-width: 18rem;
+.cells {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid #09090B;
+  border-left: 1px solid #09090B;
 }
 
-div {
-	width: 2rem;
-	height: 2rem;
+.cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: auto;
+  border-right: 1px solid #09090B;
+  border-bottom: 1px solid #09090B;
 }
 
-.red {
-  background-color: #FF324A;
+.demo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 300px;
+  flex: 1;
 }
 
-.green {
-  background-color: #31FFA6;
+.demo-title {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-.blue {
-  background-color: #206EFF;
+.el {
+  width: 50px;
+  height: 50px;
 }
 
-.yellow {
-  background-color: #FFFF99;
+.el.shadow {
+  position: absolute;
+  opacity: .2;
 }
+
+.w-01 { width: 16.666666667%; }
+.w-02 { width: 33.333333333%; }
+.w-03 { width: 50%; }
+.w-04 { width: 66.666666667%; }
+.w-05 { width: 83.333333333%; }
+.w-06 { width: 100%; }
+
+.h-01 { height: 16.666666667%; }
+.h-02 { height: 33.333333333%; }
+.h-03 { height: 50%; }
+.h-04 { height: 66.666666667%; }
+.h-05 { height: 83.333333333%; }
+.h-06 { height: 100%; }
+
+.color-01                { color: #FF3478; }
+.color-01 .el { background-color: #FF3478; }
+.color-02                { color: #F96F82; }
+.color-02 .el { background-color: #F96F82; }
+.color-03                { color: #FEA388; }
+.color-03 .el { background-color: #FEA388; }
+.color-04                { color: #FED28B; }
+.color-04 .el { background-color: #FED28B; }
+.color-05                { color: #FBF88F; }
+.color-05 .el { background-color: #FBF88F; }
+.color-06                { color: #D1FA9E; }
+.color-06 .el { background-color: #D1FA9E; }
+.color-07                { color: #8AFBB1; }
+.color-07 .el { background-color: #8AFBB1; }
+.color-08                { color: #7BE6D6; }
+.color-08 .el { background-color: #7BE6D6; }
+.color-09                { color: #67AAFB; }
+.color-09 .el { background-color: #67AAFB; }
+.color-10                { color: #4E7EFC; }
+.color-10 .el { background-color: #4E7EFC; }
+.color-11                { color: #957FFD; }
+.color-11 .el { background-color: #957FFD; }
+.color-12                { color: #C987FE; }
+.color-12 .el { background-color: #C987FE; }
