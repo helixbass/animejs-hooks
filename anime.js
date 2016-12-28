@@ -519,7 +519,7 @@
       tween.start = previousTween ? previousTween.end + tween.delay : tween.delay;
       tween.end = tween.start + tween.duration;
       tween.easing = normalizeEasing(tween.easing);
-      tween.round = (is.col(tween.from.original) || tween.round) ? 1 : 0;
+      if (is.col(tween.from.original)) tween.round = 1;
       previousTween = tween;
       return tween;
     });
