@@ -588,9 +588,7 @@
 
   function syncInstanceChildren(instance, instanceTime) {
     const children = instance.children;
-    for (let i = 0; i < arrayLength(children); i++) {
-      children[i].seek(instanceTime);
-    }
+    for (let i = 0; i < arrayLength(children); i++) children[i].seek(instanceTime);
   }
 
   function setInstanceProgress(instance, time) {
@@ -671,10 +669,10 @@
       setInstanceProgress(instance, instanceTime);
       if (s.begin && instanceTime >= instance.delay) s.begin(instance); s.begin = undefined;
       if (instanceTime >= instance.duration) {
+        if (s.loop && !isNaN(parseFloat(s.loop))) s.loop--;
         if (s.loop) {
           startTime = now;
           if (s.direction === 'alternate') toggleInstanceDirection(instance);
-          if (!isNaN(parseFloat(s.loop))) s.loop--;
         } else {
           instance.ended = true;
           instance.pause();
@@ -701,7 +699,7 @@
       lastTime = instance.ended ? 0 : adjustInstanceTime(instance, instance.currentTime);
       let s = instance.settings;
       if (s.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
-      if (s.direction === 'alternate' && !s.loop) s.loop = 1;
+      if (s.direction === 'alternate' && !s.loop) s.loop = 2;
       instances.push(instance);
       if (!raf) engine();
     }
