@@ -586,6 +586,17 @@
     return instance.reversed ? instance.duration - time : time;
   }
 
+  function syncInstanceChildren(instance, instanceTime) {
+    const children = instance.children;
+    if (children && arrayLength(children)) {
+      for (let i = 0; i < arrayLength(children); i++) {
+        const child = children[i];
+        const childProgress = (instance.duration * instance.progress) / child.duration;
+        child.seek(childProgress);
+      }
+    }
+  }
+
   function setInstanceProgress(instance, time) {
     let transforms = {};
     const animations = instance.animations;
@@ -608,9 +619,10 @@
       }
     }
     if (instance.settings.update) instance.settings.update(instance);
+    if (instance.children) syncInstanceChildren(instance, currentTime);
   }
 
-  function createNewInstance(params) {
+  function createNewInstance(params = {}) {
     const animationSettings = replaceObjectProps(defaultAnimationSettings, params);
     const tweenSettings = replaceObjectProps(defaultTweenSettings, params);
     const animatables = getAnimatables(params.targets);
@@ -712,6 +724,8 @@
 
   }
 
+  // Remove targets from animation
+
   function removeTargets(targets) {
     const targetsArray = parseTargets(targets);
     for (let i = arrayLength(instances)-1; i >= 0; i--) {
@@ -726,6 +740,22 @@
     }
   }
 
+  // Timeline
+
+  function timeline(params = {easing: 'linear'}) {
+    let timeline = anime(params);
+    timeline.children = [];
+    timeline.add = (instance) => {
+      toArray(instance).forEach(ins => {
+        if (ins.duration > timeline.duration) timeline.duration = ins.duration;
+        ins.autoplay = false;
+        ins.pause();
+        timeline.children.push(ins);
+      });
+    }
+    return timeline;
+  }
+
   anime.version = version;
   anime.speed = speed;
   anime.list = instances;
@@ -734,6 +764,7 @@
   anime.path = getPath;
   anime.bezier = bezier;
   anime.easings = easings;
+  anime.timeline = timeline;
   anime.random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
   return anime;
