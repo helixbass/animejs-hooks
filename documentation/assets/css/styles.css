@@ -37,9 +37,13 @@ header {
 }
 
 .demo-title {
+  position: absolute;
+  bottom: 0;
   display: block;
   width: 100%;
   padding: 1rem;
+  font-size: 14px;
+  letter-spacing: 2px;
   text-align: center;
   text-transform: uppercase;
 }
@@ -61,7 +65,7 @@ header {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: column;
   flex-wrap: wrap;
   height: auto;
@@ -76,7 +80,7 @@ header {
   flex-direction: row;
   flex-wrap: wrap;
   width: 290px;
-  max-height: 200px;
+  max-height: 180px;
   padding: 30px 0;
   flex: 1;
 }

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Function based values | anime.js</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1 class="page-title">Function based values</h1>
+  </header>
+  <section class="cells">
+    <div class="cell w-02 h-03 color-01">
+      <div class="demo">
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-duration"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-duration"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-duration"></div>
+        </div>
+      </div>
+      <h3 class="demo-title">Multiple durations</h3>
+    </div>
+    <div class="cell w-02 h-03 color-03">
+      <div class="demo">
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-delay"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-delay"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-delay"></div>
+        </div>
+      </div>
+      <h3 class="demo-title">Multiple delays</h3>
+    </div>
+    <div class="cell w-02 h-03 color-05">
+      <div class="demo">
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-property"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-property"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-property"></div>
+        </div>
+      </div>
+      <h3 class="demo-title">Multiple property values</h3>
+    </div>
+    <div class="cell w-03 h-03 color-07">
+      <div class="demo">
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-elasticity"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-elasticity"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-elasticity"></div>
+        </div>
+      </div>
+      <h3 class="demo-title">Multiple elasticity values</h3>
+    </div>
+    <div class="cell w-03 h-03 color-09">
+      <div class="demo">
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-independant"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-independant"></div>
+        </div>
+        <div class="line">
+          <div class="el shadow"></div>
+          <div class="el function-based-independant"></div>
+        </div>
+      </div>
+      <h3 class="demo-title">Independant property values</h3>
+    </div>
+  </section>
+  <script src="../anime.js"></script>
+  <script>
+
+    var functionBasedDuration = anime({
+      targets: '.function-based-duration',
+      translateX: 250,
+      direction: 'alternate',
+      loop: true,
+      duration: function(el, i, l) { return 1000 + (i * 1000); }
+    });
+
+    var functionBasedDelay = anime({
+      targets: '.function-based-delay',
+      translateX: 250,
+      direction: 'alternate',
+      loop: true,
+      delay: function(el, i, l) { return i * 100; }
+    });
+
+    var functionBasedProperty = anime({
+      targets: '.function-based-property',
+      translateX: function(el, i, l) { return 100 + ((l - i) * 50); },
+      direction: 'alternate',
+      loop: true
+    });
+
+    var functionBasedElasticity = anime({
+      targets: '.function-based-elasticity',
+      translateX: 250,
+      direction: 'alternate',
+      loop: true,
+      elasticity: function(el, i, l) { return (200 + i * 400); }
+    });
+
+    var functionBasedIndependant = anime({
+      targets: '.function-based-independant',
+      translateX: function() { return anime.random(50, 250); },
+      translateY: function(el, i) { return anime.random(-40, -20) + (30 * i); },
+      scale: 1.75,
+      rotate: {
+        value: function() { return anime.random(-360, 360); },
+        duration: function() { return anime.random(1200, 1800); }
+      },
+      direction: 'alternate',
+      loop: true,
+      duration: function() { return anime.random(800, 1600); },
+      delay: function() { return anime.random(0, 1000); }
+
+    });
+
+  </script>
+</body>
+</html>
