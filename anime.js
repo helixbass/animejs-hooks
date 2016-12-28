@@ -588,12 +588,8 @@
 
   function syncInstanceChildren(instance, instanceTime) {
     const children = instance.children;
-    if (children && arrayLength(children)) {
-      for (let i = 0; i < arrayLength(children); i++) {
-        const child = children[i];
-        const childProgress = (instance.duration * instance.progress) / child.duration;
-        child.seek(childProgress);
-      }
+    for (let i = 0; i < arrayLength(children); i++) {
+      children[i].seek(instanceTime);
     }
   }
 
@@ -688,8 +684,7 @@
       }
     }
 
-    instance.seek = function(percent) {
-      const time = instance.duration * (percent / 100);
+    instance.seek = function(time) {
       const now = adjustInstanceTime(instance, time);
       setInstanceProgress(instance, now);
     }

@@ -63,7 +63,7 @@
       <input class="percents" type="text"></input>
     </fieldset>
   </section>
-  <script src="../anime.min.js"></script>
+  <script src="../anime.js"></script>
   <script>
 
     var playButton = document.querySelector('.play');
@@ -114,7 +114,9 @@
     playButton.addEventListener('click', function() { timeline.play(); });
     pauseButton.addEventListener('click', function() { timeline.pause(); });
     restartButton.addEventListener('click', function() { timeline.restart(); });
-    progress.addEventListener('input', function() { timeline.seek(progress.value); });
+    progress.addEventListener('input', function() {
+      timeline.seek(timeline.duration * progress.value / 100);
+    });
 
 
   </script>
