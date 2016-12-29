@@ -21,7 +21,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-header {
+header, footer {
   display: flex;
   align-items: center;
   width: 100%;
@@ -56,7 +56,7 @@ header {
   flex-wrap: wrap;
   width: 100%;
   top: 80px;
-  bottom: 0;
+  bottom: 80px;
   border-top: 1px solid #09090B;
   border-left: 1px solid #09090B;
 }
