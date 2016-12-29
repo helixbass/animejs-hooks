@@ -445,13 +445,13 @@
 
   // Properties
 
-  function normalizePropertyTweens(tween, settings) {
+  function normalizePropertyTweens(tween, settings, propIndex) {
     let t = tween;
     let s = settings;
     const l = arrayLength(t);
     if (is.arr(t)) {
-      // Duration divided by the number of tweens
-      if (!is.fnc(settings.duration) && l > 2) s.duration = settings.duration / l;
+      // // Duration divided by the number of tweens
+      if (!is.fnc(settings.duration) && l > 2 && !propIndex) s.duration = settings.duration / l;
       // Transform [from, to] values shorthand to a valid tween value
       if ((l === 2 && !is.arr(t[0]) && !is.obj(t[0]))) t = {value: tween};
     }
@@ -473,7 +473,7 @@
       if (!objectHas(settings, p) && p !== 'targets') {
         properties.push({
           name: p,
-          tweens: normalizePropertyTweens(params[p], tweenSettings)
+          tweens: normalizePropertyTweens(params[p], tweenSettings, arrayLength(properties))
         });
       }
     }
