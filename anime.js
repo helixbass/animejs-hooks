@@ -281,17 +281,17 @@
     const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     const hex = hexValue.replace(rgx, (m, r, g, b) => r + r + g + g + b + b );
     const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    const r = parseFloat(rgb[1], 16);
-    const g = parseFloat(rgb[2], 16);
-    const b = parseFloat(rgb[3], 16);
+    const r = parseInt(rgb[1], 16);
+    const g = parseInt(rgb[2], 16);
+    const b = parseInt(rgb[3], 16);
     return `rgb(${r},${g},${b})`;
   }
 
   function hslToRgb(hslValue) {
     const hsl = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(hslValue);
-    const h = parseFloat(hsl[1]) / 360;
-    const s = parseFloat(hsl[2]) / 100;
-    const l = parseFloat(hsl[3]) / 100;
+    const h = parseInt(hsl[1]) / 360;
+    const s = parseInt(hsl[2]) / 100;
+    const l = parseInt(hsl[3]) / 100;
     function hue2rgb(p, q, t) {
       if (t < 0) t += 1;
       if (t > 1) t -= 1;
@@ -637,13 +637,14 @@
   // Core
 
   let instances = [];
+  let running = [];
   let raf = 0;
 
   const engine = (() => {
     function play() { raf = requestAnimationFrame(step); };
     function step(t) {
-      if (arrayLength(instances)) {
-        for (let i = 0; i < arrayLength(instances); i++) instances[i].tick(t);
+      if (arrayLength(running)) {
+        for (let i = 0; i < arrayLength(running); i++) running[i].tick(t);
         play();
       } else {
         cancelAnimationFrame(raf);
@@ -688,8 +689,8 @@
     }
 
     instance.pause = function() {
-      const i = instances.indexOf(instance);
-      if (i > -1) instances.splice(i, 1);
+      const i = running.indexOf(instance);
+      if (i > -1) running.splice(i, 1);
     }
 
     instance.play = function(params) {
@@ -700,7 +701,7 @@
       let s = instance.settings;
       if (s.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
       if (s.direction === 'alternate' && !s.loop) s.loop = 2;
-      instances.push(instance);
+      running.push(instance);
       if (!raf) engine();
     }
 
@@ -712,6 +713,7 @@
     }
 
     if (instance.settings.autoplay) instance.play();
+    instances.push(instance);
 
     return instance;
 
@@ -721,8 +723,8 @@
 
   function removeTargets(targets) {
     const targetsArray = parseTargets(targets);
-    for (let i = arrayLength(instances)-1; i >= 0; i--) {
-      const instance = instances[i];
+    for (let i = arrayLength(running)-1; i >= 0; i--) {
+      const instance = running[i];
       const animations = instance.animations;
       for (let a = arrayLength(animations)-1; a >= 0; a--) {
         if (arrayContains(targetsArray, animations[a].animatable.target)) {
@@ -751,6 +753,7 @@
 
   anime.version = version;
   anime.speed = speed;
+  anime.active = running;
   anime.list = instances;
   anime.remove = removeTargets;
   anime.getValue = getOriginalTargetValue;
