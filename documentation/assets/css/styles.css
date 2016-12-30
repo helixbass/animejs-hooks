@@ -97,9 +97,55 @@ header {
 }
 
 .navigation {
-  width: 200px;
+  width: 280px;
   height: 100%;
+  padding: 20px 10px;
   border-right: 1px solid #09090B;
+}
+
+.navigation ul {
+  margin-bottom: 10px;
+}
+
+.navigation li {
+  padding-left: 15px;
+}
+
+.navigation li:before {
+  content: "";
+  display: block;
+  position: absolute;
+  margin-top: 5px;
+  margin-left: -12px;
+  width: 1px;
+  height: 9px;
+  background: currentColor;
+}
+
+.navigation li:first-child {
+  padding-left: 0;
+}
+
+.navigation li:first-child:before {
+  display: none;
+}
+
+.navigation a {
+  opacity: .6;
+  color: #FFF;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.navigation a:hover {
+  color: currentColor;
+}
+
+.navigation a.active {
+  opacity: 1;
+  color: currentColor;
 }
 
 pre {
@@ -168,6 +214,7 @@ article {
   align-items: center;
   justify-content: center;
   min-height: 200px;
+  width: 50%;
   padding-top: 35px;
   border-right: 1px solid #09090B;
   border-bottom: 1px solid #09090B;

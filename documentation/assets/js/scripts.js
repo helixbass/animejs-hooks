@@ -1,4 +1,5 @@
-var demoEls = document.querySelectorAll('.demo');
+var navigationEl = document.querySelector('.navigation');
+var articleEls = document.querySelectorAll('article');
 var codeOutputEl = document.querySelector('.code-output');
 var demos = [];
 
@@ -17,13 +18,17 @@ function createDemo(el) {
   var demoAnim = window[id];
   function highlightDemo() {
     if (!el.classList.contains('active')) {
+      var linkEls = document.querySelectorAll('.demo-link');
       for (var i = 0; i < demos.length; i++) {
         var d = demos[i];
         d.el.classList.remove('active');
+        linkEls[i].classList.remove('active');
         d.anim.pause();
       }
       history.pushState(null, null, '#'+id);
       outputCode(code);
+      var linkEl = document.querySelector('a[href="#'+id+'"]');
+      linkEl.classList.add('active');
       el.classList.add('active');
     }
     demoAnim.restart();
@@ -43,16 +48,55 @@ function createDemo(el) {
   el.addEventListener('mouseenter', enterDemo);
   el.addEventListener('mouseleave', leaveDemo);
   demoAnim.pause();
-  demo.el = el;
-  demo.id = id;
-  demo.anim = demoAnim;
-  demo.highlight = highlightDemo;
-  demos.push(demo);
+  return {
+    el: el,
+    title: title,
+    id: id,
+    anim: demoAnim,
+    highlight: highlightDemo
+  }
 }
 
-for (var i = 0; i < demoEls.length; i++) {
-  createDemo(demoEls[i]);
+function createLinksSection(articleEl) {
+  var articleId = articleEl.id;
+  var articleTitle = articleEl.querySelector('h2').innerHTML;
+  var colorClass = articleEl.classList[0];
+  var ulEl = document.createElement('ul');
+  var liEl = document.createElement('li');
+  var sectionLinkEl = document.createElement('a');
+  sectionLinkEl.setAttribute('href', '#'+articleId);
+  sectionLinkEl.innerHTML = articleTitle;
+  liEl.appendChild(sectionLinkEl);
+  ulEl.appendChild(liEl);
+  ulEl.classList.add(colorClass);
+  return ulEl;
 }
+
+function createDemoLink(demo) {
+  var liEl = document.createElement('li');
+  var demoLinkEl = document.createElement('a');
+  demoLinkEl.setAttribute('href', '#'+demo.id);
+  demoLinkEl.innerHTML = demo.title;
+  demoLinkEl.classList.add('demo-link');
+  demoLinkEl.addEventListener('click', demo.highlight);
+  liEl.appendChild(demoLinkEl);
+  return liEl;
+}
+
+var fragment = document.createDocumentFragment();
+for (var i = 0; i < articleEls.length; i++) {
+  var articleEl = articleEls[i];
+  var linksSectionEl = createLinksSection(articleEl);
+  var demoEls = articleEl.querySelectorAll('.demo');
+  for (var d = 0; d < demoEls.length; d++) {
+    var demo = createDemo(demoEls[d]);
+    var demoLinkEl = createDemoLink(demo);
+    linksSectionEl.appendChild(demoLinkEl);
+    demos.push(demo);
+  }
+  fragment.appendChild(linksSectionEl);
+}
+navigationEl.appendChild(fragment);
 
 (function updateDemos() {
   var hash = window.location.hash;
