@@ -881,6 +881,55 @@ var objectPropDemo = anime({
 </script>
 </div>
 
+<div id="colors" class="demo">
+  <h3 class="demo-title">Colors</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square hex"></div>
+    </div>
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square rgb"></div>
+    </div>
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square hsl"></div>
+    </div>
+  </div>
+<script>var hex = anime({
+  targets: '#colors .hex',
+  translateX: 250,
+  backgroundColor: '#D1FA9E',
+  color: '#17151C',
+  easing: 'ease',
+  duration: 3000
+});
+
+var rgb = anime({
+  targets: '#colors .rgb',
+  translateX: 250,
+  backgroundColor: 'rgb(138, 251, 177)',
+  color: '#17151C',
+  easing: 'ease',
+  duration: 3000
+});
+
+var hsl = anime({
+  targets: '#colors .hsl',
+  translateX: 250,
+  backgroundColor: 'hsl(171, 68%, 69%)',
+  color: '#17151C',
+  easing: 'ease',
+  duration: 3000
+});
+</script>
+<script>
+  var colors = anime.timeline();
+  colors.add([hex, rgb, hsl]);
+</script>
+</div>
+
 </article>
 <!-- -->
 
@@ -899,7 +948,7 @@ var objectPropDemo = anime({
 <script>var keyframesChain = anime({
   targets: '#keyframesChain .el',
   translateX: [0, 250, 250, 0, 0],
-  translateY: [-60, -60, 60, 60, 0],
+  translateY: [-45, -45, 45, 45, 0],
   duration: 4000,
   loop: true
 });
@@ -919,8 +968,8 @@ var objectPropDemo = anime({
     [0, 250]
   ],
   translateY: [
-    [-50, -50],
-    [50, 50]
+    [-45, -45],
+    [45, 45]
   ],
   loop: true
 });
