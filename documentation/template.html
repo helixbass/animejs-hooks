@@ -1168,6 +1168,108 @@ var multiplePropVal = anime({
 </article>
 <!-- -->
 
+<!-- PLAYBACK CONTROLS -->
+<article id="events" class="color-08">
+<header>
+  <h2 class="demos-title">Animation events</h2>
+</header>
+
+<div id="callbacks" class="demo">
+  <h3 class="demo-title">Callbacks</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line player align-items">
+      <input class="progress" type="range" min="0" max="100" value="0"></input>
+    </div>
+  </div>
+<script>
+var updateEl = document.querySelector('#callbacks .progress');
+
+var callbacks = anime({
+  targets: '#callbacks .el',
+  translateX: 250,
+  delay: function(el, i, l) { return i * 100; },
+  begin: function(anim) {
+    anim.animatables.forEach(function(a) {
+      a.target.classList.add('color-01');
+    });
+  },
+  update: function(anim) {
+    updateEl.value = anim.progress;
+  },
+  complete: function(anim) {
+    anim.animatables.forEach(function(a) {
+      a.target.classList.remove('color-01');
+    });
+  },
+});
+</script>
+</div>
+
+<div id="playback" class="demo controls">
+  <h3 class="demo-title">Playback control</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line player align-items">
+      <button class="play">Play</button>
+      <button class="pause">Pause</button>
+      <button class="restart">Restart</button>
+      <input class="progress" type="range" min="0" max="100" value="0"></input>
+    </div>
+  </div>
+<script>
+var playButton = document.querySelector('#playback .play');
+var pauseButton = document.querySelector('#playback .pause');
+var restartButton = document.querySelector('#playback .restart');
+var progressEl = document.querySelector('#playback .progress');
+
+var playback = anime({
+  targets: '#playback .el',
+  translateX: 250,
+  direction: 'alternate',
+  loop: true,
+  delay: function(el, i, l) { return i * 100; },
+  autoplay: false,
+  update: function(anim) {
+    progressEl.value = anim.progress;
+  }
+});
+
+playButton.addEventListener('click', function() { playback.play(); });
+pauseButton.addEventListener('click', function() { playback.pause(); });
+restartButton.addEventListener('click', function() { playback.restart(); });
+progressEl.addEventListener('input', function() {
+  playback.seek(playback.duration * (progressEl.value / 100));
+});
+</script>
+</div>
+
+</article>
+<!-- -->
+
+
     </section>
   </div>
   <script src="assets/js/highlight.pack.js"></script>

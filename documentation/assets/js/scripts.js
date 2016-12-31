@@ -54,9 +54,9 @@ function createDemo(el) {
       var linkEl = document.querySelector('a[href="#'+id+'"]');
       linkEl.classList.add('active');
       el.classList.add('active');
-      scrollTo('#'+id);
+      scrollTo('#'+id, 60);
     }
-    demoAnim.restart();
+    if (!el.classList.contains('controls')) demoAnim.restart();
   }
   function enterDemo() {
     if (!el.classList.contains('active')) {
