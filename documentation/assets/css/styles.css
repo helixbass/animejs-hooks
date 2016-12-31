@@ -150,8 +150,15 @@ h2,
 
 .code-pane {
   position: relative;
-  height: 50%;
   border-bottom: 1px solid #09090B;
+}
+
+.code-pane-js {
+  height: 66%;
+}
+
+.code-pane-html {
+  height: 34%;
 }
 
 .code-header {

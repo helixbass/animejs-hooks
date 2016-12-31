@@ -632,7 +632,9 @@
       delay: arrayLength(animations) ? Math.min.apply(Math, animations.map((anim) => anim.delay )) : tweenSettings.delay,
       currentTime: 0,
       progress: 0,
-      ended: false
+      ended: false,
+      began: false,
+      loop: animationSettings.loop
     }
   }
 
@@ -672,8 +674,8 @@
       setInstanceProgress(instance, instanceTime);
       if (s.begin && !instance.began && instanceTime >= instance.delay) s.begin(instance); instance.began = true;
       if (instanceTime >= instance.duration) {
-        if (s.loop && !isNaN(parseFloat(s.loop))) s.loop--;
-        if (s.loop) {
+        if (instance.loop && !isNaN(parseFloat(instance.loop))) instance.loop--;
+        if (instance.loop) {
           startTime = now;
           if (s.direction === 'alternate') toggleInstanceDirection(instance);
         } else {
@@ -710,6 +712,7 @@
     instance.restart = function() {
       if (instance.reversed) toggleInstanceDirection(instance);
       instance.began = false;
+      instance.loop = instance.settings.loop;
       instance.pause();
       instance.seek(0);
       instance.play();

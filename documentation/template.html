@@ -85,7 +85,7 @@ var nodeList = anime({
 <div id="JSobject" class="demo">
   <h3 class="demo-title">JavaScript Object</h3>
   <div class="demo-content">
-    <pre></pre>
+    <pre>{"data":"0"}</pre>
   </div>
 <script>var myObject = { data: 0 };
 var JSobject = anime({
@@ -204,7 +204,7 @@ var JSarray = anime({
 </div>
 
 <div id="loop" class="demo">
-  <h3 class="demo-title">Loop</h3>
+  <h3 class="demo-title">Loop (x times)</h3>
   <div class="demo-content">
     <div class="square shadow"></div>
     <div class="square el"></div>
@@ -218,7 +218,7 @@ var JSarray = anime({
 </div>
 
 <div id="loopAlternate" class="demo">
-  <h3 class="demo-title">Loop alternate</h3>
+  <h3 class="demo-title">Loop alternate (x times)</h3>
   <div class="demo-content">
     <div class="square shadow"></div>
     <div class="square el"></div>
@@ -233,7 +233,7 @@ var JSarray = anime({
 </div>
 
 <div id="loopReverse" class="demo">
-  <h3 class="demo-title">Loop reverse</h3>
+  <h3 class="demo-title">Loop reverse (x times)</h3>
   <div class="demo-content">
     <div class="square shadow"></div>
     <div class="square el"></div>
@@ -554,8 +554,8 @@ penner.add([InQuad, InCubic, InQuart, InQuint, InSine, InExpo, InCirc, InBack, O
 <div id="customBezier" class="demo">
   <h3 class="demo-title">Custom Bézier</h3>
   <div class="demo-content">
-    <div class="square shadow"></div>
-    <div class="square el"></div>
+    <div class="square large shadow"></div>
+    <div class="square large el"></div>
   </div>
 <script>var customBezier = anime({
   targets: '#customBezier .el',
@@ -744,7 +744,7 @@ elasticity.add([elasticity0, elasticity100, elasticity200, elasticity300, elasti
   </div>
 <script>var transformsDemo = anime({
   targets: '#transformsDemo .el',
-  translateX: 200,
+  translateX: 250,
   scale: 1.5,
   rotate: 300
 });
@@ -753,7 +753,7 @@ elasticity.add([elasticity0, elasticity100, elasticity200, elasticity300, elasti
 
 <div id="objectPropDemo" class="demo">
   <h3 class="demo-title">Object properties</h3>
-<div class="demo-content"><pre></pre></div>
+<div class="demo-content"><pre>{"myProperty":"0"}</pre></div>
 <script>var objectProp = { myProperty: 0 };
 var objectPropDemo = anime({
   targets: objectProp,
@@ -808,28 +808,28 @@ var objectPropDemo = anime({
 
 <div id="unitlessDemo" class="demo">
   <h3 class="demo-title">Unitless</h3>
-  <div class="demo-content align-center">
-    <div class="large square shadow"></div>
-    <div class="large square el"></div>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>var unitlessDemo = anime({
   targets: '#unitlessDemo .el',
-  rotate: 540,
-  duration: 3000
+  translateX: 250,
+  rotate: 540
 });
 </script>
 </div>
 
 <div id="specificUnitDemo" class="demo">
   <h3 class="demo-title">Specific unit</h3>
-  <div class="demo-content align-center">
-    <div class="large square shadow"></div>
-    <div class="large square el"></div>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>var specificUnitDemo = anime({
   targets: '#specificUnitDemo .el',
-  rotate: '1.5turn',
-  duration: 3000
+  translateX: '15.625em',
+  rotate: '1.5turn'
 });
 </script>
 </div>
@@ -843,7 +843,9 @@ var objectPropDemo = anime({
 <script>var specificInitialDemo = anime({
   targets: '#specificInitialDemo .el',
   translateX: [100, 250],
-  duration: 2000
+  delay: 500,
+  direction: 'alternate',
+  loop: true
 });
 </script>
 </div>
@@ -851,8 +853,8 @@ var objectPropDemo = anime({
 <div id="specificTimingsDemo" class="demo">
   <h3 class="demo-title">Specific timings value</h3>
   <div class="demo-content">
-    <div class="large square shadow"></div>
-    <div class="large square el"></div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>var specificTimingsDemo = anime({
   targets: '#specificTimingsDemo .el',
@@ -862,10 +864,17 @@ var objectPropDemo = anime({
   },
   rotate: {
     value: 360,
-    duration: 2000,
-    easing: 'easeOutSine'
+    duration: 1800,
+    easing: 'easeInOutSine'
   },
-  delay: 500
+  scale: {
+    value: 2,
+    duration: 2000,
+    delay: 1000,
+    easing: 'easeInOutQuart'
+  },
+  delay: 500, // Other values are in
+  direction: 'alternate'
 });
 </script>
 </div>
@@ -911,7 +920,7 @@ var objectPropDemo = anime({
     [-60, 60],
     [-60, 60]
   ],
-  duration: 2000,
+  duration: 1000,
   loop: true
 });
 </script>
@@ -1210,13 +1219,13 @@ progressEl.addEventListener('input', function() {
 
     </section>
     <section class="pane code-examples">
-      <div class="code-pane">
+      <div class="code-pane code-pane-js">
         <header class="code-header">
           <h2>JavaScript</h2>
         </header>
         <pre class="code-output js-output"></pre>
       </div>
-      <div class="code-pane">
+      <div class="code-pane code-pane-html">
         <header class="code-header">
           <h2>HTML</h2>
         </header>
