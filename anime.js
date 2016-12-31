@@ -670,7 +670,7 @@
       const currentTime = (lastTime + now - startTime) * anime.speed;
       const instanceTime = Math.min(Math.max(currentTime, 0), instance.duration);
       setInstanceProgress(instance, instanceTime);
-      if (s.begin && instanceTime >= instance.delay) s.begin(instance); s.begin = undefined;
+      if (s.begin && !instance.began && instanceTime >= instance.delay) s.begin(instance); instance.began = true;
       if (instanceTime >= instance.duration) {
         if (s.loop && !isNaN(parseFloat(s.loop))) s.loop--;
         if (s.loop) {
@@ -709,6 +709,7 @@
 
     instance.restart = function() {
       if (instance.reversed) toggleInstanceDirection(instance);
+      instance.began = false;
       instance.pause();
       instance.seek(0);
       instance.play();
