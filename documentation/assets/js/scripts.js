@@ -22,13 +22,16 @@ function scrollTo(selector, offset, cb) {
   });
 }
 
-function parseHTML(el) {
+function parseHTML(el, parentId) {
+  var parentEl = document.createElement('div');
   var clone = el.cloneNode(true);
   var shadowEls = clone.querySelectorAll('.shadow');
   var els = clone.querySelectorAll('.el');
   for (var i = 0; i < shadowEls.length; i++ ) shadowEls[i].remove();
   for (var i = 0; i < els.length; i++ ) els[i].removeAttribute('style');
-  return html_beautify(clone.innerHTML, {
+  parentEl.id = parentId;
+  parentEl.innerHTML = clone.innerHTML;
+  return html_beautify(parentEl.outerHTML, {
     preserve_newlines: false,
     indent_size: 2
   });
@@ -50,11 +53,10 @@ function createDemo(el) {
   var scriptEl = el.querySelector('script');
   var demoContentEl = el.querySelector('.demo-content');
   var title = el.querySelector('h3').innerHTML;
-  var demoJSCode = scriptEl ? scriptEl.innerHTML : '';
-  var JScode = '// '+title+demoJSCode;
-  var HTMLcode = demoContentEl ? parseHTML(demoContentEl) : '';
   var id = el.id;
   var demoAnim = window[id];
+  var JScode = scriptEl ? scriptEl.innerHTML : '';
+  var HTMLcode = demoContentEl ? parseHTML(demoContentEl, id) : '';
   function highlightDemo() {
     if (!el.classList.contains('active')) {
       var linkEls = document.querySelectorAll('.demo-link');

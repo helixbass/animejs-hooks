@@ -39,8 +39,7 @@
       <div class="square el"></div>
     </div>
   </div>
-<script>
-var cssSelector = anime({
+<script>var cssSelector = anime({
   targets: '#cssSelector .el',
   translateX: 250
 });
@@ -53,8 +52,7 @@ var cssSelector = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var el = document.querySelector('#domNode .el');
+<script>var el = document.querySelector('#domNode .el');
 
 var domNode = anime({
   targets: el,
@@ -75,8 +73,7 @@ var domNode = anime({
       <div class="square el"></div>
     </div>
   </div>
-<script>
-var els = document.querySelectorAll('#nodeList .el');
+<script>var els = document.querySelectorAll('#nodeList .el');
 
 var nodeList = anime({
   targets: els,
@@ -90,8 +87,7 @@ var nodeList = anime({
   <div class="demo-content">
     <pre></pre>
   </div>
-<script>
-var myObject = { data: 0 };
+<script>var myObject = { data: 0 };
 var JSobject = anime({
   targets: myObject,
   data: 42,
@@ -121,8 +117,7 @@ var JSobject = anime({
       <div class="square el-03"></div>
     </div>
   </div>
-<script>
-var el = document.querySelector('#JSarray .el-01');
+<script>var el = document.querySelector('#JSarray .el-01');
 var JSarray = anime({
   targets: [el, '#JSarray .el-02', '#JSarray .el-03'],
   translateX: 250
@@ -145,8 +140,7 @@ var JSarray = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var defaultSettings = anime({
+<script>var defaultSettings = anime({
   targets: '#defaultSettings .el',
   translateX: 250
 });
@@ -159,8 +153,7 @@ var defaultSettings = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var duration = anime({
+<script>var duration = anime({
   targets: '#duration .el',
   translateX: 250,
   duration: 3000
@@ -174,8 +167,7 @@ var duration = anime({
 <div class="square shadow"></div>
 <div class="square el"></div>
   </div>
-<script>
-var delay = anime({
+<script>var delay = anime({
   targets: '#delay .el',
   translateX: 250,
   delay: 1000
@@ -189,8 +181,7 @@ var delay = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var alternate = anime({
+<script>var alternate = anime({
   targets: '#alternate .el',
   translateX: 250,
   direction: 'alternate'
@@ -204,8 +195,7 @@ var alternate = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var reverse = anime({
+<script>var reverse = anime({
   targets: '#reverse .el',
   translateX: 250,
   direction: 'reverse'
@@ -219,8 +209,7 @@ var reverse = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var loop = anime({
+<script>var loop = anime({
   targets: '#loop .el',
   translateX: 250,
   loop: 3
@@ -234,8 +223,7 @@ var loop = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var loopAlternate = anime({
+<script>var loopAlternate = anime({
   targets: '#loopAlternate .el',
   translateX: 250,
   loop: 3,
@@ -250,8 +238,7 @@ var loopAlternate = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var loopReverse = anime({
+<script>var loopReverse = anime({
   targets: '#loopReverse .el',
   translateX: 250,
   loop: 3,
@@ -266,8 +253,7 @@ var loopReverse = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var infiniteLoop = anime({
+<script>var infiniteLoop = anime({
   targets: '#infiniteLoop .el',
   translateX: 250,
   loop: true
@@ -309,8 +295,7 @@ var infiniteLoop = anime({
     </div>
   </div>
 </div>
-<script>
-var linear = anime({
+<script>var linear = anime({
   targets: '#basicEasings .linear',
   translateX: 250,
   easing: 'linear'
@@ -336,8 +321,7 @@ var easeInOut = anime({
   easing: 'easeInOut'
 });
 </script>
-<script>
-var basicEasings = anime.timeline();
+<script>var basicEasings = anime.timeline();
 basicEasings.add([linear, ease, easeIn, easeOut, easeInOut]);
 </script>
 
@@ -441,8 +425,7 @@ basicEasings.add([linear, ease, easeIn, easeOut, easeInOut]);
       <div class="small stretched square InOutBack"></div>
     </div>
   </div>
-<script>
-var InQuad = anime({
+<script>var InQuad = anime({
   targets: '#penner .InQuad',
   translateX: 250,
   easing: 'easeInQuad'
@@ -563,8 +546,7 @@ var InOutBack = anime({
   easing: 'easeInOutBack'
 });
 </script>
-<script>
-var penner = anime.timeline();
+<script>var penner = anime.timeline();
 penner.add([InQuad, InCubic, InQuart, InQuint, InSine, InExpo, InCirc, InBack, OutQuad, OutCubic, OutQuart, OutQuint, OutSine, OutExpo, OutCirc, OutBack, InOutQuad, InOutCubic, InOutQuart, InOutQuint, InOutSine, InOutExpo, InOutCirc, InOutBack]);
 </script>
 </div>
@@ -575,8 +557,7 @@ penner.add([InQuad, InCubic, InQuart, InQuint, InSine, InExpo, InCirc, InBack, O
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var customBezier = anime({
+<script>var customBezier = anime({
   targets: '#customBezier .el',
   translateX: 250,
   easing: [.91,-0.54,.29,1.56]
@@ -600,8 +581,7 @@ var customBezier = anime({
       <div class="square inOut"></div>
     </div>
   </div>
-<script>
-var InElastic = anime({
+<script>var InElastic = anime({
   targets: '#elastic .in',
   translateX: 250,
   easing: 'easeInElastic'
@@ -619,8 +599,7 @@ var InOutElastic = anime({
   easing: 'easeInOutElastic'
 });
 </script>
-<script>
-var elastic = anime.timeline();
+<script>var elastic = anime.timeline();
 elastic.add([InElastic, OutElastic, InOutElastic]);
 </script>
 </div>
@@ -673,8 +652,7 @@ elastic.add([InElastic, OutElastic, InOutElastic]);
       <div class="stretched square elasticity-1000"></div>
     </div>
   </div>
-<script>
-var elasticity0 = anime({
+<script>var elasticity0 = anime({
   targets: '#elasticity .elasticity-0',
   translateX: 250,
   elasticity: 0
@@ -730,8 +708,7 @@ var elasticity1000 = anime({
   elasticity: 1000
 });
 </script>
-<script>
-var elasticity = anime.timeline();
+<script>var elasticity = anime.timeline();
 elasticity.add([elasticity0, elasticity100, elasticity200, elasticity300, elasticity400, elasticity500, elasticity600, elasticity700, elasticity800, elasticity900, elasticity1000]);
 </script>
 </div>
@@ -751,8 +728,7 @@ elasticity.add([elasticity0, elasticity100, elasticity200, elasticity300, elasti
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var cssDemo = anime({
+<script>var cssDemo = anime({
   targets: '#cssDemo .el',
   left: '85%',
   backgroundColor: '#FFF'
@@ -766,8 +742,7 @@ var cssDemo = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var transformsDemo = anime({
+<script>var transformsDemo = anime({
   targets: '#transformsDemo .el',
   translateX: 200,
   scale: 1.5,
@@ -778,11 +753,8 @@ var transformsDemo = anime({
 
 <div id="objectPropDemo" class="demo">
   <h3 class="demo-title">Object properties</h3>
-  <div class="demo-content">
-    <pre></pre>
-  </div>
-<script>
-var objectProp = { myProperty: 0 };
+<div class="demo-content"><pre></pre></div>
+<script>var objectProp = { myProperty: 0 };
 var objectPropDemo = anime({
   targets: objectProp,
   myProperty: 42,
@@ -801,8 +773,7 @@ var objectPropDemo = anime({
   <div class="demo-content">
     <input value="0"></input>
   </div>
-<script>
-var domAttributes = anime({
+<script>var domAttributes = anime({
   targets: '#domAttributes input',
   value: 1000,
   round: 1,
@@ -818,8 +789,7 @@ var domAttributes = anime({
   <polygon points="64 68.64 8.574 100 63.446 67.68 64 4 64.554 67.68 119.426 100" fill="currentColor"/>
 </svg>
   </div>
-<script>
-var svgAttributes = anime({
+<script>var svgAttributes = anime({
   targets: '#svgAttributes polygon',
   points: '64 128 8.574 96 8.574 32 64 0 119.426 32 119.426 96',
   easing: 'easeInOutExpo'
@@ -842,8 +812,7 @@ var svgAttributes = anime({
     <div class="large square shadow"></div>
     <div class="large square el"></div>
   </div>
-<script>
-var unitlessDemo = anime({
+<script>var unitlessDemo = anime({
   targets: '#unitlessDemo .el',
   rotate: 540,
   duration: 3000
@@ -857,8 +826,7 @@ var unitlessDemo = anime({
     <div class="large square shadow"></div>
     <div class="large square el"></div>
   </div>
-<script>
-var specificUnitDemo = anime({
+<script>var specificUnitDemo = anime({
   targets: '#specificUnitDemo .el',
   rotate: '1.5turn',
   duration: 3000
@@ -872,8 +840,7 @@ var specificUnitDemo = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var specificInitialDemo = anime({
+<script>var specificInitialDemo = anime({
   targets: '#specificInitialDemo .el',
   translateX: [100, 250],
   duration: 2000
@@ -887,8 +854,7 @@ var specificInitialDemo = anime({
     <div class="large square shadow"></div>
     <div class="large square el"></div>
   </div>
-<script>
-var specificTimingsDemo = anime({
+<script>var specificTimingsDemo = anime({
   targets: '#specificTimingsDemo .el',
   translateX: {
     value: 250,
@@ -919,8 +885,7 @@ var specificTimingsDemo = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var keyframesChain = anime({
+<script>var keyframesChain = anime({
   targets: '#keyframesChain .el',
   translateX: [0, 250, 250, 0, 0],
   translateY: [-60, -60, 60, 60, 0],
@@ -936,8 +901,7 @@ var keyframesChain = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var nonLinearKeyframes = anime({
+<script>var nonLinearKeyframes = anime({
   targets: '#nonLinearKeyframes .el',
   translateX: [
     [250, 0],
@@ -959,8 +923,7 @@ var nonLinearKeyframes = anime({
     <div class="square shadow"></div>
     <div class="square el"></div>
   </div>
-<script>
-var specificKeyframeTimings = anime({
+<script>var specificKeyframeTimings = anime({
   targets: '#specificKeyframeTimings .el',
   translateX: [
     { value: 100, duration: 600, easing: 'easeInExpo' },
@@ -1002,8 +965,7 @@ var specificKeyframeTimings = anime({
       <div class="small square el"></div>
     </div>
   </div>
-<script>
-var functionBasedDuration = anime({
+<script>var functionBasedDuration = anime({
   targets: '#functionBasedDuration .el',
   translateX: 250,
   direction: 'alternate',
@@ -1031,8 +993,7 @@ var functionBasedDuration = anime({
       <div class="small square el"></div>
     </div>
   </div>
-<script>
-var functionBasedDelay = anime({
+<script>var functionBasedDelay = anime({
   targets: '#functionBasedDelay .el',
   translateX: 250,
   direction: 'alternate',
@@ -1060,8 +1021,7 @@ var functionBasedDelay = anime({
       <div class="small square el"></div>
     </div>
   </div>
-<script>
-var functionBasedPropVal = anime({
+<script>var functionBasedPropVal = anime({
   targets: '#functionBasedPropVal .el',
   translateX: function(el, i, l) {
     return 100 + ((l - i) * 50);
@@ -1088,8 +1048,7 @@ var functionBasedPropVal = anime({
       <div class="small square el"></div>
     </div>
   </div>
-<script>
-var functionBasedElasticity = anime({
+<script>var functionBasedElasticity = anime({
   targets: '#functionBasedElasticity .el',
   translateX: 250,
   direction: 'alternate',
@@ -1117,8 +1076,7 @@ var functionBasedElasticity = anime({
       <div class="small square el"></div>
     </div>
   </div>
-<script>
-var multiplePropVal = anime({
+<script>var multiplePropVal = anime({
   targets: '#multiplePropVal .el',
   translateX: function() {
     return anime.random(50, 250);
@@ -1175,8 +1133,7 @@ var multiplePropVal = anime({
       <input class="progress" type="range" min="0" max="100" value="0"></input>
     </div>
   </div>
-<script>
-var updateEl = document.querySelector('#callbacks .progress');
+<script>var updateEl = document.querySelector('#callbacks .progress');
 
 var callbacks = anime({
   targets: '#callbacks .el',
@@ -1221,8 +1178,7 @@ var callbacks = anime({
       <input class="progress" type="range" min="0" max="100" value="0"></input>
     </div>
   </div>
-<script>
-var playButton = document.querySelector('#playback .play');
+<script>var playButton = document.querySelector('#playback .play');
 var pauseButton = document.querySelector('#playback .pause');
 var restartButton = document.querySelector('#playback .restart');
 var progressEl = document.querySelector('#playback .progress');
