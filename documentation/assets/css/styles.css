@@ -98,6 +98,7 @@ header {
 }
 
 .navigation {
+  overflow-y: scroll;
   width: 280px;
   height: 100%;
   padding: 20px 10px;
@@ -108,36 +109,20 @@ header {
   margin-bottom: 10px;
 }
 
-.navigation li {
-  padding-left: 15px;
-}
-
-.navigation li:before {
-  content: "";
-  display: block;
-  position: absolute;
-  margin-top: 5px;
-  margin-left: -12px;
-  width: 1px;
-  height: 9px;
-  background: currentColor;
-}
-
-.navigation li:first-child {
-  padding-left: 0;
-}
-
-.navigation li:first-child:before {
-  display: none;
-}
-
 .navigation a {
   opacity: .6;
+  display: block;
+  padding-left: 10px;
   color: #FFF;
   text-decoration: none;
   font-size: 12px;
   line-height: 20px;
   text-transform: uppercase;
+}
+
+.navigation li:first-child a {
+  padding-left: 0;
+  background-image: none;
 }
 
 .navigation a:hover {
@@ -147,6 +132,13 @@ header {
 .navigation a.active {
   opacity: 1;
   color: currentColor;
+}
+
+.navigation a {
+  background-image: linear-gradient(90deg, currentColor 0px, transparent 1px);
+  background-repeat: no-repeat;
+  background-size: 100% 12px;
+  background-position: 0 4px;
 }
 
 pre {

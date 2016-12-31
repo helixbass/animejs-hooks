@@ -998,6 +998,176 @@ var specificKeyframeTimings = anime({
 </article>
 <!-- -->
 
+<!-- FUNCTION BASED VALUES -->
+<article id="keyframes" class="color-07">
+<header>
+  <h2 class="demos-title">Function based values</h2>
+</header>
+
+<div id="functionBasedDuration" class="demo">
+  <h3 class="demo-title">Function based duration</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+  </div>
+<script>
+var functionBasedDuration = anime({
+  targets: '#functionBasedDuration .el',
+  translateX: 250,
+  direction: 'alternate',
+  loop: true,
+  duration: function(el, i, l) {
+    return 1000 + (i * 1000);
+  }
+});
+</script>
+</div>
+
+<div id="functionBasedDelay" class="demo">
+  <h3 class="demo-title">Function based delay</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+  </div>
+<script>
+var functionBasedDelay = anime({
+  targets: '#functionBasedDelay .el',
+  translateX: 250,
+  direction: 'alternate',
+  loop: true,
+  delay: function(el, i, l) {
+    return i * 100;
+  }
+});
+</script>
+</div>
+
+<div id="functionBasedPropVal" class="demo">
+  <h3 class="demo-title">Function based property values</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+  </div>
+<script>
+var functionBasedPropVal = anime({
+  targets: '#functionBasedPropVal .el',
+  translateX: function(el, i, l) {
+    return 100 + ((l - i) * 50);
+  },
+  direction: 'alternate',
+  loop: true
+});
+</script>
+</div>
+
+<div id="functionBasedElasticity" class="demo">
+  <h3 class="demo-title">Function based elasticity</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+  </div>
+<script>
+var functionBasedElasticity = anime({
+  targets: '#functionBasedElasticity .el',
+  translateX: 250,
+  direction: 'alternate',
+  loop: true,
+  elasticity: function(el, i, l) {
+    return (200 + i * 400);
+  }
+});
+</script>
+</div>
+
+<div id="multiplePropVal" class="demo">
+  <h3 class="demo-title">Multiple Property Values</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+  </div>
+<script>
+var multiplePropVal = anime({
+  targets: '#multiplePropVal .el',
+  translateX: function() {
+    return anime.random(50, 250);
+  },
+  translateY: function(el, i) {
+    return anime.random(-40, -20) + (30 * i);
+  },
+  scale: 1.75,
+  rotate: {
+    value: function() {
+      return anime.random(-360, 360);
+    },
+    duration: function() {
+      return anime.random(1200, 1800);
+     }
+  },
+  direction: 'alternate',
+  loop: true,
+  duration: function() {
+    return anime.random(800, 1600);
+  },
+  delay: function() {
+    return anime.random(0, 1000);
+   }
+});
+</script>
+</div>
+
+</article>
+<!-- -->
+
     </section>
   </div>
   <script src="assets/js/highlight.pack.js"></script>

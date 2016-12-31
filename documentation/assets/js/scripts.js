@@ -16,8 +16,8 @@ function scrollTo(selector, offset, cb) {
   var scrollAnim = anime({
     targets: {scroll: top},
     scroll: value - offset,
-    duration: 400 + (value * .25),
-    easing: 'easeInOutQuad',
+    duration: 500,
+    easing: 'easeInOutQuart',
     update: function(a) {
       window.scroll(0, a.animations[0].currentValue);
     },
