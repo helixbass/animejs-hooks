@@ -129,11 +129,638 @@ var arrayAnim = anime({
 });
 </script>
 </div>
+
+</article>
+<!-- -->
+
+<!-- SETTINGS -->
+<article id="settings" class="color-02">
+  <header>
+    <h2 class="demos-title">Settings</h2>
+  </header>
+
+<div id="defaultSettings" class="demo">
+  <h3 class="demo-title">Default settings</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var defaultSettings = anime({
+  targets: '#defaultSettings .el',
+  translateX: 250
+});
+</script>
+</div>
+
+<div id="duration" class="demo">
+  <h3 class="demo-title">Duration</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var duration = anime({
+  targets: '#duration .el',
+  translateX: 250,
+  duration: 3000
+});
+</script>
+</div>
+
+<div id="delay" class="demo">
+  <h3 class="demo-title">Delay</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var delay = anime({
+  targets: '#delay .el',
+  translateX: 250,
+  delay: 1000
+});
+</script>
+</div>
+
+<div id="alternate" class="demo">
+  <h3 class="demo-title">Direction alternate</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var alternate = anime({
+  targets: '#alternate .el',
+  translateX: 250,
+  direction: 'alternate'
+});
+</script>
+</div>
+
+<div id="reverse" class="demo">
+  <h3 class="demo-title">Direction reverse</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var reverse = anime({
+  targets: '#reverse .el',
+  translateX: 250,
+  direction: 'reverse'
+});
+</script>
+</div>
+
+<div id="loop" class="demo">
+  <h3 class="demo-title">Loop</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var loop = anime({
+  targets: '#loop .el',
+  translateX: 250,
+  loop: 3
+});
+</script>
+</div>
+
+<div id="loopAlternate" class="demo">
+  <h3 class="demo-title">Loop alternate</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var loopAlternate = anime({
+  targets: '#loopAlternate .el',
+  translateX: 250,
+  loop: 3,
+  direction: 'alternate'
+});
+</script>
+</div>
+
+<div id="loopReverse" class="demo">
+  <h3 class="demo-title">Loop reverse</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var loopReverse = anime({
+  targets: '#loopReverse .el',
+  translateX: 250,
+  loop: 3,
+  direction: 'reverse'
+});
+</script>
+</div>
+
+<div id="infiniteLoop" class="demo">
+  <h3 class="demo-title">Infinite loop</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var infiniteLoop = anime({
+  targets: '#infiniteLoop .el',
+  translateX: 250,
+  loop: true
+});
+</script>
+</div>
+
+</article>
+<!-- -->
+
+<!-- SETTINGS -->
+<article id="easings" class="color-03">
+  <header>
+    <h2 class="demos-title">Easings</h2>
+  </header>
+
+<div id="basicEasings" class="demo">
+  <h3 class="demo-title">Basic easings</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square linear"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square ease"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square in"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square out"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square inOut"></div>
+    </div>
+  </div>
+</div>
+<script>
+var linear = anime({
+  targets: '#basicEasings .linear',
+  translateX: 250,
+  easing: 'linear'
+});
+var ease = anime({
+  targets: '#basicEasings .ease',
+  translateX: 250,
+  easing: 'ease'
+});
+var easeIn = anime({
+  targets: '#basicEasings .in',
+  translateX: 250,
+  easing: 'easeIn'
+});
+var easeOut = anime({
+  targets: '#basicEasings .out',
+  translateX: 250,
+  easing: 'easeOut'
+});
+var easeInOut = anime({
+  targets: '#basicEasings .inOut',
+  translateX: 250,
+  easing: 'easeInOut'
+});
+</script>
+<script>
+var basicEasings = anime.timeline();
+basicEasings.add([linear, ease, easeIn, easeOut, easeInOut]);
+</script>
+
+<div id="penner" class="demo">
+  <h3 class="demo-title">Penner equations</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InQuad"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InCubic"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InQuart"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InQuint"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InSine"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InExpo"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InCirc"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InBack"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square OutQuad"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square OutCubic"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square OutQuart"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square OutQuint"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square OutSine"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square OutExpo"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square OutCirc"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square OutBack"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InOutQuad"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InOutCubic"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InOutQuart"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InOutQuint"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InOutSine"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InOutExpo"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InOutCirc"></div>
+    </div>
+    <div class="line">
+      <div class="small stretched square shadow"></div>
+      <div class="small stretched square InOutBack"></div>
+    </div>
+  </div>
+<script>
+var InQuad = anime({
+  targets: '#penner .InQuad',
+  translateX: 250,
+  easing: 'easeInQuad'
+});
+var InCubic = anime({
+  targets: '#penner .InCubic',
+  translateX: 250,
+  easing: 'easeInCubic'
+});
+var InQuart = anime({
+  targets: '#penner .InQuart',
+  translateX: 250,
+  easing: 'easeInQuart'
+});
+var InQuint = anime({
+  targets: '#penner .InQuint',
+  translateX: 250,
+  easing: 'easeInQuint'
+});
+var InSine = anime({
+  targets: '#penner .InSine',
+  translateX: 250,
+  easing: 'easeInSine'
+});
+var InExpo = anime({
+  targets: '#penner .InExpo',
+  translateX: 250,
+  easing: 'easeInExpo'
+});
+var InCirc = anime({
+  targets: '#penner .InCirc',
+  translateX: 250,
+  easing: 'easeInCirc'
+});
+var InBack = anime({
+  targets: '#penner .InBack',
+  translateX: 250,
+  easing: 'easeInBack'
+});
+var OutQuad = anime({
+  targets: '#penner .OutQuad',
+  translateX: 250,
+  easing: 'easeOutQuad'
+});
+var OutCubic = anime({
+  targets: '#penner .OutCubic',
+  translateX: 250,
+  easing: 'easeOutCubic'
+});
+var OutQuart = anime({
+  targets: '#penner .OutQuart',
+  translateX: 250,
+  easing: 'easeOutQuart'
+});
+var OutQuint = anime({
+  targets: '#penner .OutQuint',
+  translateX: 250,
+  easing: 'easeOutQuint'
+});
+var OutSine = anime({
+  targets: '#penner .OutSine',
+  translateX: 250,
+  easing: 'easeOutSine'
+});
+var OutExpo = anime({
+  targets: '#penner .OutExpo',
+  translateX: 250,
+  easing: 'easeOutExpo'
+});
+var OutCirc = anime({
+  targets: '#penner .OutCirc',
+  translateX: 250,
+  easing: 'easeOutCirc'
+});
+var OutBack = anime({
+  targets: '#penner .OutBack',
+  translateX: 250,
+  easing: 'easeOutBack'
+});
+var InOutQuad = anime({
+  targets: '#penner .InOutQuad',
+  translateX: 250,
+  easing: 'easeInOutQuad'
+});
+var InOutCubic = anime({
+  targets: '#penner .InOutCubic',
+  translateX: 250,
+  easing: 'easeInOutCubic'
+});
+var InOutQuart = anime({
+  targets: '#penner .InOutQuart',
+  translateX: 250,
+  easing: 'easeInOutQuart'
+});
+var InOutQuint = anime({
+  targets: '#penner .InOutQuint',
+  translateX: 250,
+  easing: 'easeInOutQuint'
+});
+var InOutSine = anime({
+  targets: '#penner .InOutSine',
+  translateX: 250,
+  easing: 'easeInOutSine'
+});
+var InOutExpo = anime({
+  targets: '#penner .InOutExpo',
+  translateX: 250,
+  easing: 'easeInOutExpo'
+});
+var InOutCirc = anime({
+  targets: '#penner .InOutCirc',
+  translateX: 250,
+  easing: 'easeInOutCirc'
+});
+var InOutBack = anime({
+  targets: '#penner .InOutBack',
+  translateX: 250,
+  easing: 'easeInOutBack'
+});
+</script>
+<script>
+var penner = anime.timeline();
+penner.add([InQuad, InCubic, InQuart, InQuint, InSine, InExpo, InCirc, InBack, OutQuad, OutCubic, OutQuart, OutQuint, OutSine, OutExpo, OutCirc, OutBack, InOutQuad, InOutCubic, InOutQuart, InOutQuint, InOutSine, InOutExpo, InOutCirc, InOutBack]);
+</script>
+</div>
+
+<div id="customBezier" class="demo">
+  <h3 class="demo-title">Custom Bézier</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+  </div>
+<script>
+var customBezier = anime({
+  targets: '#customBezier .el',
+  translateX: 250,
+  easing: [.91,-0.54,.29,1.56]
+});
+</script>
+</div>
+
+<div id="elastic" class="demo">
+  <h3 class="demo-title">Elastic</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square in"></div>
+    </div>
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square out"></div>
+    </div>
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square inOut"></div>
+    </div>
+  </div>
+<script>
+var InElastic = anime({
+  targets: '#elastic .in',
+  translateX: 250,
+  easing: 'easeInElastic'
+});
+
+var OutElastic = anime({
+  targets: '#elastic .out',
+  translateX: 250,
+  easing: 'easeOutElastic'
+});
+
+var InOutElastic = anime({
+  targets: '#elastic .inOut',
+  translateX: 250,
+  easing: 'easeInOutElastic'
+});
+</script>
+<script>
+var elastic = anime.timeline();
+elastic.add([InElastic, OutElastic, InOutElastic]);
+</script>
+</div>
+
+<div id="elasticity" class="demo">
+  <h3 class="demo-title">Elasticity</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-0"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-100"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-200"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-300"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-400"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-500"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-600"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-700"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-800"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-900"></div>
+    </div>
+    <div class="line">
+      <div class="stretched square shadow"></div>
+      <div class="stretched square elasticity-1000"></div>
+    </div>
+  </div>
+<script>
+var elasticity0 = anime({
+  targets: '#elasticity .elasticity-0',
+  translateX: 250,
+  elasticity: 0
+});
+var elasticity100 = anime({
+  targets: '#elasticity .elasticity-100',
+  translateX: 250,
+  elasticity: 100
+});
+var elasticity200 = anime({
+  targets: '#elasticity .elasticity-200',
+  translateX: 250,
+  elasticity: 200
+});
+var elasticity300 = anime({
+  targets: '#elasticity .elasticity-300',
+  translateX: 250,
+  elasticity: 300
+});
+var elasticity400 = anime({
+  targets: '#elasticity .elasticity-400',
+  translateX: 250,
+  elasticity: 400
+});
+var elasticity500 = anime({
+  targets: '#elasticity .elasticity-500',
+  translateX: 250,
+  elasticity: 500
+});
+var elasticity600 = anime({
+  targets: '#elasticity .elasticity-600',
+  translateX: 250,
+  elasticity: 600
+});
+var elasticity700 = anime({
+  targets: '#elasticity .elasticity-700',
+  translateX: 250,
+  elasticity: 700
+});
+var elasticity800 = anime({
+  targets: '#elasticity .elasticity-800',
+  translateX: 250,
+  elasticity: 800
+});
+var elasticity900 = anime({
+  targets: '#elasticity .elasticity-900',
+  translateX: 250,
+  elasticity: 900
+});
+var elasticity1000 = anime({
+  targets: '#elasticity .elasticity-1000',
+  translateX: 250,
+  elasticity: 1000
+});
+</script>
+<script>
+var elasticity = anime.timeline();
+elasticity.add([elasticity0, elasticity100, elasticity200, elasticity300, elasticity400, elasticity500, elasticity600, elasticity700, elasticity800, elasticity900, elasticity1000]);
+</script>
+</div>
+
 </article>
 <!-- -->
 
 <!-- PROPERTIES -->
-<article id="properties" class="color-02">
+<article id="properties" class="color-04">
 <header>
   <h2 class="demos-title">Properties</h2>
 </header>
@@ -222,7 +849,7 @@ var svgAttributes = anime({
 <!-- -->
 
 <!-- VALUES -->
-<article id="values" class="color-03">
+<article id="values" class="color-05">
 <header>
   <h2 class="demos-title">Values</h2>
 </header>
