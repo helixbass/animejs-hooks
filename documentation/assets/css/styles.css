@@ -293,6 +293,20 @@ article {
   margin-left: 10px;
 }
 
+.text-output {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  color: currentColor;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid currentColor;
+}
+
+input.progress {
+  cursor: ew-resize;
+}
+
 .square {
   position: relative;
   width: 28px;
@@ -323,28 +337,6 @@ article {
 .align-center {
   align-items: center;
 }
-
-.w-1 { width: 8.333333333%; }
-.w-2 { width: 16.666666667%; }
-.w-3 { width: 25%; }
-.w-4 { width: 33.333333333%; }
-.w-5 { width: 41.666666667%; }
-.w-6 { width: 50%; }
-.w-7 { width: 58.333333333%; }
-.w-8 { width: 66.666666667%; }
-.w-9 { width: 75%; }
-.w-10 { width: 83.333333333%; }
-.w-11 { width: 91.666666667%; }
-.w-12 { width: 100%; }
-
-.h-1 { height: 12.5%; }
-.h-2 { height: 25%; }
-.h-3 { height: 37.5%; }
-.h-4 { height: 50%; }
-.h-5 { height: 62.5%; }
-.h-6 { height: 75%; }
-.h-7 { height: 87.5%; }
-.h-8 { height: 100%; }
 
 .color-01 { color: #FF3478; }
 .color-02 { color: #F96F82; }

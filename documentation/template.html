@@ -34,10 +34,6 @@
       <div class="square shadow"></div>
       <div class="square el"></div>
     </div>
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
   </div>
 <script>var cssSelector = anime({
   targets: '#cssSelector .el',
@@ -49,8 +45,8 @@
 <div id="domNode" class="demo">
   <h3 class="demo-title">DOM Node</h3>
   <div class="demo-content">
-    <div class="square shadow"></div>
-    <div class="square el"></div>
+    <div class="large square shadow"></div>
+    <div class="large square el"></div>
   </div>
 <script>var el = document.querySelector('#domNode .el');
 
@@ -65,12 +61,16 @@ var domNode = anime({
   <h3 class="demo-title">Node List</h3>
   <div class="demo-content">
     <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
     </div>
     <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
     </div>
   </div>
 <script>var els = document.querySelectorAll('#nodeList .el');
@@ -85,13 +85,14 @@ var nodeList = anime({
 <div id="JSobject" class="demo">
   <h3 class="demo-title">JavaScript Object</h3>
   <div class="demo-content">
-    <pre>{"data":"0"}</pre>
+    <pre>{"charged":"0"}</pre>
   </div>
-<script>var myObject = { data: 0 };
+<script>var myObject = { charged: '0%' };
+
 var JSobject = anime({
   targets: myObject,
-  data: 42,
-  round: 1000,
+  charged: '100%',
+  round: 1,
   easing: 'linear',
   update: function() {
     var el = document.querySelector('#JSobject pre');
@@ -118,6 +119,7 @@ var JSobject = anime({
     </div>
   </div>
 <script>var el = document.querySelector('#JSarray .el-01');
+
 var JSarray = anime({
   targets: [el, '#JSarray .el-02', '#JSarray .el-03'],
   translateX: 250
@@ -294,7 +296,6 @@ var JSarray = anime({
       <div class="small square inOut"></div>
     </div>
   </div>
-</div>
 <script>var linear = anime({
   targets: '#basicEasings .linear',
   translateX: 250,
@@ -324,6 +325,7 @@ var easeInOut = anime({
 <script>var basicEasings = anime.timeline();
 basicEasings.add([linear, ease, easeIn, easeOut, easeInOut]);
 </script>
+</div>
 
 <div id="penner" class="demo">
   <h3 class="demo-title">Penner equations</h3>
@@ -758,7 +760,7 @@ elasticity.add([elasticity0, elasticity100, elasticity200, elasticity300, elasti
 var objectPropDemo = anime({
   targets: objectProp,
   myProperty: 42,
-  round: 1000,
+  round: 1,
   easing: 'linear',
   update: function() {
     var el = document.querySelector('#objectPropDemo pre');
@@ -771,7 +773,7 @@ var objectPropDemo = anime({
 <div id="domAttributes" class="demo">
   <h3 class="demo-title">DOM Attributes</h3>
   <div class="demo-content">
-    <input value="0"></input>
+    <input class="text-output" value="0"></input>
   </div>
 <script>var domAttributes = anime({
   targets: '#domAttributes input',
@@ -913,14 +915,13 @@ var objectPropDemo = anime({
 <script>var nonLinearKeyframes = anime({
   targets: '#nonLinearKeyframes .el',
   translateX: [
-    [250, 0],
+    [0, 250],
     [0, 250]
   ],
   translateY: [
-    [-60, 60],
-    [-60, 60]
+    [-50, -50],
+    [50, 50]
   ],
-  duration: 1000,
   loop: true
 });
 </script>
@@ -959,7 +960,7 @@ var objectPropDemo = anime({
 </header>
 
 <div id="functionBasedDuration" class="demo">
-  <h3 class="demo-title">Function based duration</h3>
+  <h3 class="demo-title">Duration</h3>
   <div class="demo-content">
     <div class="line">
       <div class="small square shadow"></div>
@@ -987,7 +988,7 @@ var objectPropDemo = anime({
 </div>
 
 <div id="functionBasedDelay" class="demo">
-  <h3 class="demo-title">Function based delay</h3>
+  <h3 class="demo-title">Delay</h3>
   <div class="demo-content">
     <div class="line">
       <div class="small square shadow"></div>
@@ -1015,7 +1016,7 @@ var objectPropDemo = anime({
 </div>
 
 <div id="functionBasedPropVal" class="demo">
-  <h3 class="demo-title">Function based property values</h3>
+  <h3 class="demo-title">Property values</h3>
   <div class="demo-content">
     <div class="line">
       <div class="small square shadow"></div>
@@ -1042,7 +1043,7 @@ var objectPropDemo = anime({
 </div>
 
 <div id="functionBasedElasticity" class="demo">
-  <h3 class="demo-title">Function based elasticity</h3>
+  <h3 class="demo-title">Elasticity</h3>
   <div class="demo-content">
     <div class="line">
       <div class="small square shadow"></div>
@@ -1070,7 +1071,7 @@ var objectPropDemo = anime({
 </div>
 
 <div id="multiplePropVal" class="demo">
-  <h3 class="demo-title">Multiple Property Values</h3>
+  <h3 class="demo-title">Combined</h3>
   <div class="demo-content">
     <div class="line">
       <div class="small square shadow"></div>
@@ -1120,7 +1121,7 @@ var objectPropDemo = anime({
 <!-- PLAYBACK CONTROLS -->
 <article id="events" class="color-08">
 <header>
-  <h2 class="demos-title">Animation events</h2>
+  <h2 class="demos-title">Events</h2>
 </header>
 
 <div id="callbacks" class="demo">
@@ -1138,27 +1139,26 @@ var objectPropDemo = anime({
       <div class="small square shadow"></div>
       <div class="small square el"></div>
     </div>
-    <div class="line player align-items">
-      <input class="progress" type="range" min="0" max="100" value="0"></input>
-    </div>
+    <div class="line player align-items"></div>
   </div>
-<script>var updateEl = document.querySelector('#callbacks .progress');
-
-var callbacks = anime({
+<script>var callbacks = anime({
   targets: '#callbacks .el',
   translateX: 250,
-  delay: function(el, i, l) { return i * 100; },
+  delay: function(el, i, l) { return 500 + (i * 100); },
   begin: function(anim) {
+    anim.animatables.forEach(function(a) {
+      a.target.classList.add('color-05');
+    });
+  },
+  update: function(anim) {
     anim.animatables.forEach(function(a) {
       a.target.classList.add('color-01');
     });
   },
-  update: function(anim) {
-    updateEl.value = anim.progress;
-  },
   complete: function(anim) {
     anim.animatables.forEach(function(a) {
       a.target.classList.remove('color-01');
+      a.target.classList.remove('color-05');
     });
   },
 });
