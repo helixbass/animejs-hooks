@@ -19,6 +19,7 @@ body {
   color: white;
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 .content {
@@ -58,11 +59,11 @@ header {
 
 .logo {
   display: block;
-  width: 134px;
+  width: 116px;
   height: 26px;
   color: transparent;
   background-image: url(../img/anime-js-v2-logo-white.png);
-  background-size: 134px 26px;
+  background-size: 116px 26px;
 }
 
 .page-title,
@@ -204,7 +205,6 @@ article {
   display: flex;
   flex-wrap: wrap;
   width: 50%;
-  overflow-x: hidden;
 }
 
 .demo {
@@ -263,6 +263,11 @@ article {
 .small {
   width: 18px;
   height: 18px;
+}
+
+.large {
+  width: 48px;
+  height: 48px;
 }
 
 .shadow {

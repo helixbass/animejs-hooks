@@ -29,32 +29,32 @@
     <h2 class="demos-title">Targets</h2>
   </header>
 
-  <div id="cssSelectorAnim" class="demo">
-    <h3 class="demo-title">CSS Selector</h3>
-    <div class="demo-content">
-      <div class="line">
-        <div class="square shadow"></div>
-        <div class="square red"></div>
-      </div>
-      <div class="line">
-        <div class="square shadow"></div>
-        <div class="square red"></div>
-      </div>
+<div id="cssSelectorAnim" class="demo">
+  <h3 class="demo-title">CSS Selector</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square red"></div>
     </div>
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square red"></div>
+    </div>
+  </div>
 <script>
 var cssSelectorAnim = anime({
   targets: '.red',
   translateX: 250
 });
 </script>
-  </div>
+</div>
 
-  <div id="domNodeAnim" class="demo">
-    <h3 class="demo-title">DOM Node</h3>
-    <div class="demo-content">
-      <div class="square shadow"></div>
-      <div class="square orange"></div>
-    </div>
+<div id="domNodeAnim" class="demo">
+  <h3 class="demo-title">DOM Node</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square orange"></div>
+  </div>
 <script>
 var el = document.querySelector('.orange');
 var domNodeAnim = anime({
@@ -62,20 +62,20 @@ var domNodeAnim = anime({
   translateX: 250
 });
 </script>
-  </div>
+</div>
 
-  <div id="nodeListAnim" class="demo">
-    <h3 class="demo-title">Node List</h3>
-    <div class="demo-content">
-      <div class="line">
-        <div class="square shadow"></div>
-        <div class="square yellow"></div>
-      </div>
-      <div class="line">
-        <div class="square shadow"></div>
-        <div class="square yellow"></div>
-      </div>
+<div id="nodeListAnim" class="demo">
+  <h3 class="demo-title">Node List</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square yellow"></div>
     </div>
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square yellow"></div>
+    </div>
+  </div>
 <script>
 var els = document.querySelectorAll('.yellow');
 var nodeListAnim = anime({
@@ -83,13 +83,13 @@ var nodeListAnim = anime({
   translateX: 250
 });
 </script>
-  </div>
+</div>
 
-  <div id="objectAnim" class="demo">
-    <h3 class="demo-title">JavaScript Object</h3>
-    <div class="demo-content">
-      <pre class="object-data"></pre>
-    </div>
+<div id="objectAnim" class="demo">
+  <h3 class="demo-title">JavaScript Object</h3>
+  <div class="demo-content">
+    <pre class="object-data"></pre>
+  </div>
 <script>
 var myObject = { data: 0 };
 var objectAnim = anime({
@@ -103,24 +103,24 @@ var objectAnim = anime({
   }
 });
 </script>
-  </div>
+</div>
 
-  <div id="arrayAnim" class="demo">
-    <h3 class="demo-title">JavaScript Array</h3>
-    <div class="demo-content">
-      <div class="line">
-        <div class="square shadow"></div>
-        <div class="square array-01"></div>
-      </div>
-      <div class="line">
-        <div class="square shadow"></div>
-        <div class="square array-02"></div>
-      </div>
-      <div class="line">
-        <div class="square shadow"></div>
-        <div class="square array-03"></div>
-      </div>
+<div id="arrayAnim" class="demo">
+  <h3 class="demo-title">JavaScript Array</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square array-01"></div>
     </div>
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square array-02"></div>
+    </div>
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square array-03"></div>
+    </div>
+  </div>
 <script>
 var el = document.querySelector('.array-01');
 var arrayAnim = anime({
@@ -128,22 +128,22 @@ var arrayAnim = anime({
   translateX: 250
 });
 </script>
-  </div>
+</div>
 </article>
 <!-- -->
 
 <!-- PROPERTIES -->
 <article id="properties" class="color-02">
-  <header>
-    <h2 class="demos-title">Properties</h2>
-  </header>
+<header>
+  <h2 class="demos-title">Properties</h2>
+</header>
 
-  <div id="cssDemo" class="demo">
-    <h3 class="demo-title">CSS</h3>
-    <div class="demo-content">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+<div id="cssDemo" class="demo">
+  <h3 class="demo-title">CSS</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
 <script>
 var cssDemo = anime({
   targets: '#cssDemo .el',
@@ -151,14 +151,14 @@ var cssDemo = anime({
   backgroundColor: '#FFF'
 });
 </script>
-  </div>
+</div>
 
-  <div id="transformsDemo" class="demo">
-    <h3 class="demo-title">CSS Transforms</h3>
-    <div class="demo-content">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+<div id="transformsDemo" class="demo">
+  <h3 class="demo-title">CSS Transforms</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
 <script>
 var transformsDemo = anime({
   targets: '#transformsDemo .el',
@@ -167,13 +167,13 @@ var transformsDemo = anime({
   rotate: 300
 });
 </script>
-  </div>
+</div>
 
-  <div id="objectPropDemo" class="demo">
-    <h3 class="demo-title">Object properties</h3>
-    <div class="demo-content">
-      <pre></pre>
-    </div>
+<div id="objectPropDemo" class="demo">
+  <h3 class="demo-title">Object properties</h3>
+  <div class="demo-content">
+    <pre></pre>
+  </div>
 <script>
 var objectProp = { myProperty: 0 };
 var objectPropDemo = anime({
@@ -187,13 +187,13 @@ var objectPropDemo = anime({
   }
 });
 </script>
-  </div>
+</div>
 
-  <div id="domAttributes" class="demo">
-    <h3 class="demo-title">DOM Attributes</h3>
-    <div class="demo-content">
-      <input value="0"></input>
-    </div>
+<div id="domAttributes" class="demo">
+  <h3 class="demo-title">DOM Attributes</h3>
+  <div class="demo-content">
+    <input value="0"></input>
+  </div>
 <script>
 var domAttributes = anime({
   targets: '#domAttributes input',
@@ -202,13 +202,13 @@ var domAttributes = anime({
   easing: 'easeInOutExpo'
 });
 </script>
-  </div>
+</div>
 
-  <div id="svgAttributes" class="demo">
-    <h3 class="demo-title">SVG Attributes</h3>
-    <div class="demo-content align-center">
-      <svg width="128" height="128" viewBox="0 0 128 128"><polygon fill="currentColor" points="64 68.64 8.574 100 63.446 67.68 64 4 64.554 67.68 119.426 100"/></svg></svg>
-    </div>
+<div id="svgAttributes" class="demo">
+  <h3 class="demo-title">SVG Attributes</h3>
+  <div class="demo-content align-center">
+    <svg width="128" height="128" viewBox="0 0 128 128"><polygon fill="currentColor" points="64 68.64 8.574 100 63.446 67.68 64 4 64.554 67.68 119.426 100"/></svg></svg>
+  </div>
 <script>
 var svgAttributes = anime({
   targets: '#svgAttributes polygon',
@@ -216,7 +216,90 @@ var svgAttributes = anime({
   easing: 'easeInOutExpo'
 });
 </script>
+</div>
+
+</article>
+<!-- -->
+
+<!-- VALUES -->
+<article id="values" class="color-03">
+<header>
+  <h2 class="demos-title">Values</h2>
+</header>
+
+<div id="unitlessDemo" class="demo">
+  <h3 class="demo-title">Unitless</h3>
+  <div class="demo-content align-center">
+    <div class="large square shadow"></div>
+    <div class="large square el"></div>
   </div>
+<script>
+var unitlessDemo = anime({
+  targets: '#unitlessDemo .el',
+  rotate: 540,
+  duration: 3000
+});
+</script>
+</div>
+
+<div id="specificUnitDemo" class="demo">
+  <h3 class="demo-title">Specific unit</h3>
+  <div class="demo-content align-center">
+    <div class="large square shadow"></div>
+    <div class="large square el"></div>
+  </div>
+<script>
+var specificUnitDemo = anime({
+  targets: '#specificUnitDemo .el',
+  rotate: '1.5turn',
+  duration: 3000
+});
+</script>
+</div>
+
+<div id="specificInitialDemo" class="demo">
+  <h3 class="demo-title">Specific initial value</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>
+var specificInitialDemo = anime({
+  targets: '#specificInitialDemo .el',
+  translateX: [100, 250],
+  duration: 2000
+});
+</script>
+</div>
+
+<div id="specificTimingsDemo" class="demo">
+  <h3 class="demo-title">Specific initial value</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>
+var specificTimingsDemo = anime({
+  targets: '#specificTimingsDemo .el',
+  translateX: {
+    value: 250,
+    delay: 250
+  },
+  rotate: {
+    value: 360,
+    duration: 2000,
+    easing: 'easeOutSine',
+  },
+  scale: {
+    value: 2,
+    duration: 500,
+    delay: 500,
+    easing: 'easeOutBack',
+  },
+  duration: 2000
+});
+</script>
+</div>
 
 </article>
 <!-- -->

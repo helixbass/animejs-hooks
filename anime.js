@@ -607,6 +607,7 @@
       const animatable = anim.animatable;
       const setProgress = setAnimationProgress[anim.type];
       setProgress(animatable.target, anim.property, progress, transforms, animatable.id);
+      anim.currentValue = progress;
     }
     if (transforms) {
       let id; for (id in transforms) {

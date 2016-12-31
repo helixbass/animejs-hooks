@@ -3,6 +3,30 @@ var articleEls = document.querySelectorAll('article');
 var codeOutputEl = document.querySelector('.code-output');
 var demos = [];
 
+function getScrollTop() {
+  return document.body.scrollTop || document.documentElement.scrollTop;
+}
+
+function scrollTo(selector, offset, cb) {
+  var offset = offset || 0;
+  var el = document.querySelector(selector);
+  var rect = el.getBoundingClientRect();
+  var top = getScrollTop();
+  var value = rect.top + top;
+  var scrollAnim = anime({
+    targets: {scroll: top},
+    scroll: value - offset,
+    duration: 400 + (value * .25),
+    easing: 'easeInOutQuad',
+    update: function(a) {
+      window.scroll(0, a.animations[0].currentValue);
+    },
+    complete: function() {
+      if (cb) cb();
+    }
+  });
+}
+
 function outputCode(code) {
   codeOutputEl.innerHTML = code;
   hljs.highlightBlock(codeOutputEl);
@@ -30,6 +54,7 @@ function createDemo(el) {
       var linkEl = document.querySelector('a[href="#'+id+'"]');
       linkEl.classList.add('active');
       el.classList.add('active');
+      scrollTo('#'+id);
     }
     demoAnim.restart();
   }
