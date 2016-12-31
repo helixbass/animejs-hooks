@@ -24,7 +24,7 @@ body {
 
 .content {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   width: 100%;
   height: 100%;
 }
@@ -46,15 +46,7 @@ header {
   height: 60px;
   padding-left: 10px;
   padding-right: 10px;
-  border-right: 1px solid #09090B;
   border-bottom: 1px solid #09090B;
-}
-
-.sidebar-header {
-  position: fixed;
-  width: 50%;
-  z-index: 1;
-  top: 0;
 }
 
 .logo {
@@ -66,8 +58,7 @@ header {
   background-size: 116px 26px;
 }
 
-.page-title,
-.demos-title {
+h2 {
   padding: 0 8px;
   font-size: 22px;
   letter-spacing: 2px;
@@ -75,7 +66,7 @@ header {
   font-weight: 200;
 }
 
-.page-title,
+h2,
 .logo {
   opacity: .6;
 }
@@ -84,25 +75,36 @@ header {
   opacity: 1;
 }
 
+/* Panes */
+
+.pane {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
 /* Sidebar */
 
 .sidebar {
-  position: fixed;
-  left: 0;
-  display: flex;
-  flex-direction: row;
-  width: 50%;
-  height: 100%;
+  width: 240px;
   padding-top: 60px;
   border-right: 1px solid #09090B;
 }
 
+.sidebar-header {
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+}
+
 .navigation {
   overflow-y: scroll;
-  width: 280px;
+  width: 100%;
   height: 100%;
   padding: 20px 10px;
-  border-right: 1px solid #09090B;
 }
 
 .navigation ul {
@@ -118,6 +120,10 @@ header {
   font-size: 12px;
   line-height: 20px;
   text-transform: uppercase;
+  background-image: linear-gradient(90deg, currentColor 0px, transparent 1px);
+  background-repeat: no-repeat;
+  background-size: 1px 12px;
+  background-position: 0 4px;
 }
 
 .navigation li:first-child a {
@@ -134,15 +140,16 @@ header {
   color: currentColor;
 }
 
-.navigation a {
-  background-image: linear-gradient(90deg, currentColor 0px, transparent 1px);
-  background-repeat: no-repeat;
-  background-size: 100% 12px;
-  background-position: 0 4px;
+/* Code */
+
+.code-examples {
+  width: 50%;
+  flex-direction: column;
+  border-left: 1px solid #09090B;
 }
 
 pre {
-  overflow-x: auto;
+  overflow: auto;
   font-family: 'Space Mono', monospace;
   line-height: 22px;
 }
@@ -154,6 +161,12 @@ pre {
 
 /* Demos */
 
+.demos {
+  overflow-y: scroll;
+  width: calc(50% - 240px);
+  min-width: 330px;
+}
+
 article {
   width: 100%;
   display: flex;
@@ -163,12 +176,8 @@ article {
   justify-content: flex-start;
 }
 
-.demos {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 50%;
+.demos-title {
+  opacity: 1;
 }
 
 .demo {
@@ -180,7 +189,6 @@ article {
   width: 100%;
   min-height: 200px;
   padding-top: 35px;
-  border-right: 1px solid #09090B;
   border-bottom: 1px solid #09090B;
   cursor: pointer;
 }
