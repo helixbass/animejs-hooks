@@ -900,30 +900,97 @@ var specificInitialDemo = anime({
 </div>
 
 <div id="specificTimingsDemo" class="demo">
-  <h3 class="demo-title">Specific initial value</h3>
+  <h3 class="demo-title">Specific timings value</h3>
   <div class="demo-content">
-    <div class="square shadow"></div>
-    <div class="square el"></div>
+    <div class="large square shadow"></div>
+    <div class="large square el"></div>
   </div>
 <script>
 var specificTimingsDemo = anime({
   targets: '#specificTimingsDemo .el',
   translateX: {
     value: 250,
-    delay: 250
+    duration: 1000
   },
   rotate: {
     value: 360,
     duration: 2000,
-    easing: 'easeOutSine',
+    easing: 'easeOutSine'
   },
-  scale: {
-    value: 2,
-    duration: 500,
-    delay: 500,
-    easing: 'easeOutBack',
-  },
-  duration: 2000
+  delay: 500
+});
+</script>
+</div>
+
+</article>
+<!-- -->
+
+<!-- KEYFRAMES -->
+<article id="keyframes" class="color-06">
+<header>
+  <h2 class="demos-title">Keyframes</h2>
+</header>
+
+<div id="keyframesChain" class="demo">
+  <h3 class="demo-title">Basic keyframes chain</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>
+var keyframesChain = anime({
+  targets: '#keyframesChain .el',
+  translateX: [0, 250, 250, 0, 0],
+  translateY: [-60, -60, 60, 60, 0],
+  duration: 4000,
+  loop: true
+});
+</script>
+</div>
+
+<div id="nonLinearKeyframes" class="demo">
+  <h3 class="demo-title">Non-linear keyframes</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>
+var nonLinearKeyframes = anime({
+  targets: '#nonLinearKeyframes .el',
+  translateX: [
+    [250, 0],
+    [0, 250]
+  ],
+  translateY: [
+    [-60, 60],
+    [-60, 60]
+  ],
+  duration: 2000,
+  loop: true
+});
+</script>
+</div>
+
+<div id="specificKeyframeTimings" class="demo">
+  <h3 class="demo-title">Specific keyframes timings</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>
+var specificKeyframeTimings = anime({
+  targets: '#specificKeyframeTimings .el',
+  translateX: [
+    { value: 100, duration: 600, easing: 'easeInExpo' },
+    { value: 250, duration: 1200, easing: 'easeOutExpo' }
+  ],
+  translateY: [
+    { value: -100, duration: 150, delay: 600, easing: 'easeOutSine' },
+    { value: 0, duration: 150, easing: 'easeInQuad' },
+  ],
+  rotate: { value: 180, duration: 400, delay: 600, easing: 'easeOutSine' },
+  direction: 'alternate',
+  loop: true
 });
 </script>
 </div>
