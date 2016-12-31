@@ -148,6 +148,17 @@ h2,
   border-left: 1px solid #09090B;
 }
 
+.code-pane {
+  position: relative;
+  height: 50%;
+  border-bottom: 1px solid #09090B;
+}
+
+.code-header {
+  position: absolute;
+  top: 0;
+}
+
 pre {
   overflow: auto;
   font-family: 'Space Mono', monospace;
@@ -156,7 +167,8 @@ pre {
 
 .code-output {
   width: 100%;
-  padding: 20px 20px 20px 20px;
+  height: 100%;
+  padding: 80px 20px 20px 20px;
 }
 
 /* Demos */

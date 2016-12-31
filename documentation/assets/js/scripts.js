@@ -1,6 +1,8 @@
 var navigationEl = document.querySelector('.navigation');
+var demosEl = document.querySelector('.demos');
 var articleEls = document.querySelectorAll('article');
-var codeOutputEl = document.querySelector('.code-output');
+var jsOutputEl = document.querySelector('.js-output');
+var htmlOutputEl = document.querySelector('.html-output');
 var demos = [];
 
 function getScrollTop() {
@@ -10,34 +12,47 @@ function getScrollTop() {
 function scrollTo(selector, offset, cb) {
   var offset = offset || 0;
   var el = document.querySelector(selector);
-  var rect = el.getBoundingClientRect();
-  var top = getScrollTop();
-  var value = rect.top + top;
   var scrollAnim = anime({
-    targets: {scroll: top},
-    scroll: value - offset,
+    targets: {scroll: demosEl.scrollTop},
+    scroll: el.offsetTop - offset,
     duration: 500,
     easing: 'easeInOutQuart',
-    update: function(a) {
-      window.scroll(0, a.animations[0].currentValue);
-    },
-    complete: function() {
-      if (cb) cb();
-    }
+    update: function(a) { demosEl.scrollTop = a.animations[0].currentValue; },
+    complete: function() { if (cb) cb(); }
   });
 }
 
-function outputCode(code) {
-  codeOutputEl.innerHTML = code;
-  hljs.highlightBlock(codeOutputEl);
+function parseHTML(el) {
+  var clone = el.cloneNode(true);
+  var shadowEls = clone.querySelectorAll('.shadow');
+  var els = clone.querySelectorAll('.el');
+  for (var i = 0; i < shadowEls.length; i++ ) shadowEls[i].remove();
+  for (var i = 0; i < els.length; i++ ) els[i].removeAttribute('style');
+  return html_beautify(clone.innerHTML, {
+    preserve_newlines: false,
+    indent_size: 2
+  });
+}
+
+function outputCode(JScode, HTMLcode) {
+  var js = document.createTextNode(JScode);
+  var html = document.createTextNode(HTMLcode);
+  jsOutputEl.innerHTML = '';
+  htmlOutputEl.innerHTML = '';
+  jsOutputEl.appendChild(js);
+  htmlOutputEl.appendChild(html);
+  hljs.highlightBlock(jsOutputEl);
+  hljs.highlightBlock(htmlOutputEl);
 }
 
 function createDemo(el) {
   var demo = {};
   var scriptEl = el.querySelector('script');
+  var demoContentEl = el.querySelector('.demo-content');
   var title = el.querySelector('h3').innerHTML;
-  var demoCode = scriptEl ? scriptEl.innerHTML : '';
-  var code = '// '+title+'<br>'+demoCode;
+  var demoJSCode = scriptEl ? scriptEl.innerHTML : '';
+  var JScode = '// '+title+demoJSCode;
+  var HTMLcode = demoContentEl ? parseHTML(demoContentEl) : '';
   var id = el.id;
   var demoAnim = window[id];
   function highlightDemo() {
@@ -50,7 +65,7 @@ function createDemo(el) {
         d.anim.pause();
       }
       history.pushState(null, null, '#'+id);
-      outputCode(code);
+      outputCode(JScode, HTMLcode);
       var linkEl = document.querySelector('a[href="#'+id+'"]');
       linkEl.classList.add('active');
       el.classList.add('active');

@@ -27,102 +27,104 @@
     <h2 class="demos-title">Targets</h2>
   </header>
 
-<div id="cssSelectorAnim" class="demo">
+<div id="cssSelector" class="demo">
   <h3 class="demo-title">CSS Selector</h3>
   <div class="demo-content">
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square red"></div>
+      <div class="square el"></div>
     </div>
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square red"></div>
+      <div class="square el"></div>
     </div>
   </div>
 <script>
-var cssSelectorAnim = anime({
-  targets: '.red',
+var cssSelector = anime({
+  targets: '#cssSelector .el',
   translateX: 250
 });
 </script>
 </div>
 
-<div id="domNodeAnim" class="demo">
+<div id="domNode" class="demo">
   <h3 class="demo-title">DOM Node</h3>
   <div class="demo-content">
     <div class="square shadow"></div>
-    <div class="square orange"></div>
+    <div class="square el"></div>
   </div>
 <script>
-var el = document.querySelector('.orange');
-var domNodeAnim = anime({
+var el = document.querySelector('#domNode .el');
+
+var domNode = anime({
   targets: el,
   translateX: 250
 });
 </script>
 </div>
 
-<div id="nodeListAnim" class="demo">
+<div id="nodeList" class="demo">
   <h3 class="demo-title">Node List</h3>
   <div class="demo-content">
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square yellow"></div>
+      <div class="square el"></div>
     </div>
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square yellow"></div>
+      <div class="square el"></div>
     </div>
   </div>
 <script>
-var els = document.querySelectorAll('.yellow');
-var nodeListAnim = anime({
+var els = document.querySelectorAll('#nodeList .el');
+
+var nodeList = anime({
   targets: els,
   translateX: 250
 });
 </script>
 </div>
 
-<div id="objectAnim" class="demo">
+<div id="JSobject" class="demo">
   <h3 class="demo-title">JavaScript Object</h3>
   <div class="demo-content">
-    <pre class="object-data"></pre>
+    <pre></pre>
   </div>
 <script>
 var myObject = { data: 0 };
-var objectAnim = anime({
+var JSobject = anime({
   targets: myObject,
   data: 42,
   round: 1000,
   easing: 'linear',
   update: function() {
-    var el = document.querySelector('.object-data');
+    var el = document.querySelector('#JSobject pre');
     el.innerHTML = JSON.stringify(myObject);
   }
 });
 </script>
 </div>
 
-<div id="arrayAnim" class="demo">
+<div id="JSarray" class="demo">
   <h3 class="demo-title">JavaScript Array</h3>
   <div class="demo-content">
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square array-01"></div>
+      <div class="square el-01"></div>
     </div>
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square array-02"></div>
+      <div class="square el-02"></div>
     </div>
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square array-03"></div>
+      <div class="square el-03"></div>
     </div>
   </div>
 <script>
-var el = document.querySelector('.array-01');
-var arrayAnim = anime({
-  targets: [el, '.array-02', '.array-03'],
+var el = document.querySelector('#JSarray .el-01');
+var JSarray = anime({
+  targets: [el, '#JSarray .el-02', '#JSarray .el-03'],
   translateX: 250
 });
 </script>
@@ -140,10 +142,8 @@ var arrayAnim = anime({
 <div id="defaultSettings" class="demo">
   <h3 class="demo-title">Default settings</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>
 var defaultSettings = anime({
@@ -156,10 +156,8 @@ var defaultSettings = anime({
 <div id="duration" class="demo">
   <h3 class="demo-title">Duration</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>
 var duration = anime({
@@ -173,10 +171,8 @@ var duration = anime({
 <div id="delay" class="demo">
   <h3 class="demo-title">Delay</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+<div class="square shadow"></div>
+<div class="square el"></div>
   </div>
 <script>
 var delay = anime({
@@ -190,10 +186,8 @@ var delay = anime({
 <div id="alternate" class="demo">
   <h3 class="demo-title">Direction alternate</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>
 var alternate = anime({
@@ -207,10 +201,8 @@ var alternate = anime({
 <div id="reverse" class="demo">
   <h3 class="demo-title">Direction reverse</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>
 var reverse = anime({
@@ -224,10 +216,8 @@ var reverse = anime({
 <div id="loop" class="demo">
   <h3 class="demo-title">Loop</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>
 var loop = anime({
@@ -241,10 +231,8 @@ var loop = anime({
 <div id="loopAlternate" class="demo">
   <h3 class="demo-title">Loop alternate</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>
 var loopAlternate = anime({
@@ -259,10 +247,8 @@ var loopAlternate = anime({
 <div id="loopReverse" class="demo">
   <h3 class="demo-title">Loop reverse</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>
 var loopReverse = anime({
@@ -277,10 +263,8 @@ var loopReverse = anime({
 <div id="infiniteLoop" class="demo">
   <h3 class="demo-title">Infinite loop</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>
 var infiniteLoop = anime({
@@ -588,10 +572,8 @@ penner.add([InQuad, InCubic, InQuart, InQuint, InSine, InExpo, InCirc, InBack, O
 <div id="customBezier" class="demo">
   <h3 class="demo-title">Custom Bézier</h3>
   <div class="demo-content">
-    <div class="line">
-      <div class="square shadow"></div>
-      <div class="square el"></div>
-    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
   </div>
 <script>
 var customBezier = anime({
@@ -832,7 +814,9 @@ var domAttributes = anime({
 <div id="svgAttributes" class="demo">
   <h3 class="demo-title">SVG Attributes</h3>
   <div class="demo-content align-center">
-    <svg width="128" height="128" viewBox="0 0 128 128"><polygon fill="currentColor" points="64 68.64 8.574 100 63.446 67.68 64 4 64.554 67.68 119.426 100"/></svg></svg>
+<svg width="128" height="128" viewBox="0 0 128 128">
+  <polygon points="64 68.64 8.574 100 63.446 67.68 64 4 64.554 67.68 119.426 100" fill="currentColor"/>
+</svg>
   </div>
 <script>
 var svgAttributes = anime({
@@ -1270,13 +1254,22 @@ progressEl.addEventListener('input', function() {
 
     </section>
     <section class="pane code-examples">
-      <header class="code-header">
-        <h2>Code examples</h2>
-      </header>
-      <pre class="code-output"></pre>
+      <div class="code-pane">
+        <header class="code-header">
+          <h2>JavaScript</h2>
+        </header>
+        <pre class="code-output js-output"></pre>
+      </div>
+      <div class="code-pane">
+        <header class="code-header">
+          <h2>HTML</h2>
+        </header>
+        <pre class="code-output html-output"></pre>
+      </div>
     </section>
   </div>
   <script src="assets/js/highlight.pack.js"></script>
+  <script src="assets/js/beautify-html.js"></script>
   <script src="assets/js/scripts.js"></script>
 </body>
 </html>
