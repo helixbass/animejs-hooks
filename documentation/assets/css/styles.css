@@ -51,11 +51,11 @@ header {
 
 .logo {
   display: block;
-  width: 116px;
+  width: 156px;
   height: 26px;
   color: transparent;
   background-image: url(../img/anime-js-v2-logo-white.png);
-  background-size: 116px 26px;
+  background-size: 156px 26px;
 }
 
 h2 {

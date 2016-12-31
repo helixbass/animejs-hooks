@@ -57,7 +57,8 @@ function createDemo(el) {
   var demoAnim = window[id];
   var JScode = scriptEl ? scriptEl.innerHTML : '';
   var HTMLcode = demoContentEl ? parseHTML(demoContentEl, id) : '';
-  function highlightDemo() {
+  function highlightDemo(e) {
+    if (e) e.preventDefault();
     if (!el.classList.contains('active')) {
       var linkEls = document.querySelectorAll('.demo-link');
       for (var i = 0; i < demos.length; i++) {
