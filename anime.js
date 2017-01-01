@@ -3,7 +3,7 @@
  * JavaScript animation engine
  * @version v2.0.0
  * @author Julian Garnier
- * @copyright © 2016 Julian Garnier
+ * @copyright © 2017 Julian Garnier
  * Released under the MIT license
 **/
 
