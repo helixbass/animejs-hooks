@@ -108,11 +108,13 @@ h2,
 }
 
 .navigation ul {
+  height: 20px;
   margin-bottom: 10px;
+  overflow-y: hidden;
+  transition: opacity .4s ease;
 }
 
 .navigation a {
-  opacity: .6;
   display: block;
   padding-left: 10px;
   color: #FFF;
@@ -126,17 +128,32 @@ h2,
   background-position: 0 4px;
 }
 
-.navigation li:first-child a {
+.navigation ul li:first-child a {
   padding-left: 0;
   background-image: none;
 }
 
-.navigation a:hover {
+.navigation ul a {
+  opacity: .4;
+  transition: opacity .4s ease, color .4s ease;
+}
+
+.navigation ul.active a {
+  opacity: .7;
+}
+
+.navigation ul a:hover {
+  transition: none;
+  opacity: 1;
+}
+
+.navigation ul a.active {
+  opacity: 1;
   color: currentColor;
 }
 
-.navigation a.active {
-  opacity: 1;
+.navigation ul.active li:first-child a,
+.navigation ul.active li:first-child a:hover {
   color: currentColor;
 }
 
