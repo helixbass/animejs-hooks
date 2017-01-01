@@ -1177,14 +1177,102 @@ var hsl = anime({
 <!-- -->
 
 <!-- PLAYBACK CONTROLS -->
-<article id="events" class="color-08">
+<article id="callbacks" class="color-08">
 <header>
-  <h2 class="demos-title">Events</h2>
+  <h2 class="demos-title">Callbacks</h2>
 </header>
 
-<div id="callbacks" class="demo">
-  <h3 class="demo-title">Callbacks</h3>
+<div id="update" class="demo">
+  <h3 class="demo-title">Update</h3>
   <div class="demo-content">
+    <div class="logs">
+      <input class="log current-time-log"></input>
+      <input class="log progress-log"></input>
+    </div>
+    <div class="large square shadow"></div>
+    <div class="large square el"></div>
+  </div>
+<script>var updateLogEl = document.querySelector('#update .current-time-log');
+var progressLogEl = document.querySelector('#update .progress-log');
+
+var update = anime({
+  targets: '#callbacks .el',
+  translateX: 250,
+  delay: 1000,
+  update: function(anim) {
+    updateLogEl.value = 'current time : ' + Math.round(anim.currentTime) + 'ms';
+    progressLogEl.value = 'progress : ' + Math.round(anim.progress) + '%';
+  }
+});
+</script>
+</div>
+
+<div id="begin" class="demo">
+  <h3 class="demo-title">Begin</h3>
+  <div class="demo-content">
+    <div class="logs">
+      <input class="log began-log" value="began : false"></input>
+    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>var beganLogEl = document.querySelector('#begin .began-log');
+
+var begin = anime({
+  targets: '#begin .el',
+  translateX: 250,
+  delay: 1000,
+  begin: function(anim) {
+    beganLogEl.value = 'began : ' + anim.began;
+  }
+});
+</script>
+<script>
+begin.settings.update = function(anim) {
+  if (!anim.began) {
+    beganLogEl.value = 'began : ' + anim.began;
+  }
+}
+</script>
+</div>
+
+<div id="complete" class="demo">
+  <h3 class="demo-title">Complete</h3>
+  <div class="demo-content">
+    <div class="logs">
+      <input class="log completed-log" value="completed : false"></input>
+    </div>
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>var completedLogEl = document.querySelector('#complete .completed-log');
+
+var complete = anime({
+  targets: '#complete .el',
+  translateX: 250,
+  complete: function(anim) {
+    completedLogEl.value = 'completed : ' + anim.completed;
+  }
+});
+</script>
+<script>
+complete.settings.update = function(anim) {
+  if (!anim.completed) {
+    completedLogEl.value = 'completed : ' + anim.completed;
+  }
+}
+</script>
+</div>
+
+
+<div id="outsideCallbacks" class="demo">
+  <h3 class="demo-title">Settings object</h3>
+  <div class="demo-content">
+    <div class="logs">
+      <input class="log update-log"></input>
+      <input class="log began-log"></input>
+      <input class="log completed-log"></input>
+    </div>
     <div class="line">
       <div class="small square shadow"></div>
       <div class="small square el"></div>
@@ -1199,32 +1287,45 @@ var hsl = anime({
     </div>
     <div class="line player align-items"></div>
   </div>
-<script>var callbacks = anime({
-  targets: '#callbacks .el',
+<script>var updateLogEl2 = document.querySelector('#outsideCallbacks .update-log');
+var beganLogEl2 = document.querySelector('#outsideCallbacks .began-log');
+var completedLogEl2 = document.querySelector('#outsideCallbacks .completed-log');
+
+var outsideCallbacks = anime({
+  targets: '#outsideCallbacks .el',
   translateX: 250,
-  delay: function(el, i, l) { return 500 + (i * 100); },
-  begin: function(anim) {
-    anim.animatables.forEach(function(a) {
-      a.target.classList.add('color-05');
-    });
-  },
-  update: function(anim) {
-    anim.animatables.forEach(function(a) {
-      a.target.classList.add('color-01');
-    });
-  },
-  complete: function(anim) {
-    anim.animatables.forEach(function(a) {
-      a.target.classList.remove('color-01');
-      a.target.classList.remove('color-05');
-    });
-  },
+  delay: function(el, i) { return 1000 + (i * 100); },
+  duration: function(el, i) { return 500 + (i * 500); }
 });
+
+outsideCallbacks.settings.update = function(anim) {
+  if (!anim.began) {
+    updateLogEl2.value = 'starts in ' + Math.round(anim.delay - anim.currentTime) + 'ms';
+    beganLogEl2.value = '';
+  } else {
+    updateLogEl2.value = 'starts in 0ms';
+  }
+  if (!anim.completed) {
+    completedLogEl2.value = '';
+  }
+}
+outsideCallbacks.settings.begin =  function() { beganLogEl2.value = 'began'; };
+outsideCallbacks.settings.complete = function() { completedLogEl2.value = 'completed'; };
+
 </script>
 </div>
 
-<div id="playback" class="demo controls">
-  <h3 class="demo-title">Playback control</h3>
+</article>
+<!-- -->
+
+<!-- PLAYBACK CONTROLS -->
+<article id="timeline" class="color-09">
+<header>
+  <h2 class="demos-title">Timeline</h2>
+</header>
+
+<div id="single" class="demo controls">
+  <h3 class="demo-title">Single animation</h3>
   <div class="demo-content">
     <div class="line">
       <div class="small square shadow"></div>
@@ -1245,13 +1346,13 @@ var hsl = anime({
       <input class="progress" type="range" min="0" max="100" value="0"></input>
     </div>
   </div>
-<script>var playButton = document.querySelector('#playback .play');
-var pauseButton = document.querySelector('#playback .pause');
-var restartButton = document.querySelector('#playback .restart');
-var progressEl = document.querySelector('#playback .progress');
+<script>var playButton = document.querySelector('#single .play');
+var pauseButton = document.querySelector('#single .pause');
+var restartButton = document.querySelector('#single .restart');
+var progressEl = document.querySelector('#single .progress');
 
-var playback = anime({
-  targets: '#playback .el',
+var single = anime({
+  targets: '#single .el',
   translateX: 250,
   direction: 'alternate',
   loop: true,
@@ -1262,18 +1363,17 @@ var playback = anime({
   }
 });
 
-playButton.addEventListener('click', function() { playback.play(); });
-pauseButton.addEventListener('click', function() { playback.pause(); });
-restartButton.addEventListener('click', function() { playback.restart(); });
+playButton.addEventListener('click', function() { single.play(); });
+pauseButton.addEventListener('click', function() { single.pause(); });
+restartButton.addEventListener('click', function() { single.restart(); });
 progressEl.addEventListener('input', function() {
-  playback.seek(playback.duration * (progressEl.value / 100));
+  single.seek(single.duration * (progressEl.value / 100));
 });
 </script>
 </div>
 
 </article>
 <!-- -->
-
 
     </section>
     <section class="pane code-examples">

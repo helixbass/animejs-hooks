@@ -320,6 +320,29 @@ article {
   border: 1px solid currentColor;
 }
 
+.log {
+  width: 100%;
+  height: 22px;
+  background: transparent;
+  color: currentColor;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+}
+
+.logs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.log:focus {
+  outline: none;
+}
+
 input.progress {
   cursor: ew-resize;
 }
