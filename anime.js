@@ -755,7 +755,6 @@
     timeline.add = (instance) => {
       toArray(instance).forEach(ins => {
         if (ins.duration > timeline.duration) timeline.duration = ins.duration;
-        ins.autoplay = false;
         ins.pause();
         timeline.children.push(ins);
       });
