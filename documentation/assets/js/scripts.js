@@ -78,7 +78,7 @@ function createDemo(el) {
   }
   function enterDemo() {
     if (!el.classList.contains('active')) {
-      demoAnim.play();
+      demoAnim.restart();
     }
   }
   function leaveDemo() {
