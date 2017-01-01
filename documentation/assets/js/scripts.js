@@ -54,7 +54,7 @@ function toggleSectionLink(ulEl) {
   for (var i = 0; i < ulEls.length; i++) ulEls[i].classList.remove('active');
   anime({
     targets: '.navigation ul',
-    height: ulHeight,
+    height: ulHeight + 10,
     duration: 400,
     easing: 'easeOutQuart'
   });
@@ -62,7 +62,7 @@ function toggleSectionLink(ulEl) {
   anime({
     targets: ulEl,
     height: function(el) {
-      return el.childNodes.length * ulHeight;
+      return el.childNodes.length * ulHeight + 20;
     },
     duration: 600,
     delay: 400,
