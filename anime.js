@@ -708,7 +708,10 @@
       lastTime = instance.completed ? 0 : adjustInstanceTime(instance, instance.currentTime);
       let s = instance.settings;
       if (s.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
-      if (s.direction === 'alternate' && !instance.loop) instance.loop = 2;
+      if (s.direction === 'alternate') {
+        if (instance.reversed && !instance.loop % 2) toggleInstanceDirection(instance);
+        if (!instance.loop) instance.loop = 2;
+      }
       running.push(instance);
       if (!raf) engine();
     }

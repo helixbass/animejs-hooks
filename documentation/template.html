@@ -848,51 +848,6 @@ var objectPropDemo = anime({
 </script>
 </div>
 
-<div id="specificInitialDemo" class="demo">
-  <h3 class="demo-title">Specific initial value</h3>
-  <div class="demo-content">
-    <div class="square shadow"></div>
-    <div class="square el"></div>
-  </div>
-<script>var specificInitialDemo = anime({
-  targets: '#specificInitialDemo .el',
-  translateX: [100, 250],
-  delay: 500,
-  direction: 'alternate',
-  loop: true
-});
-</script>
-</div>
-
-<div id="specificTimingsDemo" class="demo">
-  <h3 class="demo-title">Specific timings value</h3>
-  <div class="demo-content">
-    <div class="square shadow"></div>
-    <div class="square el"></div>
-  </div>
-<script>var specificTimingsDemo = anime({
-  targets: '#specificTimingsDemo .el',
-  translateX: {
-    value: 250,
-    duration: 1000
-  },
-  rotate: {
-    value: 360,
-    duration: 1800,
-    easing: 'easeInOutSine'
-  },
-  scale: {
-    value: 2,
-    duration: 2000,
-    delay: 1000,
-    easing: 'easeInOutQuart'
-  },
-  delay: 500, // Other values are in
-  direction: 'alternate'
-});
-</script>
-</div>
-
 <div id="colors" class="demo">
   <h3 class="demo-title">Colors</h3>
   <div class="demo-content">
@@ -936,6 +891,51 @@ var hsl = anime({
 <script>
   var colors = anime.timeline();
   colors.add([hex, rgb, hsl]);
+</script>
+</div>
+
+<div id="specificInitialDemo" class="demo">
+  <h3 class="demo-title">Specific initial value</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>var specificInitialDemo = anime({
+  targets: '#specificInitialDemo .el',
+  translateX: [100, 250],
+  delay: 500,
+  direction: 'alternate',
+  loop: true
+});
+</script>
+</div>
+
+<div id="specificTimingsDemo" class="demo">
+  <h3 class="demo-title">Specific timings value</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>var specificTimingsDemo = anime({
+  targets: '#specificTimingsDemo .el',
+  translateX: {
+    value: 250,
+    duration: 1000
+  },
+  rotate: {
+    value: 360,
+    duration: 1800,
+    easing: 'easeInOutSine'
+  },
+  scale: {
+    value: 2,
+    duration: 2000,
+    delay: 1000,
+    easing: 'easeInOutQuart'
+  },
+  delay: 500, // Other values are in
+  direction: 'alternate'
+});
 </script>
 </div>
 
@@ -1346,10 +1346,10 @@ outsideCallbacks.settings.complete = function() { completedLogEl2.value = 'compl
       <input class="progress" type="range" min="0" max="100" value="0"></input>
     </div>
   </div>
-<script>var playButton = document.querySelector('#single .play');
-var pauseButton = document.querySelector('#single .pause');
-var restartButton = document.querySelector('#single .restart');
-var progressEl = document.querySelector('#single .progress');
+<script>var singlePlayButton = document.querySelector('#single .play');
+var singlePauseButton = document.querySelector('#single .pause');
+var singleRestartButton = document.querySelector('#single .restart');
+var singleProgressEl = document.querySelector('#single .progress');
 
 var single = anime({
   targets: '#single .el',
@@ -1359,15 +1359,84 @@ var single = anime({
   delay: function(el, i, l) { return i * 100; },
   autoplay: false,
   update: function(anim) {
-    progressEl.value = anim.progress;
+    singleProgressEl.value = anim.progress;
   }
 });
 
-playButton.addEventListener('click', function() { single.play(); });
-pauseButton.addEventListener('click', function() { single.pause(); });
-restartButton.addEventListener('click', function() { single.restart(); });
-progressEl.addEventListener('input', function() {
-  single.seek(single.duration * (progressEl.value / 100));
+singlePlayButton.addEventListener('click', function() { single.play(); });
+singlePauseButton.addEventListener('click', function() { single.pause(); });
+singleRestartButton.addEventListener('click', function() { single.restart(); });
+singleProgressEl.addEventListener('input', function() {
+  single.seek(single.duration * (singleProgressEl.value / 100));
+});
+</script>
+</div>
+
+<div id="multiple" class="demo controls">
+  <h3 class="demo-title">Synchronized animations</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el-01"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el-02"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el-03"></div>
+    </div>
+    <div class="line player align-items">
+      <button class="play">Play</button>
+      <button class="pause">Pause</button>
+      <button class="restart">Restart</button>
+      <input class="progress" type="range" min="0" max="100" value="0"></input>
+    </div>
+  </div>
+<script>var multiplePlayButton = document.querySelector('#multiple .play');
+var multiplePauseButton = document.querySelector('#multiple .pause');
+var multipleRestartButton = document.querySelector('#multiple .restart');
+var multipleProgressEl = document.querySelector('#multiple .progress');
+
+var multiple = anime.timeline({
+  direction: 'alternate',
+  update: function(anim) {
+    multipleProgressEl.value = anim.progress;
+  }
+});
+
+multiple.add([
+  anime({
+    targets: '#multiple .el-01',
+    translateX: 75,
+    translateY: [22, 22],
+    rotate: 180,
+    duration: 400,
+    easing: 'easeInQuart'
+  }),
+  anime({
+    targets: '#multiple .el-02',
+    translateX: [75+18, 175],
+    duration: 400,
+    delay: 420,
+    easing: 'easeOutQuart'
+  }),
+  anime({
+    targets: '#multiple .el-03',
+    translateX: [175+8, 275],
+    translateY: [-22, -22],
+    duration: 4000,
+    delay: 605,
+    easing: [.05,.18,.01,.81]
+  })
+])
+
+multiplePlayButton.addEventListener('click', function() { multiple.play(); });
+multiplePauseButton.addEventListener('click', function() { multiple.pause(); });
+multipleRestartButton.addEventListener('click', function() { multiple.restart(); });
+multipleProgressEl.addEventListener('input', function() {
+  multiple.seek(multiple.duration * (multipleProgressEl.value / 100));
 });
 </script>
 </div>

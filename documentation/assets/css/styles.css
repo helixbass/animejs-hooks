@@ -331,6 +331,7 @@ article {
 }
 
 .logs {
+  pointer-events: none;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -348,9 +349,7 @@ input.progress {
 }
 
 .square {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  pointer-events: none;
   position: relative;
   width: 28px;
   height: 28px;
