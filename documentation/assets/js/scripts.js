@@ -71,6 +71,13 @@ function toggleSectionLink(ulEl) {
   ulEl.classList.add('active');
 }
 
+function resetDemos() {
+  demos.forEach(function(demo) {
+    demo.anim.pause();
+    demo.anim.seek(0);
+  });
+}
+
 function createDemo(el) {
   var demo = {};
   var scriptEl = el.querySelector('script');
@@ -83,6 +90,7 @@ function createDemo(el) {
   function highlightDemo(e) {
     if (e) e.preventDefault();
     if (!el.classList.contains('active')) {
+      resetDemos();
       var linkEls = document.querySelectorAll('.demo-link');
       for (var i = 0; i < demos.length; i++) {
         var d = demos[i];
@@ -113,9 +121,9 @@ function createDemo(el) {
     }
   }
   el.addEventListener('click', highlightDemo);
-  el.addEventListener('mouseenter', enterDemo);
-  el.addEventListener('mouseleave', leaveDemo);
-  demoAnim.pause();
+  // el.addEventListener('mouseenter', enterDemo);
+  // el.addEventListener('mouseleave', leaveDemo);
+  resetDemos();
   return {
     el: el,
     title: title,

@@ -322,7 +322,7 @@
   // Units
 
   function getUnit(val) {
-    if (val === 'auto') return;
+    if (val === 'auto' || is.obj(val)) return;
     return /([\+\-]?[0-9#\.]+)(%|px|pt|em|rem|in|cm|mm|ex|pc|vw|vh|deg|rad|turn)?/.exec(val)[2];
   }
 

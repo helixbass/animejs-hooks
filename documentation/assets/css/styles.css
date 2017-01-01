@@ -264,6 +264,11 @@ article {
   padding: 25px 0;
 }
 
+#timeline .demo-content,
+#motionpath .demo-content {
+  padding: 40px 0;
+}
+
 .demo-title {
   position: absolute;
   top: 0;
@@ -299,11 +304,11 @@ article {
 }
 
 .player {
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .player button {
-  padding: 5px;;
+  padding: 5px 2px;;
 }
 
 .player input {
@@ -375,6 +380,17 @@ input.progress {
 .shadow {
   position: absolute;
   opacity: .2;
+}
+
+.motion-path {
+  position: relative;
+  margin: auto;
+}
+
+.follow-path {
+  position: absolute;
+  top: -9px;
+  left: -9px;
 }
 
 .align-center {
