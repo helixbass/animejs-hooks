@@ -664,28 +664,27 @@
 
     let startTime, lastTime = 0;
     let instance = createNewInstance(params);
+    let settings = instance.settings;
 
     instance.tick = function(now) {
-      instance.completed = false;
-      let s = instance.settings;
       if (!startTime) startTime = now;
       const currentTime = (lastTime + now - startTime) * anime.speed;
       const instanceTime = Math.min(Math.max(currentTime, 0), instance.duration);
       setInstanceProgress(instance, instanceTime);
       if (!instance.began && instanceTime >= instance.delay) {
         instance.began = true;
-        if (s.begin) s.begin(instance);
+        if (settings.begin) settings.begin(instance);
       }
       if (instanceTime >= instance.duration) {
         if (instance.loop && !isNaN(parseFloat(instance.loop))) instance.loop--;
         if (instance.loop) {
           startTime = now;
-          if (s.direction === 'alternate') toggleInstanceDirection(instance);
+          if (settings.direction === 'alternate') toggleInstanceDirection(instance);
         } else {
           instance.completed = true;
           instance.began = false;
           instance.pause();
-          if (s.complete) s.complete(instance);
+          if (settings.complete) settings.complete(instance);
         }
         lastTime = 0;
       }
@@ -706,9 +705,8 @@
       if (params) instance = mergeObjects(createNewInstance(mergeObjects(params, instance.settings)), instance);
       startTime = 0;
       lastTime = instance.completed ? 0 : adjustInstanceTime(instance, instance.currentTime);
-      let s = instance.settings;
-      if (s.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
-      if (s.direction === 'alternate') {
+      if (settings.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
+      if (settings.direction === 'alternate') {
         if (instance.reversed && !instance.loop % 2) toggleInstanceDirection(instance);
         if (!instance.loop) instance.loop = 2;
       }
@@ -717,15 +715,16 @@
     }
 
     instance.restart = function() {
-      if (instance.reversed) toggleInstanceDirection(instance);
-      instance.began = false;
-      instance.loop = instance.settings.loop;
       instance.pause();
+      if (instance.reversed) toggleInstanceDirection(instance);
+      instance.completed = false;
+      instance.began = false;
+      instance.loop = settings.loop;
       instance.seek(0);
       instance.play();
     }
 
-    if (instance.settings.autoplay) instance.play();
+    if (settings.autoplay) instance.restart();
     instances.push(instance);
 
     return instance;
