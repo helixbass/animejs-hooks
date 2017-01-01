@@ -632,7 +632,7 @@
       delay: arrayLength(animations) ? Math.min.apply(Math, animations.map((anim) => anim.delay )) : tweenSettings.delay,
       currentTime: 0,
       progress: 0,
-      ended: false,
+      completed: false,
       began: false,
       loop: animationSettings.loop
     }
@@ -666,15 +666,15 @@
     let instance = createNewInstance(params);
 
     instance.tick = function(now) {
-      instance.ended = false;
+      instance.completed = false;
       let s = instance.settings;
       if (!startTime) startTime = now;
       const currentTime = (lastTime + now - startTime) * anime.speed;
       const instanceTime = Math.min(Math.max(currentTime, 0), instance.duration);
       setInstanceProgress(instance, instanceTime);
-      if (s.begin && !instance.began && instanceTime >= instance.delay) {
-        s.begin(instance);
+      if (!instance.began && instanceTime >= instance.delay) {
         instance.began = true;
+        if (s.begin) s.begin(instance);
       }
       if (instanceTime >= instance.duration) {
         if (instance.loop && !isNaN(parseFloat(instance.loop))) instance.loop--;
@@ -682,7 +682,7 @@
           startTime = now;
           if (s.direction === 'alternate') toggleInstanceDirection(instance);
         } else {
-          instance.ended = true;
+          instance.completed = true;
           instance.began = false;
           instance.pause();
           if (s.complete) s.complete(instance);
@@ -705,7 +705,7 @@
       instance.pause();
       if (params) instance = mergeObjects(createNewInstance(mergeObjects(params, instance.settings)), instance);
       startTime = 0;
-      lastTime = instance.ended ? 0 : adjustInstanceTime(instance, instance.currentTime);
+      lastTime = instance.completed ? 0 : adjustInstanceTime(instance, instance.currentTime);
       let s = instance.settings;
       if (s.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
       if (s.direction === 'alternate' && !instance.loop) instance.loop = 2;
