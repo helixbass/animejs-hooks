@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Basic animation settings | anime.js</title>
+  <title>Documentation | anime.js</title>
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href="assets/img/favicon.png" />
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
@@ -131,9 +131,9 @@ var JSarray = anime({
 <!-- -->
 
 <!-- SETTINGS -->
-<article id="settings" class="color-02">
+<article id="basicSettings" class="color-02">
   <header>
-    <h2 class="demos-title">Settings</h2>
+    <h2 class="demos-title">Basic settings</h2>
   </header>
 
 <div id="defaultSettings" class="demo">
@@ -146,6 +146,18 @@ var JSarray = anime({
   targets: '#defaultSettings .el',
   translateX: 250
 });
+
+/* Default basic settings are :
+
+  duration: 1000,
+  delay: 0,
+  easing: 'easeOutElastic',
+  elasticity: 500,
+  loop: 0,
+  direction: 'normal',
+
+*/
+
 </script>
 </div>
 
@@ -273,7 +285,7 @@ var JSarray = anime({
   </header>
 
 <div id="basicEasings" class="demo">
-  <h3 class="demo-title">Basic easings</h3>
+  <h3 class="demo-title">Basic</h3>
   <div class="demo-content">
     <div class="line">
       <div class="small square shadow"></div>
@@ -554,7 +566,7 @@ penner.add([InQuad, InCubic, InQuart, InQuint, InSine, InExpo, InCirc, InBack, O
 </div>
 
 <div id="customBezier" class="demo">
-  <h3 class="demo-title">Custom Bézier</h3>
+  <h3 class="demo-title">Custom Bézier curves</h3>
   <div class="demo-content">
     <div class="square large shadow"></div>
     <div class="square large el"></div>
