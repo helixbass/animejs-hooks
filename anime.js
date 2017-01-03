@@ -22,9 +22,6 @@
   }
 }(this, () => {
 
-  const version = '2.0.0';
-  const speed = 1.0;
-
   // Defaults
 
   const defaultAnimationSettings = {
@@ -766,20 +763,20 @@
   // Timeline
 
   function timeline(params = {easing: 'linear'}) {
-    let timeline = anime(params);
-    timeline.children = [];
-    timeline.add = (instance) => {
+    let group = anime(params);
+    group.children = [];
+    group.add = (instance) => {
       toArray(instance).forEach(ins => {
-        if (ins.duration > timeline.duration) timeline.duration = ins.duration;
+        if (ins.duration > group.duration) group.duration = ins.duration;
         ins.pause();
-        timeline.children.push(ins);
+        group.children.push(ins);
       });
     }
-    return timeline;
+    return group;
   }
 
-  anime.version = version;
-  anime.speed = speed;
+  anime.version = '2.0.0';
+  anime.speed = 1;
   anime.active = running;
   anime.list = instances;
   anime.remove = removeTargets;
