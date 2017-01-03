@@ -410,9 +410,8 @@
   }
 
   function getPathProgress(path, progress) {
-    function point(offset) {
-      const o = offset || 0;
-      const l = progress + o >= 1 ? progress + o : 0;
+    function point(offset = 0) {
+      const l = progress + offset >= 1 ? progress + offset : 0;
       return path.el.getPointAtLength(l);
     }
     const p = point();
