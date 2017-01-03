@@ -894,30 +894,14 @@ var hsl = anime({
 </script>
 </div>
 
-<div id="specificInitialDemo" class="demo">
-  <h3 class="demo-title">Specific initial value</h3>
-  <div class="demo-content">
-    <div class="square shadow"></div>
-    <div class="square el"></div>
-  </div>
-<script>var specificInitialDemo = anime({
-  targets: '#specificInitialDemo .el',
-  translateX: [100, 250],
-  delay: 500,
-  direction: 'alternate',
-  loop: true
-});
-</script>
-</div>
-
-<div id="operations" class="demo">
-  <h3 class="demo-title">Operator prefixed value</h3>
+<div id="relativeValues" class="demo">
+  <h3 class="demo-title">Relative</h3>
   <div class="demo-content">
     <div class="square shadow"></div>
     <div class="square el" style="transform: translateX(100px)"></div>
   </div>
-<script>var operations = anime({
-  targets: '#operations .el',
+<script>var relativeValues = anime({
+  targets: '#relativeValues .el',
   translateX: {
     value: '+=150',
     duration: 1000
@@ -933,6 +917,22 @@ var hsl = anime({
     easing: 'easeInOutSine'
   },
   direction: 'alternate'
+});
+</script>
+</div>
+
+<div id="specificInitialDemo" class="demo">
+  <h3 class="demo-title">Specific initial value</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el"></div>
+  </div>
+<script>var specificInitialDemo = anime({
+  targets: '#specificInitialDemo .el',
+  translateX: [100, 250],
+  delay: 500,
+  direction: 'alternate',
+  loop: true
 });
 </script>
 </div>
