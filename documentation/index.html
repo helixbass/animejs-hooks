@@ -910,6 +910,33 @@ var hsl = anime({
 </script>
 </div>
 
+<div id="operations" class="demo">
+  <h3 class="demo-title">Operator prefixed value</h3>
+  <div class="demo-content">
+    <div class="square shadow"></div>
+    <div class="square el" style="transform: translateX(100px)"></div>
+  </div>
+<script>var operations = anime({
+  targets: '#operations .el',
+  translateX: {
+    value: '+=150',
+    duration: 1000
+  },
+  width: {
+    value: '-=10',
+    duration: 1800,
+    easing: 'easeInOutSine'
+  },
+  height: {
+    value: '*=4',
+    duration: 1800,
+    easing: 'easeInOutSine'
+  },
+  direction: 'alternate'
+});
+</script>
+</div>
+
 <div id="specificTimingsDemo" class="demo">
   <h3 class="demo-title">Specific timings value</h3>
   <div class="demo-content">

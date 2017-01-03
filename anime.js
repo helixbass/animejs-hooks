@@ -372,6 +372,17 @@
     return target[propName] || 0;
   }
 
+  function checkValueOperator(value) {
+    const matches = /^(\*=|\+=|-=)/.exec(value);
+    if (matches) return matches[0];
+  }
+
+  const operations = {
+    '+': (x, y) => x + y,
+    '-': (x, y) => x - y,
+    '*': (x, y) => x * y
+  }
+
   function validateValue(val, unit) {
     if (is.col(val)) return colorToRgb(val);
     const originalUnit = getUnit(val);
@@ -513,8 +524,10 @@
       const originalValue = getOriginalTargetValue(animatable.target, prop.name);
       const previousValue = previousTween ? previousTween.to.original : originalValue;
       const from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
-      const to = is.arr(tweenValue) ? tweenValue[1] : tweenValue;
+      let to = is.arr(tweenValue) ? tweenValue[1] : tweenValue;
       const unit = getUnit(to) || getUnit(from) || getUnit(originalValue);
+      const operator = checkValueOperator(to);
+      if (operator) to = operations[operator[0]](parseFloat(from), parseFloat(to.replace(operator, '')));
       tween.from = decomposeValue(from, unit);
       tween.to = decomposeValue(to, unit);
       tween.start = previousTween ? previousTween.end + tween.delay : tween.delay;
