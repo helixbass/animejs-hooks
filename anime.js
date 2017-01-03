@@ -375,12 +375,13 @@
   }
 
   function calculateValue(operator, from, to) {
-    const operations = {
-      '+': (x, y) => x + y,
-      '-': (x, y) => x - y,
-      '*': (x, y) => x * y
+    const x = parseFloat(from);
+    const y = parseFloat(to.replace(operator, ''));
+    switch (operator[0]) {
+      case '+': return x + y;
+      case '-': return x - y;
+      case '*': return x * y;
     }
-    return operations[operator[0]](parseFloat(from), parseFloat(to.replace(operator, '')));
   }
 
   function validateValue(val, unit) {
