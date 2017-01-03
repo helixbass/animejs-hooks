@@ -149,9 +149,11 @@
 
   const easings = (() => {
 
-    function elastic(t, f) {
+    // Elastic easing adapted from jQueryUI http://api.jqueryui.com/easings/
+
+    function elastic(t, p) {
       return t === 0 || t === 1 ? t :
-      -Math.pow(2, 8 * (t - 1)) * Math.sin(((t - 1) * (Math.min(Math.max(f, 0), 1000) / 8.25) - 7.5) * Math.PI / 15);
+      -Math.pow(2, 10 * (t - 1)) * Math.sin((((t - 1) - (p / (Math.PI * 2.0) * Math.asin(1))) * (Math.PI * 2)) / p );
     }
 
     const names = ['', 'Quad', 'Cubic', 'Quart', 'Quint', 'Sine', 'Expo', 'Circ', 'Back', 'Elastic'];
@@ -533,6 +535,7 @@
       tween.start = previousTween ? previousTween.end + tween.delay : tween.delay;
       tween.end = tween.start + tween.duration;
       tween.easing = normalizeEasing(tween.easing);
+      tween.elasticity = (1000 - Math.min(Math.max(tween.elasticity, 1), 999)) / 1000;
       if (is.col(tween.from.original)) tween.round = 1;
       previousTween = tween;
       return tween;
