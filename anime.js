@@ -377,10 +377,13 @@
     if (matches) return matches[0];
   }
 
-  const operations = {
-    '+': (x, y) => x + y,
-    '-': (x, y) => x - y,
-    '*': (x, y) => x * y
+  function calculateValue(operator, from, to) {
+    const operations = {
+      '+': (x, y) => x + y,
+      '-': (x, y) => x - y,
+      '*': (x, y) => x * y
+    }
+    return operations[operator[0]](parseFloat(from), parseFloat(to.replace(operator, '')));
   }
 
   function validateValue(val, unit) {
@@ -527,7 +530,7 @@
       let to = is.arr(tweenValue) ? tweenValue[1] : tweenValue;
       const unit = getUnit(to) || getUnit(from) || getUnit(originalValue);
       const operator = checkValueOperator(to);
-      if (operator) to = operations[operator[0]](parseFloat(from), parseFloat(to.replace(operator, '')));
+      if (operator) to = calculateValue(operator, from, to);
       tween.from = decomposeValue(from, unit);
       tween.to = decomposeValue(to, unit);
       tween.start = previousTween ? previousTween.end + tween.delay : tween.delay;
