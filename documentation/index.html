@@ -1381,7 +1381,7 @@ var begin = anime({
 });
 </script>
 <script>
-begin.settings.update = function(anim) {
+begin.update = function(anim) {
   if (!anim.began) {
     beganLogEl.value = 'began : ' + anim.began;
   }
@@ -1409,7 +1409,7 @@ var complete = anime({
 });
 </script>
 <script>
-complete.settings.update = function(anim) {
+complete.update = function(anim) {
   if (!anim.completed) {
     completedLogEl.value = 'completed : ' + anim.completed;
   }
@@ -1451,7 +1451,7 @@ var outsideCallbacks = anime({
   duration: function(el, i) { return 500 + (i * 500); }
 });
 
-outsideCallbacks.settings.update = function(anim) {
+outsideCallbacks.update = function(anim) {
   if (!anim.began) {
     updateLogEl2.value = 'starts in ' + Math.round(anim.delay - anim.currentTime) + 'ms';
     beganLogEl2.value = '';
@@ -1462,8 +1462,8 @@ outsideCallbacks.settings.update = function(anim) {
     completedLogEl2.value = '';
   }
 }
-outsideCallbacks.settings.begin =  function() { beganLogEl2.value = 'began'; };
-outsideCallbacks.settings.complete = function() { completedLogEl2.value = 'completed'; };
+outsideCallbacks.begin =  function() { beganLogEl2.value = 'began'; };
+outsideCallbacks.complete = function() { completedLogEl2.value = 'completed'; };
 
 </script>
 </div>

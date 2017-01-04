@@ -459,25 +459,23 @@
 
   // Properties
 
-  function normalizePropertyTweens(tween, settings, propIndex) {
-    let t = tween;
-    let s = settings;
-    const l = arrayLength(t);
-    if (is.arr(t)) {
+  function normalizePropertyTweens(prop, tweenSettings, propIndex) {
+    const l = arrayLength(prop);
+    if (is.arr(prop)) {
       // // Duration divided by the number of tweens
-      if (!is.fnc(settings.duration) && l > 2 && !propIndex) s.duration = settings.duration / l;
+      if (!is.fnc(tweenSettings.duration) && l > 2 && !propIndex) tweenSettings.duration = tweenSettings.duration / l;
       // Transform [from, to] values shorthand to a valid tween value
-      if ((l === 2 && !is.arr(t[0]) && !is.obj(t[0]))) t = {value: tween};
+      if ((l === 2 && !is.arr(prop[0]) && !is.obj(prop[0]))) prop = {value: prop};
     }
-    return toArray(t).map((v, i) => {
+    return toArray(prop).map((v, i) => {
       // Default default value should be applied only on the first tween
-      const delay = !i ? s.delay : 0;
+      const delay = !i ? tweenSettings.delay : 0;
       // Use path object as a tween value
       let obj = is.obj(v) && !isPath(v) ? v : {value: v};
       // Set default delay value
       obj.delay = obj.delay || delay;
       return obj;
-    }).map(k => mergeObjects(k, s));
+    }).map(k => mergeObjects(k, tweenSettings));
   }
 
   function getProperties(animationSettings, tweenSettings, params) {
@@ -630,7 +628,7 @@
         instance.animatables[id].target.style.transform = transforms[id].join(' ');
       }
     }
-    if (instance.settings.update) instance.settings.update(instance);
+    if (instance.update) instance.update(instance);
     if (instance.children) syncInstanceChildren(instance, currentTime);
   }
 
@@ -640,8 +638,7 @@
     const animatables = getAnimatables(params.targets);
     const properties = getProperties(animationSettings, tweenSettings, params);
     const animations = getAnimations(animatables, properties);
-    return {
-      settings: animationSettings,
+    return mergeObjects(animationSettings, {
       animatables: animatables,
       animations: animations,
       duration: arrayLength(animations) ? Math.max.apply(Math, animations.map((anim) => anim.duration )) : tweenSettings.duration,
@@ -652,7 +649,7 @@
       began: false,
       completed: false,
       iterations: animationSettings.loop
-    }
+    })
   }
 
   // Core
@@ -681,7 +678,6 @@
 
     let startTime, lastTime = 0;
     let instance = createNewInstance(params);
-    let settings = instance.settings;
 
     instance.tick = function(now) {
       if (!startTime) startTime = now;
@@ -690,18 +686,18 @@
       setInstanceProgress(instance, instanceTime);
       if (!instance.began && instanceTime >= instance.delay) {
         instance.began = true;
-        if (settings.begin) settings.begin(instance);
+        if (instance.begin) instance.begin(instance);
       }
       if (instanceTime >= instance.duration) {
         if (instance.iterations && !isNaN(parseFloat(instance.iterations))) instance.iterations--;
         if (instance.iterations) {
           startTime = now;
-          if (settings.direction === 'alternate') toggleInstanceDirection(instance);
+          if (instance.direction === 'alternate') toggleInstanceDirection(instance);
         } else {
           instance.completed = true;
           instance.began = false;
           instance.pause();
-          if (settings.complete) settings.complete(instance);
+          if (instance.complete) instance.complete(instance);
         }
         lastTime = 0;
       }
@@ -723,8 +719,8 @@
       instance.paused = false;
       startTime = 0;
       lastTime = instance.completed ? 0 : adjustInstanceTime(instance, instance.currentTime);
-      if (settings.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
-      if (settings.direction === 'alternate') {
+      if (instance.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
+      if (instance.direction === 'alternate') {
         if (instance.reversed && !instance.iterations % 2) toggleInstanceDirection(instance);
         if (!instance.iterations) instance.iterations = 2;
       }
@@ -737,12 +733,12 @@
       if (instance.reversed) toggleInstanceDirection(instance);
       instance.completed = false;
       instance.began = false;
-      instance.iterations = settings.loop;
+      instance.iterations = instance.loop;
       instance.seek(0);
       instance.play();
     }
 
-    if (settings.autoplay) instance.restart();
+    if (instance.autoplay) instance.restart();
     instances.push(instance);
 
     return instance;
