@@ -651,7 +651,7 @@
       paused: true,
       began: false,
       completed: false,
-      loop: animationSettings.loop
+      iterations: animationSettings.loop
     }
   }
 
@@ -693,8 +693,8 @@
         if (settings.begin) settings.begin(instance);
       }
       if (instanceTime >= instance.duration) {
-        if (instance.loop && !isNaN(parseFloat(instance.loop))) instance.loop--;
-        if (instance.loop) {
+        if (instance.iterations && !isNaN(parseFloat(instance.iterations))) instance.iterations--;
+        if (instance.iterations) {
           startTime = now;
           if (settings.direction === 'alternate') toggleInstanceDirection(instance);
         } else {
@@ -725,8 +725,8 @@
       lastTime = instance.completed ? 0 : adjustInstanceTime(instance, instance.currentTime);
       if (settings.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
       if (settings.direction === 'alternate') {
-        if (instance.reversed && !instance.loop % 2) toggleInstanceDirection(instance);
-        if (!instance.loop) instance.loop = 2;
+        if (instance.reversed && !instance.iterations % 2) toggleInstanceDirection(instance);
+        if (!instance.iterations) instance.iterations = 2;
       }
       running.push(instance);
       if (!raf) engine();
@@ -737,7 +737,7 @@
       if (instance.reversed) toggleInstanceDirection(instance);
       instance.completed = false;
       instance.began = false;
-      instance.loop = settings.loop;
+      instance.iterations = settings.loop;
       instance.seek(0);
       instance.play();
     }
