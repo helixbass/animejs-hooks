@@ -27,16 +27,28 @@
 </body>
 <script>
 
-  var test = anime({
-    targets: '.particule',
-    translateX: '+=400px',
-    duration: 1000,
-    elasticity: function(el, i ) {
-      return 1 + 1000;
-    }
-  });
+  // var test = anime({
+  //   targets: '.particule',
+  //   translateX: '+=400px',
+  //   duration: 1000,
+  //   elasticity: function(el, i ) {
+  //     return 1 + 1000;
+  //   }
+  // });
 
-  console.log(test);
+var myAnimation = anime({
+  targets: '.particule',
+  translateX: 100,
+  autoplay: false
+});
+
+
+function render(time) {
+  myAnimation.tick(time);
+  requestAnimationFrame(render)
+}
+
+render();
 
   </script>
 </html>
