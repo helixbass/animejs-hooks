@@ -24,7 +24,7 @@
 
   // Defaults
 
-  const defaultAnimationSettings = {
+  const defaultInstanceSettings = {
     begin: undefined,
     update: undefined,
     complete: undefined,
@@ -478,9 +478,9 @@
     }).map(k => mergeObjects(k, tweenSettings));
   }
 
-  function getProperties(animationSettings, tweenSettings, params) {
+  function getProperties(instanceSettings, tweenSettings, params) {
     let properties = [];
-    const settings = mergeObjects(animationSettings, tweenSettings);
+    const settings = mergeObjects(instanceSettings, tweenSettings);
     for (let p in params) {
       if (!objectHas(settings, p) && p !== 'targets') {
         properties.push({
@@ -633,12 +633,12 @@
   }
 
   function createNewInstance(params = {}) {
-    const animationSettings = replaceObjectProps(defaultAnimationSettings, params);
+    const instanceSettings = replaceObjectProps(defaultInstanceSettings, params);
     const tweenSettings = replaceObjectProps(defaultTweenSettings, params);
     const animatables = getAnimatables(params.targets);
-    const properties = getProperties(animationSettings, tweenSettings, params);
+    const properties = getProperties(instanceSettings, tweenSettings, params);
     const animations = getAnimations(animatables, properties);
-    return mergeObjects(animationSettings, {
+    return mergeObjects(instanceSettings, {
       animatables: animatables,
       animations: animations,
       duration: arrayLength(animations) ? Math.max.apply(Math, animations.map((anim) => anim.duration )) : tweenSettings.duration,
@@ -648,7 +648,7 @@
       paused: true,
       began: false,
       completed: false,
-      iterations: animationSettings.loop
+      iterations: instanceSettings.loop
     })
   }
 
