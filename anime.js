@@ -149,14 +149,14 @@
 
   const easings = (() => {
 
+    const names = ['', 'Quad', 'Cubic', 'Quart', 'Quint', 'Sine', 'Expo', 'Circ', 'Back', 'Elastic'];
+
     // Elastic easing adapted from jQueryUI http://api.jqueryui.com/easings/
 
     function elastic(t, p) {
       return t === 0 || t === 1 ? t :
       -Math.pow(2, 10 * (t - 1)) * Math.sin((((t - 1) - (p / (Math.PI * 2.0) * Math.asin(1))) * (Math.PI * 2)) / p );
     }
-
-    const names = ['', 'Quad', 'Cubic', 'Quart', 'Quint', 'Sine', 'Expo', 'Circ', 'Back', 'Elastic'];
 
     // Approximated Penner equations http://matthewlein.com/ceaser/
     // © Matthew Lein
@@ -648,8 +648,9 @@
       delay: arrayLength(animations) ? Math.min.apply(Math, animations.map((anim) => anim.delay )) : tweenSettings.delay,
       currentTime: 0,
       progress: 0,
-      completed: false,
+      paused: true,
       began: false,
+      completed: false,
       loop: animationSettings.loop
     }
   }
@@ -714,11 +715,12 @@
     instance.pause = function() {
       const i = running.indexOf(instance);
       if (i > -1) running.splice(i, 1);
+      instance.paused = true;
     }
 
-    instance.play = function(params) {
-      instance.pause();
-      if (params) instance = mergeObjects(createNewInstance(mergeObjects(params, instance.settings)), instance);
+    instance.play = function() {
+      if (!instance.paused) return;
+      instance.paused = false;
       startTime = 0;
       lastTime = instance.completed ? 0 : adjustInstanceTime(instance, instance.currentTime);
       if (settings.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
