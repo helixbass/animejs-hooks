@@ -399,6 +399,12 @@
     return is.obj(val) && objectHas(val, 'totalLength');
   }
 
+  function setDashoffset(el) {
+    const pathLength = el.getTotalLength();
+    el.setAttribute('stroke-dasharray', pathLength);
+    return pathLength;
+  }
+
   function getPath(path, percent) {
     const el = is.str(path) ? selectString(path)[0] : path;
     const p = percent || 100;
@@ -783,6 +789,7 @@
   anime.remove = removeTargets;
   anime.getValue = getOriginalTargetValue;
   anime.path = getPath;
+  anime.pathDashoffset = setDashoffset;
   anime.bezier = bezier;
   anime.easings = easings;
   anime.timeline = timeline;

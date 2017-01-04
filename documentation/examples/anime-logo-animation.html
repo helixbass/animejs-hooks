@@ -170,12 +170,6 @@
   </div>
   <script>
 
-  function setDashoffset(el) {
-    var l = el.getTotalLength();
-      el.setAttribute('stroke-dasharray', l);
-    return l;
-  }
-
   var logoAnimation = anime.timeline({
     loop: false,
     autoplay: true
@@ -212,7 +206,7 @@
   var fillsIn = anime({
     targets: '.fill.in',
     strokeDashoffset: {
-      value: [setDashoffset, 0],
+      value: [anime.pathDashoffset, 0],
       duration: 600,
       delay: function(el, i, t) { return 700 + ( i * 100 ); },
       easing: 'easeOutQuart'
@@ -232,9 +226,9 @@
   var fillsOut = anime({
     targets: '.fill.out',
     strokeDashoffset: [
-      { value: [setDashoffset, setDashoffset], duration: 1890 },
+      { value: [anime.pathDashoffset, anime.pathDashoffset], duration: 1890 },
       {
-        value: [0, setDashoffset],
+        value: [0, anime.pathDashoffset],
         duration: 800,
         delay: function(el, i) { return (i * 80); },
         easing: 'easeInQuart'
@@ -245,7 +239,7 @@
   var linesOut = anime({
     targets: '.line.out',
     strokeDashoffset: {
-      value: [0, setDashoffset],
+      value: [0, anime.pathDashoffset],
       duration: 1200,
       delay: function(el, i, t) { return 2500 + ( i * 100 ); },
       easing: 'easeInQuart'
@@ -268,7 +262,7 @@
   var iconLine = anime({
     targets: '.icon-line',
     strokeDashoffset: [
-      { value: [setDashoffset, setDashoffset], duration: 3000 },
+      { value: [anime.pathDashoffset, anime.pathDashoffset], duration: 3000 },
       { value: 0, duration: 1200, easing: 'easeInOutQuart' }
     ],
     stroke: {
