@@ -187,8 +187,8 @@
     ],
     scale: [
       { value: [0, 1], duration: 200, easing: 'easeOutBack' },
-      { value: 0, duration: 10, delay: 450, easing: 'ease' },
-      { value: 1, duration: 200, delay: 1000, easing: 'ease' },
+      { value: 0, duration: 10, delay: 450, easing: 'easeInQuart' },
+      { value: 1, duration: 200, delay: 1000, easing: 'easeOutQuart' },
       { value: 0, duration: 400, delay: 2000, easing: 'easeInBack' }
     ]
   });
@@ -197,7 +197,7 @@
     targets: '.dot-i',
     translateY: { value: [-200, 0], duration: 500, elasticity: 400 },
     scale: [
-      { value: [0, 1], duration: 100, easing: 'ease' },
+      { value: [0, 1], duration: 100, easing: 'easeOutQuart' },
       { value: 0, duration: 400, delay: 1400, easing: 'easeInBack' }
     ],
     delay: 1200

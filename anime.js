@@ -118,6 +118,7 @@
         for (; currentSample !== lastSample && sampleValues[currentSample] <= aX; ++currentSample) {
           intervalStart += kSampleStepSize;
         }
+
         --currentSample;
 
         const dist = (aX - sampleValues[currentSample]) / (sampleValues[currentSample + 1] - sampleValues[currentSample]);
@@ -149,7 +150,7 @@
 
   const easings = (() => {
 
-    const names = ['', 'Quad', 'Cubic', 'Quart', 'Quint', 'Sine', 'Expo', 'Circ', 'Back', 'Elastic'];
+    const names = ['Quad', 'Cubic', 'Quart', 'Quint', 'Sine', 'Expo', 'Circ', 'Back', 'Elastic'];
 
     // Elastic easing adapted from jQueryUI http://api.jqueryui.com/easings/
 
@@ -650,7 +651,7 @@
       paused: true,
       began: false,
       completed: false,
-      iterations: instanceSettings.loop
+      remaining: instanceSettings.loop
     })
   }
 
@@ -691,8 +692,8 @@
         if (instance.begin) instance.begin(instance);
       }
       if (instanceTime >= instance.duration) {
-        if (instance.iterations && !isNaN(parseFloat(instance.iterations))) instance.iterations--;
-        if (instance.iterations) {
+        if (instance.remaining && !isNaN(parseFloat(instance.remaining))) instance.remaining--;
+        if (instance.remaining) {
           startTime = now;
           if (instance.direction === 'alternate') toggleInstanceDirection(instance);
         } else {
@@ -723,8 +724,8 @@
       lastTime = instance.completed ? 0 : adjustInstanceTime(instance, instance.currentTime);
       if (instance.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
       if (instance.direction === 'alternate') {
-        if (instance.reversed && !instance.iterations % 2) toggleInstanceDirection(instance);
-        if (!instance.iterations) instance.iterations = 2;
+        if (instance.reversed && !instance.remaining % 2) toggleInstanceDirection(instance);
+        if (!instance.remaining) instance.remaining = 2;
       }
       running.push(instance);
       if (!raf) engine();
@@ -735,7 +736,7 @@
       if (instance.reversed) toggleInstanceDirection(instance);
       instance.completed = false;
       instance.began = false;
-      instance.iterations = instance.loop;
+      instance.remaining = instance.loop;
       instance.seek(0);
       instance.play();
     }

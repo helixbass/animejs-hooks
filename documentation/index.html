@@ -284,61 +284,6 @@ var JSarray = anime({
     <h2 class="demos-title">Easings</h2>
   </header>
 
-<div id="basicEasings" class="demo">
-  <h3 class="demo-title">Basic</h3>
-  <div class="demo-content">
-    <div class="line">
-      <div class="small square shadow"></div>
-      <div class="small square linear"></div>
-    </div>
-    <div class="line">
-      <div class="small square shadow"></div>
-      <div class="small square ease"></div>
-    </div>
-    <div class="line">
-      <div class="small square shadow"></div>
-      <div class="small square in"></div>
-    </div>
-    <div class="line">
-      <div class="small square shadow"></div>
-      <div class="small square out"></div>
-    </div>
-    <div class="line">
-      <div class="small square shadow"></div>
-      <div class="small square inOut"></div>
-    </div>
-  </div>
-<script>var linear = anime({
-  targets: '#basicEasings .linear',
-  translateX: 250,
-  easing: 'linear'
-});
-var ease = anime({
-  targets: '#basicEasings .ease',
-  translateX: 250,
-  easing: 'ease'
-});
-var easeIn = anime({
-  targets: '#basicEasings .in',
-  translateX: 250,
-  easing: 'easeIn'
-});
-var easeOut = anime({
-  targets: '#basicEasings .out',
-  translateX: 250,
-  easing: 'easeOut'
-});
-var easeInOut = anime({
-  targets: '#basicEasings .inOut',
-  translateX: 250,
-  easing: 'easeInOut'
-});
-</script>
-<script>var basicEasings = anime.timeline();
-basicEasings.add([linear, ease, easeIn, easeOut, easeInOut]);
-</script>
-</div>
-
 <div id="penner" class="demo">
   <h3 class="demo-title">Penner equations</h3>
   <div class="demo-content">
