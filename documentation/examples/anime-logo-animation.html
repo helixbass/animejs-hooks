@@ -6,6 +6,38 @@
   <link href="../assets/css/styles.css" rel="stylesheet">
   <script src="../../anime.js"></script>
   <style>
+    body {
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .info {
+      opacity: 0;
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 180px;
+      top: 50%;
+      margin-top: 0px;
+    }
+    .info p {
+      font-size: 16px;
+      margin: 20px;
+    }
+    .link {
+      display: inline-block;
+      margin: 5px 10px;
+      padding: 10px 20px;
+      border-radius: 2px;
+      line-height: 20px;
+      text-decoration: none;
+      color: white;
+    }
+    .link.white {
+      border: 1px solid #FFF;
+    }
+    .link.blue {
+      background-color: #5E89FB;
+    }
     .logo-animation {
       display: flex;
       align-items: center;
@@ -64,6 +96,15 @@
     .icon-text path,
     .icon-text polygon {
       opacity: 0;
+    }
+    .player {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+    .player .progress {
+      width: calc(100% - 200px);
     }
   </style>
 </head>
@@ -134,7 +175,7 @@
         <svg viewBox="0 0 62 62">
           <g fill="none" fill-rule="evenodd" stroke-width="2" transform="translate(1 1)">
             <path stroke="#FF1554" d="M0 16a80.88 80.88 0 0 1 44 44"/>
-            <path class="icon-line" stroke="#5E89FB" d="M0 2C0 .9.9 0 2 0h56a2 2 0 0 1 2 2v56a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
+            <path class="icon-line" stroke="#5E89FB" d="M4 0h54a2 2 0 0 1 2 2.01V58A2 2 0 0 1 58 60H2a2 2 0 0 1-2-2.01V2A2 2 0 0 1 2 0h2z"/>
             <rect width="40" height="40" x="10" y="10" stroke="#18F38C" rx="20"/>
           </g>
         </svg>
@@ -153,44 +194,60 @@
       <div class="dot dot-i">
         <svg viewBox="0 0 42 42">
           <g fill="none" fill-rule="evenodd">
-            <circle class="fill" cx="21" cy="21" r="20" fill="#17F28C"/>
-            <circle class="line" cx="21" cy="21" r="20" stroke="#17F28C" stroke-width="2"/>
+            <rect width="40" height="40" x="1" y="1" fill="#17F28C" rx="20"/>
           </g>
         </svg>
       </div>
       <div class="dot dot-e">
         <svg viewBox="0 0 42 42">
           <g fill="none" fill-rule="evenodd">
-            <circle class="fill" cx="21" cy="21" r="20" fill="#FFFFFF"/>
-            <circle class="line" cx="21" cy="21" r="20" stroke="#FFFFFF" stroke-width="2"/>
+            <rect width="40" height="40" x="1" y="1" fill="#FFFFFF" rx="20"/>
           </g>
         </svg>
       </div>
     </div>
   </div>
+  <div class="info" style="transform: translateY(130px)">
+    <p class="tagline">~10 kB JavasScript animation library</p>
+    <a class="link white" href="#">Examples on<br>CodePen</a>
+    <a class="link blue" href="#">Examples on<br>GitHub</a>
+    <p class="tagline">2016 - 2017 © Julian Garnier</p>
+  </div>
+  <div class="player">
+    <button class="play">PLAY</button>
+    <button class="pause">PAUSE</button>
+    <button class="restart">RESTART</button>
+    <input class="progress" type="range" value="0" min="0" max="100" step=".001">
+  </div>
   <script>
-
-  var logoAnimation = anime.timeline({
-    loop: false,
-    autoplay: true
-  });
-
-  document.body.onclick = function() {
-    logoAnimation.play();
-  }
 
   var dotE = anime({
     targets: '.dot-e',
     translateX: [
-      { value: -580, duration: 500, delay: 200, easing: 'easeInQuart' },
+      { value: -600, duration: 520, delay: 200, easing: 'easeInQuart' },
       { value: [-100, 0], duration: 500, delay: 1000, easing: 'easeOutQuart' }
     ],
     scale: [
       { value: [0, 1], duration: 200, easing: 'easeOutBack' },
-      { value: 0, duration: 10, delay: 450, easing: 'easeInQuart' },
+      { value: 0, duration: 20, delay: 500, easing: 'easeInQuart' },
       { value: 1, duration: 200, delay: 1000, easing: 'easeOutQuart' },
-      { value: 0, duration: 400, delay: 2000, easing: 'easeInBack' }
+      { value: 0, duration: 400, delay: 500, easing: 'easeInBack' }
     ]
+  });
+
+  var dotEMorph = anime({
+    // targets: '.dot-e rect',
+    // rx: [{
+    //   value: 0,
+    //   duration: 400,
+    //   delay: 500,
+    //   easing: 'easeOutQuad'
+    // }, {
+    //   value: 20,
+    //   duration: 400,
+    //   delay: 800,
+    //   easing: 'easeOutQuad'
+    // }]
   });
 
   var dotI = anime({
@@ -213,7 +270,8 @@
     },
     stroke: {
       value: ['#FFF', function(el) { return anime.getValue(el.parentNode, 'stroke') } ],
-      duration: 1200,
+      duration: 500,
+      delay: 500,
       easing: 'easeInQuad'
     },
     opacity: {
@@ -265,6 +323,12 @@
       { value: [anime.pathDashoffset, anime.pathDashoffset], duration: 3000 },
       { value: 0, duration: 1200, easing: 'easeInOutQuart' }
     ],
+    strokeWidth: {
+      value: [8, 2],
+      delay: 3000,
+      duration: 800,
+      easing: 'easeInQuad'
+    },
     stroke: {
       value: ['#FFF', function(el) { return anime.getValue(el, 'stroke') } ],
       duration: 800,
@@ -280,9 +344,38 @@
     delay: function(el, i, t) { return 4200 + ( i * 20 ); },
   });
 
-  logoAnimation.add([dotE, dotI, fillsIn, fillsOut, linesOut, icon, iconLine, iconText]);
+  // var infoBlock = anime({
+  //   targets: ['.icon', '.icon-text', '.info'],
+  //   translateY: '-=60px',
+  //   opacity: 1,
+  //   easing: 'easeOutQuad',
+  //   delay: 3000
+  // });
+
+  var singlePlayButton = document.querySelector('.play');
+  var singlePauseButton = document.querySelector('.pause');
+  var singleRestartButton = document.querySelector('.restart');
+  var singleProgressEl = document.querySelector('.progress');
+
+  var logoAnimation = anime.timeline({
+    loop: false,
+    autoplay: true,
+    update: function(anim) {
+      singleProgressEl.value = anim.progress;
+    }
+  });
 
   anime.speed = 1;
+
+  logoAnimation.add([dotE, dotEMorph, dotI, fillsIn, fillsOut, linesOut, icon, iconLine, iconText]);
+
+  singlePlayButton.addEventListener('click', function() { logoAnimation.play(); });
+  singlePauseButton.addEventListener('click', function() { logoAnimation.pause(); });
+  singleRestartButton.addEventListener('click', function() { logoAnimation.restart(); });
+  singleProgressEl.addEventListener('input', function() {
+    logoAnimation.seek(logoAnimation.duration * (singleProgressEl.value / 100));
+  });
+
 
   </script>
 </body>
