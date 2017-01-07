@@ -11,21 +11,33 @@
       text-align: center;
     }
     .info {
-      opacity: 0;
       position: absolute;
       z-index: 1;
       width: 100%;
       height: 180px;
       top: 50%;
-      margin-top: 0px;
+      margin-top: 20px;
     }
     .info p {
+      opacity: 0;
       font-size: 16px;
-      margin: 20px;
+      margin: 0 20px 30px 20px;
+    }
+    .credits {
+      color: rgba(255,255,255,.6);
+    }
+    .credits a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .credits a:hover {
+      text-decoration: underline;
+      color: rgba(255,255,255,1);
     }
     .link {
+      opacity: 0;
       display: inline-block;
-      margin: 5px 10px;
+      margin: 0 10px 30px 10px;
       padding: 10px 20px;
       border-radius: 2px;
       line-height: 20px;
@@ -33,7 +45,7 @@
       color: white;
     }
     .link.white {
-      border: 1px solid #FFF;
+      border: 1px solid rgba(255,255,255,1);
     }
     .link.blue {
       background-color: #5E89FB;
@@ -44,6 +56,7 @@
       justify-content: center;
       width: 100%;
       height: 100%;
+      margin-top: -40px;
     }
     .letters {
       position: relative;
@@ -78,18 +91,23 @@
       bottom: 0;
       right: 0;
     }
-    .icon {
+    .logo-icon {
+      display: flex;
       position: absolute;
       left: 230px;
       top: -10px;
+      width: 222px;
+      height: 62px;
+    }
+    .icon {
       width: 62px;
       height: 62px;
       opacity: 0;
     }
     .icon-text {
       position: absolute;
-      left: 290px;
-      top: 50px;
+      top: 60px;
+      left: 60px;
       width: 160px;
       height: 62px;
     }
@@ -98,6 +116,7 @@
       opacity: 0;
     }
     .player {
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
@@ -171,25 +190,27 @@
           </g>
         </svg>
       </div>
-      <div class="icon">
-        <svg viewBox="0 0 62 62">
-          <g fill="none" fill-rule="evenodd" stroke-width="2" transform="translate(1 1)">
-            <path stroke="#FF1554" d="M0 16a80.88 80.88 0 0 1 44 44"/>
-            <path class="icon-line" stroke="#5E89FB" d="M4 0h54a2 2 0 0 1 2 2.01V58A2 2 0 0 1 58 60H2a2 2 0 0 1-2-2.01V2A2 2 0 0 1 2 0h2z"/>
-            <rect width="40" height="40" x="10" y="10" stroke="#18F38C" rx="20"/>
-          </g>
-        </svg>
-      </div>
-      <div class="icon-text">
-        <svg viewBox="0 0 160 62">
-          <g fill="#FBF3FB" fill-rule="evenodd">
-            <path d="M27.33 18h1.73l10.15 25.7h-1.69l-3.24-8.24H21.97l-3.28 8.24H17L27.33 18zm6.45 16.1l-5.51-14.55h-.07l-5.73 14.54h11.3z"/>
-            <polygon points="51.334 18 53.314 18 69.55 41.58 69.622 41.58 69.622 18 71.206 18 71.206 43.704 69.334 43.704 52.99 19.944 52.918 19.944 52.918 43.704 51.334 43.704"/>
-            <polygon points="86.027 18 87.611 18 87.611 43.704 86.027 43.704"/>
-            <polygon points="102.433 18 104.701 18 114.745 41.94 114.817 41.94 124.753 18 127.021 18 127.021 43.704 125.437 43.704 125.437 19.944 125.365 19.944 115.573 43.704 113.989 43.704 104.089 19.944 104.017 19.944 104.017 43.704 102.433 43.704"/>
-            <polygon points="141.843 18 159.123 18 159.123 19.368 143.427 19.368 143.427 29.664 158.187 29.664 158.187 31.032 143.427 31.032 143.427 42.336 159.303 42.336 159.303 43.704 141.843 43.704"/>
-          </g>
-        </svg>
+      <div class="logo-icon">
+        <div class="icon">
+          <svg viewBox="0 0 62 62">
+            <g fill="none" fill-rule="evenodd" stroke-width="2" transform="translate(1 1)">
+              <path stroke="#FF1554" d="M0 16a80.88 80.88 0 0 1 44 44"/>
+              <path class="icon-line" stroke="#5E89FB" d="M4 0h54a2 2 0 0 1 2 2.01V58A2 2 0 0 1 58 60H2a2 2 0 0 1-2-2.01V2A2 2 0 0 1 2 0h2z"/>
+              <rect width="40" height="40" x="10" y="10" stroke="#18F38C" rx="20"/>
+            </g>
+          </svg>
+        </div>
+        <div class="icon-text">
+          <svg viewBox="0 0 160 62">
+            <g fill="#FBF3FB" fill-rule="evenodd">
+              <path d="M27.33 18h1.73l10.15 25.7h-1.69l-3.24-8.24H21.97l-3.28 8.24H17L27.33 18zm6.45 16.1l-5.51-14.55h-.07l-5.73 14.54h11.3z"/>
+              <polygon points="51.334 18 53.314 18 69.55 41.58 69.622 41.58 69.622 18 71.206 18 71.206 43.704 69.334 43.704 52.99 19.944 52.918 19.944 52.918 43.704 51.334 43.704"/>
+              <polygon points="86.027 18 87.611 18 87.611 43.704 86.027 43.704"/>
+              <polygon points="102.433 18 104.701 18 114.745 41.94 114.817 41.94 124.753 18 127.021 18 127.021 43.704 125.437 43.704 125.437 19.944 125.365 19.944 115.573 43.704 113.989 43.704 104.089 19.944 104.017 19.944 104.017 43.704 102.433 43.704"/>
+              <polygon points="141.843 18 159.123 18 159.123 19.368 143.427 19.368 143.427 29.664 158.187 29.664 158.187 31.032 143.427 31.032 143.427 42.336 159.303 42.336 159.303 43.704 141.843 43.704"/>
+            </g>
+          </svg>
+        </div>
       </div>
       <div class="dot dot-i">
         <svg viewBox="0 0 42 42">
@@ -207,11 +228,11 @@
       </div>
     </div>
   </div>
-  <div class="info" style="transform: translateY(130px)">
+  <div class="info">
     <p class="tagline">~10 kB JavasScript animation library</p>
     <a class="link white" href="#">Examples on<br>CodePen</a>
     <a class="link blue" href="#">Examples on<br>GitHub</a>
-    <p class="tagline">2016 - 2017 © Julian Garnier</p>
+    <p class="credits"><span class="date"></span> © <a href="juliangarnier.com">Julian Garnier</a></p>
   </div>
   <div class="player">
     <button class="play">PLAY</button>
@@ -220,6 +241,9 @@
     <input class="progress" type="range" value="0" min="0" max="100" step=".001">
   </div>
   <script>
+
+  var dateEl = document.querySelector('.date');
+  dateEl.innerHTML = ('2016 - ' + (new Date()).getFullYear());
 
   var dotE = anime({
     targets: '.dot-e',
@@ -233,21 +257,6 @@
       { value: 1, duration: 200, delay: 1000, easing: 'easeOutQuart' },
       { value: 0, duration: 400, delay: 500, easing: 'easeInBack' }
     ]
-  });
-
-  var dotEMorph = anime({
-    // targets: '.dot-e rect',
-    // rx: [{
-    //   value: 0,
-    //   duration: 400,
-    //   delay: 500,
-    //   easing: 'easeOutQuad'
-    // }, {
-    //   value: 20,
-    //   duration: 400,
-    //   delay: 800,
-    //   easing: 'easeOutQuad'
-    // }]
   });
 
   var dotI = anime({
@@ -341,16 +350,17 @@
     targets: ['.icon-text path', '.icon-text polygon'],
     translateY: [50, 0],
     opacity: { value: [0, 1], duration: 100, easing: 'linear' },
-    delay: function(el, i, t) { return 4200 + ( i * 20 ); },
+    delay: function(el, i, t) { return 4200 + ( i * 20 ); }
   });
 
-  // var infoBlock = anime({
-  //   targets: ['.icon', '.icon-text', '.info'],
-  //   translateY: '-=60px',
-  //   opacity: 1,
-  //   easing: 'easeOutQuad',
-  //   delay: 3000
-  // });
+  var infoBlock = anime({
+    targets: ['.logo-icon', '.tagline', '.white', '.blue', '.credits'],
+    translateY: '-40px',
+    opacity: 1,
+    easing: 'easeOutExpo',
+    duration: 2200,
+    delay: function(el, i, t) { return 5000 + ( (t - i) * 100 ); }
+  });
 
   var singlePlayButton = document.querySelector('.play');
   var singlePauseButton = document.querySelector('.pause');
@@ -367,7 +377,7 @@
 
   anime.speed = 1;
 
-  logoAnimation.add([dotE, dotEMorph, dotI, fillsIn, fillsOut, linesOut, icon, iconLine, iconText]);
+  logoAnimation.add([dotE, dotI, fillsIn, fillsOut, linesOut, icon, iconLine, iconText, infoBlock]);
 
   singlePlayButton.addEventListener('click', function() { logoAnimation.play(); });
   singlePauseButton.addEventListener('click', function() { logoAnimation.pause(); });

@@ -813,7 +813,7 @@ var objectPropDemo = anime({
   targets: '#colors .hex',
   translateX: 250,
   backgroundColor: '#D1FA9E',
-  easing: 'ease',
+  easing: 'linear',
   duration: 2000
 });
 
@@ -821,7 +821,7 @@ var rgb = anime({
   targets: '#colors .rgb',
   translateX: 250,
   backgroundColor: 'rgb(138, 251, 177)',
-  easing: 'ease',
+  easing: 'linear',
   duration: 2000
 });
 
@@ -829,7 +829,7 @@ var hsl = anime({
   targets: '#colors .hsl',
   translateX: 250,
   backgroundColor: 'hsl(171, 68%, 69%)',
-  easing: 'ease',
+  easing: 'linear',
   duration: 2000
 });
 </script>
@@ -1471,5 +1471,8 @@ var motionPath = anime({
   <script src="assets/js/highlight.pack.js"></script>
   <script src="assets/js/beautify-html.js"></script>
   <script src="assets/js/scripts.js"></script>
+  <script>
+    console.log(anime.active);
+  </script>
 </body>
 </html>
