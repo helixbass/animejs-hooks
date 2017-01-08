@@ -42,6 +42,7 @@
   }
 
   const validTransforms = ['translateX', 'translateY', 'translateZ', 'rotate', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scaleX', 'scaleY', 'scaleZ', 'skewX', 'skewY'];
+  let transformString;
 
   // Utils
 
@@ -633,6 +634,10 @@
     }
     if (transforms) {
       let id; for (id in transforms) {
+        if (!transformString) {
+          const t = 'transform';
+          transformString = (getCSSValue(document.body, t) ? t : `-webkit-${t}`);
+        }
         instance.animatables[id].target.style.transform = transforms[id].join(' ');
       }
     }
