@@ -462,13 +462,18 @@
 
   // Properties
 
-  function normalizePropertyTweens(prop, tweenSettings, propIndex) {
-    const l = arrayLength(prop);
+  function normalizePropertyTweens(prop, tweenSettings) {
+    let settings = cloneObject(tweenSettings);
     if (is.arr(prop)) {
-      // // Duration divided by the number of tweens
-      if (!is.fnc(tweenSettings.duration) && l > 2 && !propIndex) tweenSettings.duration = tweenSettings.duration / l;
-      // Transform [from, to] values shorthand to a valid tween value
-      if ((l === 2 && !is.arr(prop[0]) && !is.obj(prop[0]))) prop = {value: prop};
+      const l = arrayLength(prop);
+      const isFromTo = (l === 2 && !is.obj(prop[0]));
+      if (!isFromTo) {
+        // Duration divided by the number of tweens
+        if (!is.fnc(tweenSettings.duration)) settings.duration = tweenSettings.duration / l;
+      } else {
+        // Transform [from, to] values shorthand to a valid tween value
+        prop = {value: prop};
+      }
     }
     return toArray(prop).map((v, i) => {
       // Default default value should be applied only on the first tween
@@ -478,7 +483,7 @@
       // Set default delay value
       obj.delay = obj.delay || delay;
       return obj;
-    }).map(k => mergeObjects(k, tweenSettings));
+    }).map(k => mergeObjects(k, settings));
   }
 
   function getProperties(instanceSettings, tweenSettings, params) {
@@ -488,7 +493,7 @@
       if (!objectHas(settings, p) && p !== 'targets') {
         properties.push({
           name: p,
-          tweens: normalizePropertyTweens(params[p], tweenSettings, arrayLength(properties))
+          tweens: normalizePropertyTweens(params[p], tweenSettings)
         });
       }
     }
@@ -657,15 +662,14 @@
 
   // Core
 
-  let instances = [];
-  let running = [];
+  let activeInstances = [];
   let raf = 0;
 
   const engine = (() => {
     function play() { raf = requestAnimationFrame(step); };
     function step(t) {
-      if (arrayLength(running)) {
-        for (let i = 0; i < arrayLength(running); i++) running[i].tick(t);
+      if (arrayLength(activeInstances)) {
+        for (let i = 0; i < arrayLength(activeInstances); i++) activeInstances[i].tick(t);
         play();
       } else {
         cancelAnimationFrame(raf);
@@ -712,8 +716,8 @@
     }
 
     instance.pause = function() {
-      const i = running.indexOf(instance);
-      if (i > -1) running.splice(i, 1);
+      const i = activeInstances.indexOf(instance);
+      if (i > -1) activeInstances.splice(i, 1);
       instance.paused = true;
     }
 
@@ -727,7 +731,7 @@
         if (instance.reversed && !instance.remaining % 2) toggleInstanceDirection(instance);
         if (!instance.remaining) instance.remaining = 2;
       }
-      running.push(instance);
+      activeInstances.push(instance);
       if (!raf) engine();
     }
 
@@ -742,7 +746,6 @@
     }
 
     if (instance.autoplay) instance.restart();
-    instances.push(instance);
 
     return instance;
 
@@ -752,8 +755,8 @@
 
   function removeTargets(targets) {
     const targetsArray = parseTargets(targets);
-    for (let i = arrayLength(running)-1; i >= 0; i--) {
-      const instance = running[i];
+    for (let i = arrayLength(activeInstances)-1; i >= 0; i--) {
+      const instance = activeInstances[i];
       const animations = instance.animations;
       for (let a = arrayLength(animations)-1; a >= 0; a--) {
         if (arrayContains(targetsArray, animations[a].animatable.target)) {
@@ -781,12 +784,11 @@
 
   anime.version = '2.0.0';
   anime.speed = 1;
-  anime.active = running;
-  anime.list = instances;
+  anime.active = activeInstances;
   anime.remove = removeTargets;
   anime.getValue = getOriginalTargetValue;
   anime.path = getPath;
-  anime.pathDashoffset = setDashoffset;
+  anime.setDashoffset = setDashoffset;
   anime.bezier = bezier;
   anime.easings = easings;
   anime.timeline = timeline;
