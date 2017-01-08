@@ -784,7 +784,7 @@
 
   anime.version = '2.0.0';
   anime.speed = 1;
-  anime.active = activeInstances;
+  anime.running = activeInstances;
   anime.remove = removeTargets;
   anime.getValue = getOriginalTargetValue;
   anime.path = getPath;
