@@ -157,6 +157,8 @@ anime({
 
 ### SVG Attributes
 
+<img src="http://anime-js.com/v2/documentation/assets/img/documentation/doc-prop-svg.gif" width="332" />
+
 Any SVG Attribute containing a numerical values can be animated :
 
 ```html
