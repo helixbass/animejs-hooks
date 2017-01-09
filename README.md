@@ -186,6 +186,8 @@ anime({
 
 ## Property parameters
 
+<img src="http://anime-js.com/v2/documentation/assets/img/documentation/prop-parameters.gif" width="332" />
+
 Control duration, delay and easing for each property animations.
 Can be set to globally, or independently to each properties :
 
@@ -216,6 +218,8 @@ anime({
 ➜ [Property parameters code examples](http://anime-js.com/v2/documentation/#duration)
 
 ## Function based property parameters
+
+<img src="http://anime-js.com/v2/documentation/assets/img/documentation/fb-parameters.gif" width="332" />
 
 Every property parameters can be a function with 3 arguments : `function(target, index, targetsLength)`.
 Useful to set different animation values to specific targets :
