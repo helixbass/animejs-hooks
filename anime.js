@@ -638,7 +638,7 @@
           const t = 'transform';
           transformString = (getCSSValue(document.body, t) ? t : `-webkit-${t}`);
         }
-        instance.animatables[id].target.style.transform = transforms[id].join(' ');
+        instance.animatables[id].target.style[transformString] = transforms[id].join(' ');
       }
     }
     if (instance.update) instance.update(instance);
