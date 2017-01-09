@@ -91,6 +91,8 @@ The `targets` property defines the elements or JS Objects to animate.
 
 ### CSS
 
+<img src="http://anime-js.com/v2/documentation/assets/img/documentation/prop-css.gif" width="332" />
+
 Animate any CSS properties:
 
 ```javascript
@@ -106,6 +108,8 @@ anime({
 
 ### Transforms
 
+<img src="http://anime-js.com/v2/documentation/assets/img/documentation/prop-transforms.gif" width="332" />
+
 CSS transforms can be animated individually :
 
 ```javascript
@@ -119,7 +123,9 @@ anime({
 
 ➜ [CSS Transforms code example](http://anime-js.com/v2/documentation/#transformsDemo)
 
-### Object properties
+### JavaScript Object properties
+
+<img src="http://anime-js.com/v2/documentation/assets/img/documentation/prop-js-obj.gif" width="332" />
 
 Any Object property containing a numerical values can be animated :
 
@@ -140,6 +146,8 @@ anime({
 
 ### DOM Attributes
 
+<img src="http://anime-js.com/v2/documentation/assets/img/documentation/prop-dom-attr.gif" width="332" />
+
 Any DOM Attribute containing a numerical values can be animated :
 
 ```html
@@ -157,7 +165,7 @@ anime({
 
 ### SVG Attributes
 
-<img src="http://anime-js.com/v2/documentation/assets/img/documentation/doc-prop-svg.gif" width="332" />
+<img src="http://anime-js.com/v2/documentation/assets/img/documentation/prop-svg-attr.gif" width="332" />
 
 Any SVG Attribute containing a numerical values can be animated :
 
