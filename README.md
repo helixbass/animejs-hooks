@@ -96,6 +96,7 @@ Animate any CSS properties:
 ```javascript
 anime({
   targets: 'div',
+  left: '90%', // Animate all divs left position to 90%
   opacity: .5, // Animate all divs opacity to .5
   backgroundColor: '#FFF' // Animate all divs background color to #FFF
 });
@@ -110,7 +111,8 @@ CSS transforms can be animated individually :
 ```javascript
 anime({
   targets: 'div',
-  translateX: 100, // Animate all divs translateX transform property to 100px
+  translateX: 250, // Animate all divs translateX transform property to 250px
+  scale: 1.5, // Animate all divs scale transform property to 1.5
   rotate: '1turn' // Animate all divs rotate transform property to 1 turn
 });
 ```
@@ -123,14 +125,14 @@ Any Object property containing a numerical values can be animated :
 
 ```javascript
 var myObject = {
-  myValue: 0,
-  charged: '0%'
+  prop1: 0,
+  prop2: '0%'
 }
 
 anime({
   targets: myObject,
-  myValue: 1000, // Animate the 'myValue' property from myObject to 1000
-  charged: '100%' // Animate the 'charged' property from myObject to 100%
+  prop1: 50, // Animate the 'prop1' property from myObject to 50
+  prop2: '100%' // Animate the 'prop2' property from myObject to 100%
 });
 ```
 
