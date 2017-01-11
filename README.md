@@ -73,8 +73,8 @@ The `targets` property defines the elements or JS `Object`s to animate.
 | CSS Selectors | `'div'`, `'.item'`, `'path'`
 | DOM Element | `document.querySelector('.item')`
 | NodeList | `document.querySelectorAll('.item')`
-| JavaScript `Object` | `{prop1: 100, prop2: 200}`
-| JavaScript `Array` | `['div', '.item', domNode]`
+| `Object` | `{prop1: 100, prop2: 200}`
+| `Array` | `['div', '.item', domNode]`
 
 ➜ [Targets examples](http://anime-js.com/v2/documentation/#cssSelector)
 
@@ -124,11 +124,11 @@ anime({
 
 ➜ [CSS Transforms example](http://anime-js.com/v2/documentation/#CSStransforms)
 
-### JavaScript `Object` properties
+### JavaScript Object properties
 
 <img src="http://anime-js.com/v2/documentation/assets/img/documentation/prop-js-obj.gif" width="332" />
 
-Any JavaScript `Object` property containing a numerical value can be animated:
+Any `Object` property containing a numerical value can be animated:
 
 ```javascript
 var myObject = {
@@ -687,7 +687,7 @@ The `easing` parameter can accept either a string or a custom Bézier curve coor
 | Types | Examples | Infos
 | --- | --- | ---
 | String | `'easeOutExpo'` | Built in function names
-| JavaScript `Array` | [.91,-0.54,.29,1.56] | Custom Bézier curve coordinates ([x1, y1, x2, y2])
+| `Array` | [.91,-0.54,.29,1.56] | Custom Bézier curve coordinates ([x1, y1, x2, y2])
 
 ### Built in functions
 
