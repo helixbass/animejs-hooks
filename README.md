@@ -6,13 +6,13 @@
 
 ### Main features
 
-* [Keyframes](#keyframes) Chain multiple animation properties.
-* [Timeline](#timeline) Synchronize multiple instances together.
-* [Playback controls](#playback-controls) Play, pause, restart, seek animations or timelines.
-* [CSS transforms](#individual-CSS-transforms) Animate CSS transforms individually.
-* [Function based values](#function-based-values) Multiple animated targets can have individual value.
-* [SVG Animations](#svg) Motion path, line drawing and morphing animations.
-* [Bézier curve easing](#easing-functions) Use the built in functions or create your own Bézier curve easing.
+* [Keyframes](#keyframes): Chain multiple animation properties.
+* [Timeline](#timeline): Synchronize multiple instances together.
+* [Playback controls](#playback-controls): Play, pause, restart, seek animations or timelines.
+* [CSS transforms](#individual-CSS-transforms): Animate CSS transforms individually.
+* [Function based values](#function-based-values): Multiple animated targets can have individual value.
+* [SVG Animations](#svg): Motion path, line drawing and morphing animations.
+* [Bézier curve easing](#easing-functions): Use the built in functions or create your own Bézier curve easing.
 
 ### Demos and examples
 
@@ -190,7 +190,7 @@ anime({
 
 <img src="http://anime-js.com/v2/documentation/assets/img/documentation/prop-parameters.gif" width="332" />
 
-Defines duration, delay and easing for each property animations.
+Defines duration, delay and easing for each property animations.<br>
 Can be set globally, or individually to each properties:
 
 | Names | Defaults | Types | Info
@@ -283,7 +283,7 @@ anime({
 
 ### Single value
 
-Defines the end value of the animation.
+Defines the end value of the animation.<br>
 Start value is the original target value, or default transforms value.
 
 | Types | Examples | Infos
@@ -329,8 +329,8 @@ anime({
 
 <img src="http://anime-js.com/v2/documentation/assets/img/documentation/value-fb.gif" width="332" />
 
-Same as [function based property parameters](#function-based-property-parameters).
-Get different values for every target of the animation.
+Same as [function based property parameters](#function-based-property-parameters).<br>
+Get different values for every target of the animation.<br>
 The function accepts 3 arguments: `target`, `index`, `targetsLength`.
 
 ```javascript
@@ -360,7 +360,7 @@ anime({
 
 <img src="http://anime-js.com/v2/documentation/assets/img/documentation/keyframes-basic.gif" width="332" />
 
-Keyframes are defined using an `Array` of property `Object`
+Keyframes are defined using an `Array` of property `Object`.<br>
 Animation of multiple values played in a sequence:
 
 ```javascript
@@ -562,7 +562,7 @@ Execute a function at the beginning, during or when an animation or timeline is 
 
 <img src="http://anime-js.com/v2/documentation/assets/img/documentation/callbacks-update.gif" width="332" />
 
-Get current animation time with `myAnimation.currentTime`, return value in ms.
+Get current animation time with `myAnimation.currentTime`, return value in ms.<br>
 Get current animation progress with `myAnimation.progress`, return value in %.
 
 ```javascript
@@ -814,7 +814,7 @@ anime.getValue('div', 'translateX'); // Return '100px'
 
 ### anime.path(pathEl)
 
-Create a path Function for motion path animation.
+Create a path Function for motion path animation.<br>
 Accepts either a DOM node or CSS selector.
 
 ```javascript
@@ -825,7 +825,7 @@ var path = anime.path('svg path', 'translateX'); // Return path(attribute)
 
 ### anime.setDashoffset(pathEl)
 
-An helper for line drawing animation.
+An helper for line drawing animation.<br>
 Sets the 'stroke-dasharray' to the total path length and return its value.
 
 ```javascript
@@ -876,4 +876,4 @@ anime.random(10, 40); // Will return a random number between 10 and 40
 
 [MIT License](LICENSE.md). © 2017 [Julian Garnier](http://juliangarnier.com).
 
-Big thanks to [Animate Plus](https://github.com/bendc/animateplus) and [Velocity](https://github.com/julianshapiro/velocity) that inspired `anime.js` API, [BezierEasing](https://github.com/gre/bezier-easing) and [jQuery UI](https://jqueryui.com/) for the easing system.
+Thanks to [Animate Plus](https://github.com/bendc/animateplus) and [Velocity](https://github.com/julianshapiro/velocity) that inspired `anime.js` API, [BezierEasing](https://github.com/gre/bezier-easing) and [jQuery UI](https://jqueryui.com/) for the easing system.
