@@ -229,6 +229,7 @@ anime({
 <img src="http://anime-js.com/v2/documentation/assets/img/documentation/fb-parameters.gif" width="332" />
 
 Get different property parameters for every target of the animation.
+
 The function accepts 3 arguments: `target`, `index`, `targetsLength`.
 
 ```javascript
