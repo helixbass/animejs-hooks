@@ -330,6 +330,10 @@
 
   // Values
 
+  function parseFloatValue(val) {
+    return parseFloat(val);
+  }
+
   function getCSSValue(el, prop) {
     if (prop in el.style) {
       return getComputedStyle(el).getPropertyValue(stringToHyphens(prop)) || '0';
@@ -375,8 +379,8 @@
   }
 
   function calculateValue(operator, from, to) {
-    const x = parseFloat(from);
-    const y = parseFloat(to.replace(operator, ''));
+    const x = parseFloatValue(from);
+    const y = parseFloatValue(to.replace(operator, ''));
     switch (operator[0]) {
       case '+': return x + y;
       case '-': return x - y;
@@ -518,6 +522,8 @@
       }
       t[p] = value;
     }
+    t.duration = parseFloatValue(t.duration);
+    t.delay = parseFloatValue(t.delay);
     return t;
   }
 
