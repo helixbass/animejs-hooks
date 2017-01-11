@@ -68,7 +68,7 @@ anime({
 
 The `targets` property defines the elements or JS `Object`s to animate.
 
-| Type | Examples
+| Types | Examples
 | --- | ---
 | CSS Selectors | `'div'`, `'.item'`, `'path'`
 | DOM Element | `document.querySelector('.item')`
@@ -80,7 +80,7 @@ The `targets` property defines the elements or JS `Object`s to animate.
 
 ## Animatable properties
 
-| Type | Examples
+| Types | Examples
 | --- | ---
 | CSS | `opacity`, `backgroundColor`, `fontSize` ...
 | Transforms | `translateX`, `rotate`, `scale` ...
