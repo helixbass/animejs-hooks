@@ -116,9 +116,9 @@ CSS transforms can be animated individually:
 ```javascript
 anime({
   targets: 'div',
-  translateX: 250, // Animate all divs translateX transform property to 250px
-  scale: 2, // Animate all divs scale transform property to 1.5
-  rotate: '1turn' // Animate all divs rotate transform property to 1 turn
+  translateX: 250, // Animate all divs translateX property to 250px
+  scale: 2, // Animate all divs scale to 1.5
+  rotate: '1turn' // Animate all divs rotation to 1 turn
 });
 ```
 
