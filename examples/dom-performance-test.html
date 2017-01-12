@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>anime.js</title>
+  <title>DOM Performances test | anime.js</title>
   <meta charset="utf-8">
-  <link rel="icon" type="image/png" href="img/favicon.png" />
-  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
-  <link href="css/styles.css" rel="stylesheet">
+  <link href="../assets/css/styles.css" rel="stylesheet">
+  <script src="../assets/js/stats.min.js"></script>
+  <script src="../../anime.js"></script>
+  <style>
+
+    .particule {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2rem;
+      height: 2rem;
+      margin: -1rem 0 0 -1rem;
+      background: currentColor;
+      transform: scale(0);
+      border-radius: 50%;
+    }
+
+  </style>
 </head>
-<style>
+<body></body>
+<script>
 
-  body {
-    overflow: hidden;
-  }
+  var stats = new Stats();
+  stats.showPanel(0);
+  document.body.appendChild(stats.dom);
 
-  div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 2rem;
-    height: 2rem;
-    margin: -1rem 0 0 -1rem;
-    background: #FFF;
-    transform: scale(0);
-    border-radius: 50%;
-  }
-
-</style>
-</head>
-<body>
-  <script src="../anime.min.js"></script>
-  <script>
-
-  var maxElements = 200;
-  var duration = 7000;
+  var maxElements = 1000;
+  var duration = 3000;
   var toAnimate = [];
   var w = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-  var colors = ['#FF324A', '#31FFA6', '#206EFF', '#FFFF99'];
+  var colors = ['#5E89FB', '#B1FF92', '#FB0B5A', '#FFC073'];
 
   var createElements = (function() {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < maxElements; i++) {
       var el = document.createElement('div');
+      el.classList.add('particule');
       el.style.background = colors[anime.random(0, 3)];
       el.style.transform = 'rotate('+anime.random(-360, 360)+'deg)';
       toAnimate.push(el);
@@ -55,16 +54,23 @@
       rotate: anime.getValue(el,'rotate'),
       translateX: [0, w/2],
       translateY: [0, w/2],
-      scale: [0, 2],
+      scale: [0, 4],
       delay: anime.random(0, duration),
       duration: duration,
-      easing: "easeInCubic",
+      easing: 'easeInExpo',
       loop: true
     });
   }
 
   toAnimate.forEach(animate);
 
+  anime({
+    update: function() {
+      stats.begin();
+      stats.end();
+    },
+    duration: Infinity
+  });
+
   </script>
-</body>
 </html>
