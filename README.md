@@ -2,8 +2,7 @@
 
 <img src="http://anime-js.com/v2/documentation/assets/img/documentation/animejs-logo.gif" width="100%" />
 
->*Anime* `(/ˈæn.ə.meɪ/)` is a lightweight JavaScript animation library.<br>
->It works with any CSS Properties, individual CSS transforms, SVG or any DOM attributes, and JavaScript Objects.
+>*Anime* `(/ˈæn.ə.meɪ/)` is a lightweight JavaScript animation library. It works with any CSS Properties, individual CSS transforms, SVG or any DOM attributes, and JavaScript Objects.
 
 ### Main features
 
