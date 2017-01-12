@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DOM Performances test | anime.js</title>
+  <title>1000 DOM elements animations | anime.js</title>
   <meta charset="utf-8">
-  <link href="../assets/css/styles.css" rel="stylesheet">
-  <script src="../assets/js/stats.min.js"></script>
-  <script src="../../anime.js"></script>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link href="assets/css/styles.css" rel="stylesheet">
+  <script src="../anime.js"></script>
   <style>
 
     .particule {
@@ -25,15 +25,11 @@
 <body></body>
 <script>
 
-  var stats = new Stats();
-  stats.showPanel(0);
-  document.body.appendChild(stats.dom);
-
   var maxElements = 1000;
   var duration = 3000;
   var toAnimate = [];
   var w = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-  var colors = ['#5E89FB', '#B1FF92', '#FB0B5A', '#FFC073'];
+  var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
 
   var createElements = (function() {
     var fragment = document.createDocumentFragment();
@@ -64,13 +60,6 @@
 
   toAnimate.forEach(animate);
 
-  anime({
-    update: function() {
-      stats.begin();
-      stats.end();
-    },
-    duration: Infinity
-  });
-
   </script>
+  <script src="assets/js/stats.js"></script>
 </html>
