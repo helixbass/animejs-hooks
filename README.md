@@ -88,7 +88,7 @@ The `targets` property defines the elements or JS `Object`s to animate.
 | DOM attributes | Any DOM attributes containing numerical values
 | SVG attributes | Any SVG attributes containing numerical values
 
-➜ [Animatable properties examples](http://anime-js.com/v2/documentation/#cssDemo)
+➜ [Animatable properties examples](http://anime-js.com/v2/documentation/#cssProperties)
 
 ### CSS
 
@@ -288,7 +288,7 @@ Start value is the original target value, or default transforms value.
 
 | Types | Examples | Infos
 | --- | --- | ---
-| Number | `100`, | Automatically add original or default unit if needed
+| Number | `100` | Automatically add original or default unit if needed
 | String | `'10em'`, `'1turn'`, `'M21 1v160'` | Must contains at least one numerical value
 | Relative values | `'+=100px'`, `'-=20em'`, `'*=4'` | Add, subtract or multiply the original property value
 | Colors | `'#FFF'`, `'rgb(255,0,0)'`, `'hsl(100, 20%, 80%)'` | Accepts 3 or 6 hex digit, rgb, or hsl values
