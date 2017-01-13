@@ -25,7 +25,6 @@
       position: relative;
       width: 162px;
       height: 162px;
-      mix-blend-mode: lighten;
     }
     .letter:not(:first-child) {
       margin-left: -42px;
@@ -71,6 +70,9 @@
     .icon-text path,
     .icon-text polygon {
       opacity: 0;
+    }
+    .letter, .dot {
+      mix-blend-mode: lighten;
     }
   </style>
 </head>

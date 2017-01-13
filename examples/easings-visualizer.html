@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Easing visualizer | anime.js</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link href="assets/css/styles.css" rel="stylesheet">
+  <script src="../anime.js"></script>
+  <style>
+    .easings {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    .visualizer-wrapper {
+      position: relative;
+      width: 600px;
+      padding: 50px 100px;
+    }
+    .visualizer {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      transform: scale(4);
+      transform-origin: 0 50%;
+    }
+    .ball {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      margin: -5px 0 0 -5px;
+      background: #FF1461;
+      border-radius: 50%;
+    }
+    .square {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      margin: -5px 0 0 -5px;
+      background: #5A87FF;
+    }
+    svg {
+      overflow: visible;
+      width: 100%;
+      height: 100%;
+    }
+    path {
+      fill: none;
+      stroke: #18FF92;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      width: 500px;
+      height: 500px;
+      color: #18FF92;
+      border-left: 1px solid #173B2F;
+      border-top: 1px solid #173B2F;
+    }
+    button {
+      opacity: .2;
+      position: relative;
+      color: currentColor;
+      font-size: 16px;
+      width: calc(25% + 1px);
+      border-right: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+      border-left: 1px solid #17151C;
+      border-top: 1px solid #17151C;
+      background: #17151C;
+      margin: -1px 0 0 -1px;
+    }
+    button.active {
+      z-index: 1;
+      opacity: 1;
+      border: 1px solid currentColor;
+    }
+    button:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="easings">
+    <div class="visualizer-wrapper">
+      <div class="visualizer">
+        <div class="ball"></div>
+        <div class="square"></div>
+        <svg viewBox="0 0 100 100">
+          <path class="curve"/>
+        </svg>
+      </div>
+    </div>
+    <div class="options">
+      <button value="0.550, 0.085, 0.680, 0.530">In Quad</button>
+      <button value="0.550, 0.055, 0.675, 0.190">In Cubic</button>
+      <button value="0.895, 0.030, 0.685, 0.220">In Quart</button>
+      <button value="0.755, 0.050, 0.855, 0.060">In Quint</button>
+      <button value="0.470, 0.000, 0.745, 0.715">In Sine</button>
+      <button value="0.950, 0.050, 0.795, 0.035">In Expo</button>
+      <button value="0.600, 0.040, 0.980, 0.335">In Circ</button>
+      <button value="0.600, -0.280, 0.735, 0.045">In Back</button>
+      <button value="0.250, 0.460, 0.450, 0.940">Out Quad</button>
+      <button value="0.215, 0.610, 0.355, 1.000">Out Cubic</button>
+      <button value="0.165, 0.840, 0.440, 1.000">Out Quart</button>
+      <button value="0.230, 1.000, 0.320, 1.000">Out Quint</button>
+      <button value="0.390, 0.575, 0.565, 1.000">Out Sine</button>
+      <button value="0.190, 1.000, 0.220, 1.000">Out Expo</button>
+      <button value="0.075, 0.820, 0.165, 1.000">Out Circ</button>
+      <button value="0.175, 0.885, 0.320, 1.275">Out Back</button>
+      <button value="0.455, 0.030, 0.515, 0.955">In Out Quad</button>
+      <button value="0.645, 0.045, 0.355, 1.000">In Out Cubic</button>
+      <button value="0.770, 0.000, 0.175, 1.000">In Out Quart</button>
+      <button value="0.860, 0.000, 0.070, 1.000">In Out Quint</button>
+      <button value="0.445, 0.050, 0.550, 0.950">In Out Sine</button>
+      <button value="1.000, 0.000, 0.000, 1.000">In Out Expo</button>
+      <button value="0.785, 0.135, 0.150, 0.860">In Out Circ</button>
+      <button value="0.680, -0.550, 0.265, 1.550">In Out Back</button>
+    </div>
+  </div>
+  <script>
+
+  var ballEl = document.querySelector('.ball');
+  var pathEl = document.querySelector('.curve');
+  var presetsEls = document.querySelectorAll('.options button');
+
+  function convertCoordinates(coords) {
+    var x1 = coords[0] * 100;
+    var y1 = 100 - (coords[1] * 100);
+    var x2 = coords[2] * 100;
+    var y2 = 100 - (coords[3] * 100);
+    return 'M0 100C' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' 100 0';
+  }
+
+  function getCoordinates(value) {
+    return convertCoordinates(value.split(','));
+  }
+
+  function changeEasing(event) {
+    for (var i = 0; i < presetsEls.length; i++) {
+      presetsEls[i].classList.remove('active');
+    }
+    var buttonEl = event.target;
+    var value = buttonEl.value;
+    buttonEl.classList.add('active');
+    var coordinates = getCoordinates(value);
+    anime.remove(pathEl);
+    anime({
+      targets: pathEl,
+      d: coordinates
+    });
+  }
+
+  for (var i = 0; i < presetsEls.length; i++) {
+    presetsEls[i].onclick = changeEasing;
+  }
+
+  pathEl.setAttribute('d', getCoordinates(presetsEls[0].value));
+
+  var path = anime.path('path', 120);
+
+  var ball = anime({
+    targets: '.ball',
+    translateX: path('x'),
+    translateY: path('y'),
+    easing: 'linear',
+    delay: 200,
+    loop: true,
+    direction: 'alternate'
+  });
+
+  var square = anime({
+    targets: '.square',
+    translateX: path('x'),
+    easing: 'linear',
+    delay: 200,
+    loop: true,
+    direction: 'alternate'
+  });
+
+  </script>
+  <script src="assets/js/stats.js"></script>
+</body>
+</html>
