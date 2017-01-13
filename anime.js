@@ -559,13 +559,14 @@
 
   function getTweenProgress(tween, time) {
     const elapsed = Math.min(Math.max(time - tween.start, 0), tween.duration);
+    const path = isPath(tween.value);
     let progress = (elapsed / tween.duration);
     const round = tween.round;
     return recomposeValue(tween.to.numbers.map((number, p) => {
       const eased = tween.easing(progress, tween.elasticity);
-      const start = tween.from.numbers[p];
+      const start = path ? 0 : tween.from.numbers[p];
       let value = start + eased * (number - start);
-      if (isPath(tween.value)) value = getPathProgress(tween.value, value);
+      if (path) value = getPathProgress(tween.value, value);
       if (round) value = Math.round(value * round) / round;
       return value;
     }), tween.to.strings);
