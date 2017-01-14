@@ -100,6 +100,7 @@
   var x = 0;
   var y = 0;
   var animations = [];
+  var targets = [];
   var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
 
   function setCanvasSize() {
@@ -121,7 +122,7 @@
     p.y = y;
     p.color = colors[anime.random(0, colors.length - 1)];
     p.color = '#FFF';
-    p.radius = 0;
+    p.radius = 0.1;
     p.alpha = 1;
     p.lineWidth = 6;
     p.draw = function() {
@@ -156,25 +157,34 @@
     for (var i = 0; i < numberOfParticules; i++) {
       var p = createParticule(x, y);
       particules.push(p);
+      targets.push(p);
     }
     return particules;
   }
 
+  function removeTargets(animation) {
+    for (var i = 0; i < animation.animatables.length; i++) {
+      var index = targets.indexOf(animation.animatables[i].target);
+      if (index > -1) targets.splice(index, 1);
+    }
+  }
+
   function removeAnimation(animation) {
+    removeTargets(animation);
     var index = animations.indexOf(animation);
     if (index > -1) animations.splice(index, 1);
     if (!animations.length) mainLoop.pause();
   }
 
   function animateParticules(x, y) {
-    setCanvasSize();
     var particules = createParticles(x, y);
     var circle = createCircle(x, y);
+    targets.push(circle);
     var particulesAnimation = anime({
       targets: particules,
       x: function(p) { return p.x + anime.random(-distance, distance); },
       y: function(p) { return p.y + anime.random(-distance, distance); },
-      radius: 0,
+      radius: 0.1,
       duration: function() { return anime.random(1200, 1800); },
       easing: 'easeOutExpo',
       complete: removeAnimation
@@ -200,11 +210,8 @@
     duration: Infinity,
     update: function() {
       ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
-      for (var i = 0; i < animations.length; i++) {
-        var animatables = animations[i].animatables;
-        for (var t = 0; t < animatables.length; t++ ) {
-          animatables[t].target.draw();
-        }
+      for (var t = 0; t < targets.length; t++ ) {
+        targets[t].draw();
       }
     },
     autoplay: false
@@ -212,12 +219,13 @@
 
   document.addEventListener(tap, function(e) {
     updateCoords(e);
-    animateParticules(x, y);
     mainLoop.play();
+    animateParticules(x, y);
     ga('send', 'event', 'Fireworks', 'Click');
   }, false);
 
   window.addEventListener('resize', setCanvasSize, false);
+  window.addEventListener('load', setCanvasSize, false);
 
   </script>
   <script src="assets/js/stats.js"></script>
