@@ -17,6 +17,8 @@ body {
   height: 100%;
   color: white;
   font-family: sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   -webkit-font-smoothing: antialiased;
 }
 
