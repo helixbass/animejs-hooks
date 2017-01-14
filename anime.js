@@ -481,12 +481,12 @@
       }
     }
     return toArray(prop).map((v, i) => {
-      // Default default value should be applied only on the first tween
+      // Default delay value should be applied only on the first tween
       const delay = !i ? tweenSettings.delay : 0;
       // Use path object as a tween value
       let obj = is.obj(v) && !isPath(v) ? v : {value: v};
       // Set default delay value
-      obj.delay = obj.delay || delay;
+      if (is.und(obj.delay)) obj.delay = delay;
       return obj;
     }).map(k => mergeObjects(k, settings));
   }
@@ -652,6 +652,11 @@
     if (instance.children) syncInstanceChildren(instance, currentTime);
   }
 
+  function getInstanceTimings(type, animations, tweenSettings) {
+    const math = (type === 'delay') ? Math.min : Math.max;
+    return arrayLength(animations) ? math.apply(Math, animations.map((anim) => anim[type] )) : tweenSettings[type];
+  }
+
   function createNewInstance(params = {}) {
     const instanceSettings = replaceObjectProps(defaultInstanceSettings, params);
     const tweenSettings = replaceObjectProps(defaultTweenSettings, params);
@@ -661,8 +666,8 @@
     return mergeObjects(instanceSettings, {
       animatables: animatables,
       animations: animations,
-      duration: arrayLength(animations) ? Math.max.apply(Math, animations.map((anim) => anim.duration )) : tweenSettings.duration,
-      delay: arrayLength(animations) ? Math.min.apply(Math, animations.map((anim) => anim.delay )) : tweenSettings.delay,
+      duration: getInstanceTimings('duration', animations, tweenSettings),
+      delay: getInstanceTimings('delay', animations, tweenSettings),
       currentTime: 0,
       progress: 0,
       paused: true,
