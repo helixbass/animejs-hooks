@@ -163,6 +163,7 @@
   function removeAnimation(animation) {
     var index = animations.indexOf(animation);
     if (index > -1) animations.splice(index, 1);
+    if (!animations.length) mainLoop.pause();
   }
 
   function animateParticules(x, y) {
@@ -199,17 +200,20 @@
     duration: Infinity,
     update: function() {
       ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
-      animations.forEach(function(anim) {
-        anim.animatables.forEach(function(animatable) {
-          animatable.target.draw();
-        });
-      });
-    }
+      for (var i = 0; i < animations.length; i++) {
+        var animatables = animations[i].animatables;
+        for (var t = 0; t < animatables.length; t++ ) {
+          animatables[t].target.draw();
+        }
+      }
+    },
+    autoplay: false
   });
 
   document.addEventListener(tap, function(e) {
     updateCoords(e);
     animateParticules(x, y);
+    mainLoop.play();
     ga('send', 'event', 'Fireworks', 'Click');
   }, false);
 
