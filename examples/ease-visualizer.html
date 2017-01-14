@@ -56,7 +56,7 @@
     .value {
       width: 20px;
       height: 200px;
-      margin-left: 10px;
+      margin-left: 20px;
     }
     @media screen and (min-width: 980px) {
       .easings {
@@ -80,7 +80,7 @@
       .value {
         width: 40px;
         height: 400px;
-        margin-left: 20px;
+        margin-left: 40px;
       }
     }
     .ball {
@@ -94,15 +94,18 @@
       background: #FF1461;
       border-radius: 50%;
     }
-    .square {
+    .rec {
       position: absolute;
       z-index: 0;
       top: 0;
       left: 100%;
       width: 10px;
       height: 1px;
-      margin: -1px 0 0 5px;
+      margin: -1px 0 0 10px;
       background: #5A87FF;
+    }
+    .onion {
+      opacity: .2;
     }
     svg {
       overflow: visible;
@@ -158,7 +161,12 @@
       <div class="visualizer-wrapper grid">
         <div class="visualizer">
           <div class="ball"></div>
-          <div class="square"></div>
+          <div class="rec"></div>
+          <div class="rec onion"></div>
+          <div class="rec onion"></div>
+          <div class="rec onion"></div>
+          <div class="rec onion"></div>
+          <div class="rec onion"></div>
           <svg viewBox="0 0 100 100">
             <path class="curve"/>
           </svg>
@@ -232,28 +240,42 @@
     presetsEls[i].onclick = changeEase;
   }
 
-  pathEl.setAttribute('d', getCoordinates(presetsEls[0].value));
+  pathEl.setAttribute('d', getCoordinates(presetsEls[23].value));
 
-  var path = anime.path(pathEl, 120);
+  var timeline = anime.timeline({
+    loop: true
+  });
 
-  var ball = anime({
+  var path = anime.path(pathEl, 100);
+
+  var ballAnim = anime({
     targets: '.ball',
     translateX: path('x'),
     translateY: path('y'),
+    scale: [
+      { value: [0, 1], delay: 0, duration: 500, easing: 'easeOutBack' },
+      { value: 0, delay: 1000, duration: 500, easing: 'easeInBack' }
+    ],
     easing: 'linear',
-    delay: 200,
-    loop: true,
-    direction: 'alternate'
+    delay: 500
   });
 
-  var square = anime({
-    targets: '.square',
+  var recAnim = anime({
+    targets: '.rec',
     translateY: path('y'),
     easing: 'linear',
-    delay: 200,
-    loop: true,
-    direction: 'alternate'
+    scaleY: [
+      { value: [0, 1], delay: 0, duration: 500, easing: 'easeOutBack' },
+      { value: 0, delay: 1000, duration: 500, easing: 'easeInBack' }
+    ],
+    delay: function(el, i) {
+      return 500 + (i * 20);
+    }
   });
+
+  timeline.add([ballAnim, recAnim]);
+
+  pathEl.setAttribute('d', getCoordinates(presetsEls[0].value));
 
   </script>
 </body>
