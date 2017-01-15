@@ -390,6 +390,10 @@
     return unit ? unitLess + unit : unitLess;
   }
 
+  function minMaxValue(val, min, max) {
+    return Math.min(Math.max(val, min), max);
+  }
+
   // Motion path
 
   function isPath(val) {
@@ -540,7 +544,7 @@
       tween.start = previousTween ? previousTween.end + tween.delay : tween.delay;
       tween.end = tween.start + tween.duration;
       tween.easing = normalizeEasing(tween.easing);
-      tween.elasticity = (1000 - Math.min(Math.max(tween.elasticity, 1), 999)) / 1000;
+      tween.elasticity = (1000 - minMaxValue(tween.elasticity, 1, 999)) / 1000;
       if (is.col(tween.from.original)) tween.round = 1;
       previousTween = tween;
       return tween;
@@ -550,7 +554,7 @@
   // Tween progress
 
   function getTweenProgress(tween, time) {
-    const elapsed = Math.min(Math.max(time - tween.start, 0), tween.duration);
+    const elapsed = minMaxValue(time - tween.start, 0, tween.duration)
     const path = isPath(tween.value);
     let progress = (elapsed / tween.duration);
     const round = tween.round;
@@ -614,12 +618,11 @@
     for (let i = 0; i < arrayLength(children); i++) children[i].seek(instanceTime);
   }
 
-  function setInstanceProgress(instance, time) {
+  function progression(instance, currentTime) {
     let transforms = {};
-    const animations = instance.animations;
-    const currentTime = adjustInstanceTime(instance, time);
     instance.currentTime = currentTime;
     instance.progress = (currentTime / instance.duration) * 100;
+    const animations = instance.animations;
     for (let i = 0; i < arrayLength(animations); i++) {
       const anim = animations[i];
       const tweens = anim.tweens;
@@ -642,6 +645,25 @@
     }
     if (instance.update) instance.update(instance);
     if (instance.children) syncInstanceChildren(instance, currentTime);
+  }
+
+  function setInstanceProgress(instance, tickTime) {
+    const currentTime = adjustInstanceTime(instance, tickTime);
+    const instanceDuration = instance.duration;
+    const instanceDelay = instance.delay;
+    if (currentTime <= instanceDelay && instance.started) {
+      instance.started = false;
+      progression(instance, 0);
+    }
+    if (currentTime > instanceDelay && currentTime < instanceDuration) {
+      instance.started = true;
+      instance.ended = false;
+      progression(instance, currentTime);
+    }
+    if (currentTime >= instanceDuration && !instance.ended) {
+      instance.ended = true;
+      progression(instance, instanceDuration);
+    }
   }
 
   function getInstanceTimings(type, animations, tweenSettings) {
@@ -698,13 +720,13 @@
     instance.tick = function(now) {
       if (!startTime) startTime = now;
       const currentTime = (lastTime + now - startTime) * anime.speed;
-      const instanceTime = Math.min(Math.max(currentTime, 0), instance.duration);
-      setInstanceProgress(instance, instanceTime);
-      if (!instance.began && instanceTime >= instance.delay) {
+      const tickTime = minMaxValue(currentTime, 0, instance.duration);
+      setInstanceProgress(instance, tickTime);
+      if (!instance.began && tickTime >= instance.delay) {
         instance.began = true;
         if (instance.begin) instance.begin(instance);
       }
-      if (instanceTime >= instance.duration) {
+      if (tickTime >= instance.duration) {
         if (instance.remaining && !isNaN(parseFloat(instance.remaining))) instance.remaining--;
         if (instance.remaining) {
           startTime = now;

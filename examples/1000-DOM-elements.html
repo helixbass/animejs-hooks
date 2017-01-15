@@ -37,7 +37,7 @@
       var el = document.createElement('div');
       el.classList.add('particule');
       el.style.background = colors[anime.random(0, 3)];
-      el.style.transform = 'rotate('+anime.random(-360, 360)+'deg)';
+      el.style.transform = 'rotate('+anime.random(-360, 360)+'deg) scale(0)';
       toAnimate.push(el);
       fragment.appendChild(el);
     }

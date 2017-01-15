@@ -38,6 +38,7 @@
       position: absolute;
       width: 42px;
       height: 42px;
+      transform: scale(0);
     }
     .dot-i {
       top: 0;
@@ -143,7 +144,7 @@
         <div class="icon">
           <svg viewBox="0 0 62 62">
             <g fill="none" fill-rule="evenodd" stroke-width="2" transform="translate(1 1)">
-              <path stroke="#FF1554" d="M0 16a80.88 80.88 0 0 1 44 44"/>
+              <path class="icon-curve" stroke="#FF1554" d="M0 16a80.88 80.88 0 0 1 44 44"/>
               <path class="icon-line" stroke="#5E89FB" d="M4 0h54a2 2 0 0 1 2 2.01V58A2 2 0 0 1 58 60H2a2 2 0 0 1-2-2.01V2A2 2 0 0 1 2 0h2z"/>
               <rect width="40" height="40" x="10" y="10" stroke="#18FF92" rx="20"/>
             </g>
@@ -178,6 +179,12 @@
     </div>
   </div>
   <script>
+
+  var pathEls = document.querySelectorAll('path:not(.icon-curve)');
+  for (var i = 0; i < pathEls.length; i++) {
+    var el = pathEls[i];
+    el.setAttribute('stroke-dashoffset', anime.setDashoffset(el));
+  }
 
   var dotE = anime({
     targets: '.dot-e',
@@ -289,7 +296,8 @@
 
   var logoAnimation = anime.timeline({
     loop: false,
-    autoplay: true
+    autoplay: true,
+    direction: 'alternate'
   });
 
   logoAnimation.add([dotE, dotI, fillsIn, fillsOut, linesOut, icon, iconLine, iconText]);
