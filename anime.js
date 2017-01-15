@@ -65,7 +65,6 @@
   }
 
   // BezierEasing https://github.com/gre/bezier-easing
-  // © 2014 Gaëtan Renaudeau – MIT License
 
   const bezier = (() => {
 
@@ -161,7 +160,6 @@
     }
 
     // Approximated Penner equations http://matthewlein.com/ceaser/
-    // © Matthew Lein
 
     const equations = {
       In: [
@@ -435,7 +433,6 @@
   }
 
   // Decompose / recompose functions adapted from Animate Plus https://github.com/bendc/animateplus
-  // © 2015 Benjamin De Cock
 
   function decomposeValue(val, unit) {
     const rgx = /-?\d*\.?\d+/g;
@@ -654,7 +651,7 @@
 
   function getInstanceTimings(type, animations, tweenSettings) {
     const math = (type === 'delay') ? Math.min : Math.max;
-    return arrayLength(animations) ? math.apply(Math, animations.map((anim) => anim[type] )) : tweenSettings[type];
+    return arrayLength(animations) ? math.apply(Math, animations.map((anim) => anim[type])) : tweenSettings[type];
   }
 
   function createNewInstance(params = {}) {
@@ -674,7 +671,7 @@
       began: false,
       completed: false,
       remaining: instanceSettings.loop
-    })
+    });
   }
 
   // Core
