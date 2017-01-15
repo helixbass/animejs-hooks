@@ -371,15 +371,12 @@
     return target[propName] || 0;
   }
 
-  function checkValueOperator(value) {
-    const matches = /^(\*=|\+=|-=)/.exec(value);
-    if (matches) return matches[0];
-  }
-
-  function calculateValue(operator, from, to) {
+  function getRelativeValue(to, from) {
+    const operator = /^(\*=|\+=|-=)/.exec(to);
+    if (!operator) return to;
     const x = parseFloatValue(from);
-    const y = parseFloatValue(to.replace(operator, ''));
-    switch (operator[0]) {
+    const y = parseFloatValue(to.replace(operator[0], ''));
+    switch (operator[0][0]) {
       case '+': return x + y;
       case '-': return x - y;
       case '*': return x * y;
@@ -536,10 +533,8 @@
       const originalValue = getOriginalTargetValue(animatable.target, prop.name);
       const previousValue = previousTween ? previousTween.to.original : originalValue;
       const from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
-      let to = is.arr(tweenValue) ? tweenValue[1] : tweenValue;
+      const to = getRelativeValue(is.arr(tweenValue) ? tweenValue[1] : tweenValue, from);
       const unit = getUnit(to) || getUnit(from) || getUnit(originalValue);
-      const operator = checkValueOperator(to);
-      if (operator) to = calculateValue(operator, from, to);
       tween.from = decomposeValue(from, unit);
       tween.to = decomposeValue(to, unit);
       tween.start = previousTween ? previousTween.end + tween.delay : tween.delay;
