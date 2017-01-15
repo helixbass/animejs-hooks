@@ -221,28 +221,19 @@
   var pathEl = document.querySelector('.curve');
   var presetsEls = document.querySelectorAll('.options button');
 
+  var timeline = anime.timeline({
+    loop: true
+  });
+
   function animateProgress(easingName) {
 
-    var timeline = anime.timeline({
+    timeline.pause();
+
+    timeline = anime.timeline({
       loop: true
     });
 
-    var path = anime.path(pathEl, 100);
-
-    anime.remove(['.ball', '.rec']);
-
     timeline.add([
-      // anime({
-      //   targets: '.ball',
-      //   translateX: path('x'),
-      //   translateY: path('y'),
-      //   scale: [
-      //     { value: [0, 1], delay: 0, duration: 500, easing: 'easeOutBack' },
-      //     { value: 0, delay: 1000, duration: 500, easing: 'easeInBack' }
-      //   ],
-      //   easing: easingName,
-      //   delay: 500
-      // }),
       anime({
         targets: '.axis.x',
         translateX: [0, 400],
@@ -313,7 +304,7 @@
     presetsEls[i].onclick = changeEase;
   }
 
-  pathEl.setAttribute('d', getCoordinates(presetsEls[23].value));
+  presetsEls[0].click();
 
   pathEl.setAttribute('d', getCoordinates(presetsEls[0].value));
 
