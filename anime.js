@@ -643,8 +643,6 @@
         instance.animatables[id].target.style[transformString] = transforms[id].join(' ');
       }
     }
-    if (instance.update) instance.update(instance);
-    if (instance.children) syncInstanceChildren(instance, currentTime);
   }
 
   function setInstanceProgress(instance, tickTime) {
@@ -664,6 +662,8 @@
       instance.ended = true;
       progression(instance, instanceDuration);
     }
+    if (instance.update) instance.update(instance);
+    if (instance.children) syncInstanceChildren(instance, currentTime);
   }
 
   function getInstanceTimings(type, animations, tweenSettings) {
@@ -719,8 +719,7 @@
 
     instance.tick = function(now) {
       if (!startTime) startTime = now;
-      const currentTime = (lastTime + now - startTime) * anime.speed;
-      const tickTime = minMaxValue(currentTime, 0, instance.duration);
+      const tickTime = (lastTime + now - startTime) * anime.speed;
       setInstanceProgress(instance, tickTime);
       if (!instance.began && tickTime >= instance.delay) {
         instance.began = true;
