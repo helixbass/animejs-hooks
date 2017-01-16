@@ -188,9 +188,11 @@
   }
 
   var logoAnimation = anime.timeline({
-    loop: false,
-    autoplay: true,
-    direction: 'alternate'
+    loop: true,
+    direction: 'alternate',
+    update: function(anim) {
+      // console.log(anim.progress, anim.currentTime);
+    }
   });
 
   logoAnimation.add([

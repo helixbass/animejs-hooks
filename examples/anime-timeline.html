@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timeline | anime.js</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link href="assets/css/styles.css" rel="stylesheet">
+  <script src="../anime.js"></script>
+  <style>
+
+    .demo {
+      padding: 20px;
+    }
+
+    .row {
+      width: 100%;
+    }
+
+    .item {
+      width: 2rem;
+      height: 2rem;
+      margin: 1rem;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="row demo timeline">
+    <h2>Timeline</h2>
+    <div class="row">
+      <div class="item color-04"></div>
+      <div class="item color-06"></div>
+    </div>
+    <div class="row controls">
+      <button class="play">PLAY</button>
+      <button class="pause">PAUSE</button>
+      <button class="restart">RESTART</button>
+      <input class="progress" type="range" min="0" max="100" step=".1" value="0"></input>
+    </div>
+    <script>
+    (function() {
+      var progressEl = document.querySelector('.timeline .progress');
+      var playEl = document.querySelector('.timeline .play');
+      var pauseEl = document.querySelector('.timeline .pause');
+      var restartEl = document.querySelector('.timeline .restart');
+
+      var simpleTL = new anime.timeline({
+        direction: 'alternate',
+        update: function(a) { progressEl.value = a.progress },
+      });
+
+      simpleTL.add({
+        targets: '.timeline .color-04',
+        translateX: [
+          {value: 100 },
+          {value: 200 },
+          {value: 300 }
+        ],
+        duration: 2000,
+        delay: function(el, i) { return 50 * i; }
+      });
+
+      simpleTL.add({
+        targets: '.timeline .color-06',
+        translateX: [
+          {value: 100 },
+          {value: 200 },
+          {value: 300 }
+        ],
+        duration: 2000,
+        delay: function(el, i) { return 50 * i; }
+      });
+
+      console.log(simpleTL)
+
+      playEl.onclick = simpleTL.play;
+      pauseEl.onclick = simpleTL.pause;
+      restartEl.onclick = simpleTL.restart;
+      progressEl.oninput = function() {
+        simpleTL.seek((progressEl.value * simpleTL.duration) / 100);
+      }
+    })();
+    </script>
+  </div>
+</body>
+</html>

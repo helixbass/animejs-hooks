@@ -30,7 +30,8 @@
     complete: undefined,
     loop: 0,
     direction: 'normal',
-    autoplay: true
+    autoplay: true,
+    offset: 0
   }
 
   const defaultTweenSettings = {
@@ -38,8 +39,7 @@
     delay: 0,
     easing: 'easeOutElastic',
     elasticity: 500,
-    round: 0,
-    offset: 0
+    round: 0
   }
 
   const validTransforms = ['translateX', 'translateY', 'translateZ', 'rotate', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scaleX', 'scaleY', 'scaleZ', 'skewX', 'skewY'];
@@ -333,6 +333,10 @@
     return parseFloat(val);
   }
 
+  function minMaxValue(val, min, max) {
+    return Math.min(Math.max(val, min), max);
+  }
+
   function getCSSValue(el, prop) {
     if (prop in el.style) {
       return getComputedStyle(el).getPropertyValue(stringToHyphens(prop)) || '0';
@@ -389,10 +393,6 @@
     const originalUnit = getUnit(val);
     const unitLess = originalUnit ? val.substr(0, arrayLength(val) - arrayLength(originalUnit)) : val;
     return unit ? unitLess + unit : unitLess;
-  }
-
-  function minMaxValue(val, min, max) {
-    return Math.min(Math.max(val, min), max);
   }
 
   // Motion path
@@ -497,6 +497,7 @@
       if (!objectHas(settings, p) && p !== 'targets') {
         properties.push({
           name: p,
+          offset: settings['offset'],
           tweens: normalizePropertyTweens(params[p], tweenSettings)
         });
       }
@@ -532,7 +533,7 @@
 
   function normalizeTweens(prop, animatable) {
     let previousTween;
-    return prop.tweens.map(function(t, i) {
+    return prop.tweens.map((t) => {
       let tween = normalizeTweenValues(t, animatable);
       const tweenValue = tween.value;
       const originalValue = getOriginalTargetValue(animatable.target, prop.name);
@@ -540,11 +541,10 @@
       const from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
       const to = getRelativeValue(is.arr(tweenValue) ? tweenValue[1] : tweenValue, from);
       const unit = getUnit(to) || getUnit(from) || getUnit(originalValue);
-      if (!i) tween.delay += tween.offset;
       tween.from = decomposeValue(from, unit);
       tween.to = decomposeValue(to, unit);
-      tween.start = previousTween ? previousTween.end + tween.delay : tween.delay;
-      tween.end = tween.start + tween.duration;
+      tween.start = previousTween ? previousTween.end : prop.offset;
+      tween.end = tween.start + tween.delay + tween.duration;
       tween.easing = normalizeEasing(tween.easing);
       tween.elasticity = (1000 - minMaxValue(tween.elasticity, 1, 999)) / 1000;
       if (is.col(tween.from.original)) tween.round = 1;
@@ -556,7 +556,7 @@
   // Tween progress
 
   function getTweenProgress(tween, time) {
-    const elapsed = minMaxValue(time - tween.start, 0, tween.duration)
+    const elapsed = minMaxValue(time - tween.start - tween.delay, 0, tween.duration)
     const path = isPath(tween.value);
     let progress = (elapsed / tween.duration);
     const round = tween.round;
@@ -581,8 +581,8 @@
         property: prop.name,
         animatable: animatable,
         tweens: tweens,
-        duration: tweens.reduce((a, b) => a + b.delay + b.duration, 0),
-        delay: tweens[0].delay
+        duration: tweens[arrayLength(tweens) - 1].end,
+        delay: tweens[0].start
       }
     }
   }
@@ -595,7 +595,7 @@
     })).filter(a => !is.und(a));
   }
 
-  const setAnimationProgress = {
+  const setTweenProgress = {
     css: (t, p, v) => t.style[p] = v,
     attribute: (t, p, v) => t.setAttribute(p, v),
     object: (t, p, v) => t[p] = v,
@@ -605,7 +605,7 @@
     }
   }
 
-  // Instance
+  // Create Instance
 
   function getInstanceTimings(type, animations, tweenSettings) {
     const math = (type === 'delay') ? Math.min : Math.max;
@@ -651,7 +651,7 @@
     return play;
   })();
 
-  // Public
+  // Public Instance
 
   function anime(params = {}) {
 
@@ -671,7 +671,7 @@
       for (let i = 0; i < arrayLength(children); i++) children[i].seek(insTime);
     }
 
-    function setTweensProgress(insTime) {
+    function setAnimationsProgress(insTime) {
       let transforms = {};
       instance.currentTime = insTime;
       instance.progress = (insTime / instance.duration) * 100;
@@ -679,11 +679,10 @@
       for (let i = 0; i < arrayLength(animations); i++) {
         const anim = animations[i];
         const tweens = anim.tweens;
-        const tween = tweens.filter(tween => (tween.start - tween.delay <= insTime && tween.end >= insTime))[0];
-        const activeTween = tween || tweens[arrayLength(tweens) - 1];
-        const progress = getTweenProgress(activeTween, insTime);
+        const tween = tweens.filter(t => (insTime < t.end))[0] || tweens[arrayLength(tweens) - 1];
+        const progress = getTweenProgress(tween, insTime);
         const animatable = anim.animatable;
-        const setProgress = setAnimationProgress[anim.type];
+        const setProgress = setTweenProgress[anim.type];
         setProgress(animatable.target, anim.property, progress, transforms, animatable.id);
         anim.currentValue = progress;
       }
@@ -705,10 +704,10 @@
       const insCurrentTime = instance.currentTime;
       if (instance.children) syncInstanceChildren(insTime);
       if (insTime <= insDelay && insCurrentTime !== 0) {
-        setTweensProgress(0);
+        setAnimationsProgress(0);
       }
       if (insTime > insDelay && insTime < insDuration) {
-        setTweensProgress(insTime);
+        setAnimationsProgress(insTime);
         if (!instance.began) {
           instance.began = true;
           instance.completed = false;
@@ -717,7 +716,7 @@
         if (instance.update) instance.update(instance);
       }
       if (insTime >= insDuration && insCurrentTime !== insDuration) {
-        setTweensProgress(insDuration);
+        setAnimationsProgress(insDuration);
       }
       if (engineTime >= insDuration) {
         if (instance.remaining && !isNaN(parseFloat(instance.remaining))) instance.remaining--;
