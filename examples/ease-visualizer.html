@@ -85,6 +85,7 @@
       }
     }
     .axis {
+      opacity: 0;
       position: absolute;
       background: #5A87FF;
     }
@@ -109,19 +110,6 @@
       margin: -5px 0 0 10px;
       background: #FF1461;
       border-radius: 50%;
-    }
-    .rec {
-      position: absolute;
-      z-index: 0;
-      top: 0;
-      left: 100%;
-      width: 10px;
-      height: 1px;
-      margin: -1px 0 0 10px;
-      background: #FF1461;
-    }
-    .onion {
-      opacity: .2;
     }
     svg {
       overflow: visible;
@@ -178,7 +166,7 @@
         <div class="axis x"></div>
         <div class="axis y"></div>
         <div class="visualizer">
-          <div class="ball"></div>
+          <div class="ball" style="transform: translateY(100px) scale(0)"></div>
           <svg viewBox="0 0 100 100">
             <path class="curve"/>
           </svg>
@@ -236,36 +224,29 @@
     timeline.add([
       {
         targets: '.axis.x',
-        translateX: [0, 400],
-        easing: 'linear',
-        scale: [
-          { value: [0, 1], delay: 0, duration: 500, easing: 'easeOutQuad' },
-          { value: 0, delay: 1500, duration: 500, easing: 'easeInQuad' }
+        opacity: [
+          { value: 1, delay: 0, duration: 500 },
+          { value: 0, delay: 1500, duration: 500 }
         ],
-        duration: 1500,
-        delay: 500,
+        translateX: { value: [0, 400], delay: 500, duration: 1500 },
+        easing: 'linear',
         offset: 0
       }, {
         targets: '.axis.y',
-        translateY: [0, -400],
-        easing: easingName,
-        scale: [
-          { value: [0, 1], delay: 0, duration: 500, easing: 'easeOutQuad' },
-          { value: 0, delay: 1500, duration: 500, easing: 'easeInQuad' }
+        opacity: [
+          { value: 1, delay: 0, duration: 500 },
+          { value: 0, delay: 1500, duration: 500 }
         ],
-        duration: 1500,
-        delay: 500,
+        translateY: { value: [0, -400], delay: 500, duration: 1500, easing: easingName },
+        easing: 'linear',
         offset: 0
       }, {
         targets: '.ball',
-        translateY: [100, 0],
-        easing: easingName,
+        translateY: { value: [100, 0], delay: 500, duration: 1500, easing: easingName },
         scale: [
           { value: [0, 1], delay: 0, duration: 500, easing: 'easeOutBack' },
           { value: 0, delay: 1500, duration: 500, easing: 'easeInBack' }
         ],
-        duration: 1500,
-        delay: 500,
         offset: 0
       }
     ]);
