@@ -722,6 +722,7 @@
           startTime = now;
           if (instance.direction === 'alternate') toggleInstanceDirection(instance);
         } else {
+          instance.remaining = instance.loop;
           instance.completed = true;
           instance.began = false;
           instance.pause();
