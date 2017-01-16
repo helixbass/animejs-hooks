@@ -709,6 +709,7 @@
         progression(instance, currentTime);
         if (!instance.began) {
           instance.began = true;
+          instance.completed = false;
           if (instance.begin) instance.begin(instance);
         }
         if (instance.update) instance.update(instance);
