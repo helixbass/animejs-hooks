@@ -607,46 +607,6 @@
 
   // Instance
 
-  function toggleInstanceDirection(instance) {
-    instance.reversed = !instance.reversed;
-  }
-
-  function adjustInstanceTime(instance, time) {
-    return instance.reversed ? instance.duration - time : time;
-  }
-
-  function syncInstanceChildren(instance, instanceTime) {
-    const children = instance.children;
-    for (let i = 0; i < arrayLength(children); i++) children[i].seek(instanceTime);
-  }
-
-  function progression(instance, currentTime) {
-    let transforms = {};
-    instance.currentTime = currentTime;
-    instance.progress = (currentTime / instance.duration) * 100;
-    const animations = instance.animations;
-    for (let i = 0; i < arrayLength(animations); i++) {
-      const anim = animations[i];
-      const tweens = anim.tweens;
-      const tween = tweens.filter(tween => (tween.start - tween.delay <= currentTime && tween.end >= currentTime))[0];
-      const activeTween = tween || tweens[arrayLength(tweens) - 1];
-      const progress = getTweenProgress(activeTween, currentTime);
-      const animatable = anim.animatable;
-      const setProgress = setAnimationProgress[anim.type];
-      setProgress(animatable.target, anim.property, progress, transforms, animatable.id);
-      anim.currentValue = progress;
-    }
-    if (transforms) {
-      let id; for (id in transforms) {
-        if (!transformString) {
-          const t = 'transform';
-          transformString = (getCSSValue(document.body, t) ? t : `-webkit-${t}`);
-        }
-        instance.animatables[id].target.style[transformString] = transforms[id].join(' ');
-      }
-    }
-  }
-
   function getInstanceTimings(type, animations, tweenSettings) {
     const math = (type === 'delay') ? Math.min : Math.max;
     return arrayLength(animations) ? math.apply(Math, animations.map((anim) => anim[type])) : tweenSettings[type];
@@ -698,17 +658,57 @@
     let now, startTime, lastTime = 0;
     let instance = createNewInstance(params);
 
-    function setInstanceProgress(instance, tickTime) {
-      const currentTime = adjustInstanceTime(instance, tickTime);
-      const instanceDuration = instance.duration;
-      const instanceDelay = instance.delay;
-      const instanceTime = instance.currentTime;
-      if (instance.children) syncInstanceChildren(instance, currentTime);
-      if (currentTime <= instanceDelay && instanceTime !== 0) {
-        progression(instance, 0);
+    function toggleInstanceDirection() {
+      instance.reversed = !instance.reversed;
+    }
+
+    function adjustTime(time) {
+      return instance.reversed ? instance.duration - time : time;
+    }
+
+    function syncInstanceChildren(insTime) {
+      const children = instance.children;
+      for (let i = 0; i < arrayLength(children); i++) children[i].seek(insTime);
+    }
+
+    function setTweensProgress(insTime) {
+      let transforms = {};
+      instance.currentTime = insTime;
+      instance.progress = (insTime / instance.duration) * 100;
+      const animations = instance.animations;
+      for (let i = 0; i < arrayLength(animations); i++) {
+        const anim = animations[i];
+        const tweens = anim.tweens;
+        const tween = tweens.filter(tween => (tween.start - tween.delay <= insTime && tween.end >= insTime))[0];
+        const activeTween = tween || tweens[arrayLength(tweens) - 1];
+        const progress = getTweenProgress(activeTween, insTime);
+        const animatable = anim.animatable;
+        const setProgress = setAnimationProgress[anim.type];
+        setProgress(animatable.target, anim.property, progress, transforms, animatable.id);
+        anim.currentValue = progress;
       }
-      if (currentTime > instanceDelay && currentTime < instanceDuration) {
-        progression(instance, currentTime);
+      if (transforms) {
+        let id; for (id in transforms) {
+          if (!transformString) {
+            const t = 'transform';
+            transformString = (getCSSValue(document.body, t) ? t : `-webkit-${t}`);
+          }
+          instance.animatables[id].target.style[transformString] = transforms[id].join(' ');
+        }
+      }
+    }
+
+    function setInstanceProgress(engineTime) {
+      const insTime = adjustTime(engineTime);
+      const insDuration = instance.duration;
+      const insDelay = instance.delay;
+      const insCurrentTime = instance.currentTime;
+      if (instance.children) syncInstanceChildren(insTime);
+      if (insTime <= insDelay && insCurrentTime !== 0) {
+        setTweensProgress(0);
+      }
+      if (insTime > insDelay && insTime < insDuration) {
+        setTweensProgress(insTime);
         if (!instance.began) {
           instance.began = true;
           instance.completed = false;
@@ -716,14 +716,14 @@
         }
         if (instance.update) instance.update(instance);
       }
-      if (currentTime >= instanceDuration && instanceTime !== instanceDuration) {
-        progression(instance, instanceDuration);
+      if (insTime >= insDuration && insCurrentTime !== insDuration) {
+        setTweensProgress(insDuration);
       }
-      if (tickTime >= instanceDuration) {
+      if (engineTime >= insDuration) {
         if (instance.remaining && !isNaN(parseFloat(instance.remaining))) instance.remaining--;
         if (instance.remaining) {
           startTime = now;
-          if (instance.direction === 'alternate') toggleInstanceDirection(instance);
+          if (instance.direction === 'alternate') toggleInstanceDirection();
         } else {
           instance.remaining = instance.loop;
           instance.completed = true;
@@ -738,13 +738,12 @@
     instance.tick = function(t) {
       now = t;
       if (!startTime) startTime = now;
-      const tickTime = (lastTime + now - startTime) * anime.speed;
-      setInstanceProgress(instance, tickTime);
+      const engineTime = (lastTime + now - startTime) * anime.speed;
+      setInstanceProgress(engineTime);
     }
 
     instance.seek = function(time) {
-      const instanceTime = adjustInstanceTime(instance, time);
-      setInstanceProgress(instance, instanceTime);
+      setInstanceProgress(adjustTime(time));
     }
 
     instance.pause = function() {
@@ -757,10 +756,10 @@
       if (!instance.paused) return;
       instance.paused = false;
       startTime = 0;
-      lastTime = instance.completed ? 0 : adjustInstanceTime(instance, instance.currentTime);
-      if (instance.direction === 'reverse' && !instance.reversed) toggleInstanceDirection(instance);
+      lastTime = instance.completed ? 0 : adjustTime(instance.currentTime);
+      if (instance.direction === 'reverse' && !instance.reversed) toggleInstanceDirection();
       if (instance.direction === 'alternate') {
-        if (instance.reversed && !instance.remaining % 2) toggleInstanceDirection(instance);
+        if (instance.reversed && !instance.remaining % 2) toggleInstanceDirection();
         if (!instance.remaining) instance.remaining = 2;
       }
       activeInstances.push(instance);
@@ -769,7 +768,7 @@
 
     instance.restart = function() {
       instance.pause();
-      if (instance.reversed) toggleInstanceDirection(instance);
+      if (instance.reversed) toggleInstanceDirection();
       instance.completed = false;
       instance.began = false;
       instance.remaining = instance.loop;
