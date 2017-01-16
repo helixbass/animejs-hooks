@@ -191,14 +191,7 @@
     fill: '#F9C100',
     easing: 'easeOutExpo',
     duration: 200,
-    delay: (t, i) => 3300 + (anime.random(0, 450)),
-    complete: function() {
-      anime({
-        targets: '.line',
-        opacity: 0,
-        duration: 1500
-      })
-    }
+    delay: (t, i) => 3300 + (anime.random(0, 450))
   });
 
   var textPaths = anime({

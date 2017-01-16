@@ -645,27 +645,6 @@
     }
   }
 
-  function setInstanceProgress(instance, tickTime) {
-    const currentTime = adjustInstanceTime(instance, tickTime);
-    const instanceDuration = instance.duration;
-    const instanceDelay = instance.delay;
-    if (currentTime <= instanceDelay && instance.started) {
-      instance.started = false;
-      progression(instance, 0);
-    }
-    if (currentTime > instanceDelay && currentTime < instanceDuration) {
-      instance.started = true;
-      instance.ended = false;
-      progression(instance, currentTime);
-    }
-    if (currentTime >= instanceDuration && !instance.ended) {
-      instance.ended = true;
-      progression(instance, instanceDuration);
-    }
-    if (instance.update) instance.update(instance);
-    if (instance.children) syncInstanceChildren(instance, currentTime);
-  }
-
   function getInstanceTimings(type, animations, tweenSettings) {
     const math = (type === 'delay') ? Math.min : Math.max;
     return arrayLength(animations) ? math.apply(Math, animations.map((anim) => anim[type])) : tweenSettings[type];
@@ -714,18 +693,30 @@
 
   function anime(params) {
 
-    let startTime, lastTime = 0;
+    let now, startTime, lastTime = 0;
     let instance = createNewInstance(params);
 
-    instance.tick = function(now) {
-      if (!startTime) startTime = now;
-      const tickTime = (lastTime + now - startTime) * anime.speed;
-      setInstanceProgress(instance, tickTime);
-      if (!instance.began && tickTime >= instance.delay) {
-        instance.began = true;
-        if (instance.begin) instance.begin(instance);
+    function setInstanceProgress(instance, tickTime) {
+      const currentTime = adjustInstanceTime(instance, tickTime);
+      const instanceDuration = instance.duration;
+      const instanceDelay = instance.delay;
+      const instanceTime = instance.currentTime;
+      if (instance.children) syncInstanceChildren(instance, currentTime);
+      if (currentTime <= instanceDelay && instanceTime !== 0) {
+        progression(instance, 0);
       }
-      if (tickTime >= instance.duration) {
+      if (currentTime > instanceDelay && currentTime < instanceDuration) {
+        progression(instance, currentTime);
+        if (!instance.began) {
+          instance.began = true;
+          if (instance.begin) instance.begin(instance);
+        }
+        if (instance.update) instance.update(instance);
+      }
+      if (currentTime >= instanceDuration && instanceTime !== instanceDuration) {
+        progression(instance, instanceDuration);
+      }
+      if (tickTime >= instanceDuration) {
         if (instance.remaining && !isNaN(parseFloat(instance.remaining))) instance.remaining--;
         if (instance.remaining) {
           startTime = now;
@@ -740,9 +731,16 @@
       }
     }
 
+    instance.tick = function(t) {
+      now = t;
+      if (!startTime) startTime = now;
+      const tickTime = (lastTime + now - startTime) * anime.speed;
+      setInstanceProgress(instance, tickTime);
+    }
+
     instance.seek = function(time) {
-      const now = adjustInstanceTime(instance, time);
-      setInstanceProgress(instance, now);
+      const instanceTime = adjustInstanceTime(instance, time);
+      setInstanceProgress(instance, instanceTime);
     }
 
     instance.pause = function() {
