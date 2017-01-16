@@ -6,7 +6,7 @@ compressor.minify({
   compressor: 'gcc',
   input: 'anime.js',
   output: 'anime.min.js',
-  opcitons: {
+  options: {
     compilation_level: 'SIMPLE_OPTIMIZATIONS',
     language_out: 'ECMASCRIPT5'
   },
