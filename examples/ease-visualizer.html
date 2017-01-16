@@ -234,7 +234,7 @@
     });
 
     timeline.add([
-      anime({
+      {
         targets: '.axis.x',
         translateX: [0, 400],
         easing: 'linear',
@@ -243,9 +243,9 @@
           { value: 0, delay: 1500, duration: 500, easing: 'easeInQuad' }
         ],
         duration: 1500,
-        delay: 500
-      }),
-      anime({
+        delay: 500,
+        offset: 0
+      }, {
         targets: '.axis.y',
         translateY: [0, -400],
         easing: easingName,
@@ -254,9 +254,9 @@
           { value: 0, delay: 1500, duration: 500, easing: 'easeInQuad' }
         ],
         duration: 1500,
-        delay: 500
-      }),
-      anime({
+        delay: 500,
+        offset: 0
+      }, {
         targets: '.ball',
         translateY: [100, 0],
         easing: easingName,
@@ -265,8 +265,9 @@
           { value: 0, delay: 1500, duration: 500, easing: 'easeInBack' }
         ],
         duration: 1500,
-        delay: 500
-      })
+        delay: 500,
+        offset: 0
+      }
     ]);
 
   }

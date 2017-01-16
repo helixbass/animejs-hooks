@@ -38,7 +38,8 @@
     delay: 0,
     easing: 'easeOutElastic',
     elasticity: 500,
-    round: 0
+    round: 0,
+    offset: 0
   }
 
   const validTransforms = ['translateX', 'translateY', 'translateZ', 'rotate', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scaleX', 'scaleY', 'scaleZ', 'skewX', 'skewY'];
@@ -531,7 +532,7 @@
 
   function normalizeTweens(prop, animatable) {
     let previousTween;
-    return prop.tweens.map(function(t) {
+    return prop.tweens.map(function(t, i) {
       let tween = normalizeTweenValues(t, animatable);
       const tweenValue = tween.value;
       const originalValue = getOriginalTargetValue(animatable.target, prop.name);
@@ -539,6 +540,7 @@
       const from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
       const to = getRelativeValue(is.arr(tweenValue) ? tweenValue[1] : tweenValue, from);
       const unit = getUnit(to) || getUnit(from) || getUnit(originalValue);
+      if (!i) tween.delay += tween.offset;
       tween.from = decomposeValue(from, unit);
       tween.to = decomposeValue(to, unit);
       tween.start = previousTween ? previousTween.end + tween.delay : tween.delay;
@@ -691,7 +693,7 @@
 
   // Public
 
-  function anime(params) {
+  function anime(params = {}) {
 
     let now, startTime, lastTime = 0;
     let instance = createNewInstance(params);
@@ -799,12 +801,17 @@
 
   // Timeline
 
-  function timeline(params = {easing: 'linear'}) {
+  function timeline(params) {
     let group = anime(params);
+    group.duration = 0;
     group.children = [];
-    group.add = (instance) => {
-      toArray(instance).forEach(ins => {
-        if (ins.duration > group.duration) group.duration = ins.duration;
+    group.add = function(instancesParam) {
+      toArray(instancesParam).forEach(insParam => {
+        const offset = insParam.offset;
+        const groupDuration = group.duration;
+        insParam.offset = is.und(offset) ? groupDuration : getRelativeValue(offset, groupDuration);
+        const ins = anime(insParam);
+        if (ins.duration > groupDuration) group.duration = ins.duration;
         ins.pause();
         group.children.push(ins);
       });

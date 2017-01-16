@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Testing | anime.js</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link href="assets/css/styles.css" rel="stylesheet">
+  <script src="../anime.js"></script>
+  <style>
+
+    .demo {
+      padding: 20px;
+    }
+
+    .row {
+      width: 100%;
+    }
+
+    .item {
+      width: 2rem;
+      height: 2rem;
+      margin: 1rem;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="row demo loop">
+    <h2>Loop x3</h2>
+    <div class="item color-01"></div>
+    <div class="item color-01"></div>
+    <script>
+      anime({
+        targets: '.loop .item',
+        translateX: 200,
+        begin: function() { console.log('loop began'); },
+        complete: function() { console.log('loop completed'); },
+        loop: 3,
+        delay: function(el, i) { return 50 * i; }
+      });
+    </script>
+  </div>
+  <div class="row demo alternate">
+    <h2>Alternate Loop x3</h2>
+    <div class="item color-02"></div>
+    <div class="item color-02"></div>
+    <script>
+      anime({
+        targets: '.alternate .item',
+        translateX: 200,
+        begin: function() { console.log('loop alternate began'); },
+        complete: function() { console.log('loop alternate completed'); },
+        loop: 3,
+        direction: 'alternate',
+        delay: function(el, i) { return 50 * i; }
+      });
+    </script>
+  </div>
+  <div class="row demo playback">
+    <h2>Alternate Loop x3 with controls</h2>
+    <div class="row">
+      <div class="item color-03"></div>
+      <div class="item color-03"></div>
+    </div>
+    <div class="row controls">
+      <button class="play">PLAY</button>
+      <button class="pause">PAUSE</button>
+      <button class="restart">RESTART</button>
+      <input class="progress" type="range" min="0" max="100" step=".1" value="0"></input>
+    </div>
+    <script>
+    (function() {
+      var progressEl = document.querySelector('.playback .progress');
+      var playEl = document.querySelector('.playback .play');
+      var pauseEl = document.querySelector('.playback .pause');
+      var restartEl = document.querySelector('.playback .restart');
+      var playback = anime({
+        targets: '.playback .item',
+        translateX: 200,
+        begin: function() { console.log('playback began'); },
+        update: function(a) { progressEl.value = a.progress },
+        complete: function() { console.log('playback completed'); },
+        loop: 3,
+        direction: 'alternate',
+        delay: function(el, i) { return 50 * i; }
+      });
+      playEl.onclick = playback.play;
+      pauseEl.onclick = playback.pause;
+      restartEl.onclick = playback.restart;
+      progressEl.oninput = function() {
+        playback.seek((progressEl.value * playback.duration) / 100);
+      }
+    })();
+    </script>
+  </div>
+  <div class="row demo timeline">
+    <h2>Timeline</h2>
+    <div class="row">
+      <div class="item color-04"></div>
+      <div class="item color-04"></div>
+    </div>
+    <div class="row controls">
+      <button class="play">PLAY</button>
+      <button class="pause">PAUSE</button>
+      <button class="restart">RESTART</button>
+      <input class="progress" type="range" min="0" max="100" step=".1" value="0"></input>
+    </div>
+    <script>
+    (function() {
+      var progressEl = document.querySelector('.timeline .progress');
+      var playEl = document.querySelector('.timeline .play');
+      var pauseEl = document.querySelector('.timeline .pause');
+      var restartEl = document.querySelector('.timeline .restart');
+
+      var simpleTL = new anime.timeline({
+        loop: 3,
+        direction: 'alternate',
+        update: function(a) { progressEl.value = a.progress },
+      });
+
+      simpleTL.add({
+        targets: '.timeline .item',
+        translateX: 200,
+        delay: function(el, i) { return 50 * i; },
+        begin: function(a) {
+          a.animatables.forEach(function(ani) {
+            ani.target.classList.add('color-08');
+          });
+        },
+        complete: function(a) {
+          a.animatables.forEach(function(ani) {
+            ani.target.classList.remove('color-08');
+          });
+        }
+      });
+
+      simpleTL.add({
+        targets: '.timeline .item',
+        translateX: [200, 200],
+        scale: 1.5,
+        delay: function(el, i) { return 50 * i; },
+        begin: function(a) {
+          a.animatables.forEach(function(ani) {
+            ani.target.classList.add('color-12');
+          });
+        },
+        complete: function(a) {
+          a.animatables.forEach(function(ani) {
+            ani.target.classList.remove('color-12');
+          });
+        }
+      });
+
+      playEl.onclick = simpleTL.play;
+      pauseEl.onclick = simpleTL.pause;
+      restartEl.onclick = simpleTL.restart;
+      progressEl.oninput = function() {
+        simpleTL.seek((progressEl.value * simpleTL.duration) / 100);
+      }
+    })();
+    </script>
+  </div>
+</body>
+</html>
