@@ -136,7 +136,7 @@
 
       }
 
-      return (x) => {
+      return x => {
         if (mX1 === mY1 && mX2 === mY2) return x;
         if (x === 0) return 0;
         if (x === 1) return 1;
@@ -244,7 +244,7 @@
   }
 
   function arrayContains(arr, val) {
-    return arr.some((a) => a === val);
+    return arr.some(a => a === val);
   }
 
   // Objects
@@ -533,7 +533,7 @@
 
   function normalizeTweens(prop, animatable) {
     let previousTween;
-    return prop.tweens.map((t) => {
+    return prop.tweens.map(t => {
       let tween = normalizeTweenValues(t, animatable);
       const tweenValue = tween.value;
       const originalValue = getOriginalTargetValue(animatable.target, prop.name);
@@ -609,7 +609,7 @@
 
   function getInstanceTimings(type, animations, tweenSettings) {
     const math = (type === 'delay') ? Math.min : Math.max;
-    return arrayLength(animations) ? math.apply(Math, animations.map((anim) => anim[type])) : tweenSettings[type];
+    return arrayLength(animations) ? math.apply(Math, animations.map(anim => anim[type])) : tweenSettings[type];
   }
 
   function createNewInstance(params = {}) {
@@ -765,6 +765,16 @@
       if (!raf) engine();
     }
 
+    instance.reverse = function() {
+      instance.pause();
+      const direction = instance.direction;
+      if (direction !== 'alternate') {
+        instance.direction = direction === 'normal' ? 'reverse' : 'normal';
+      }
+      toggleInstanceDirection();
+      instance.play();
+    }
+
     instance.restart = function() {
       instance.pause();
       if (instance.reversed) toggleInstanceDirection();
@@ -800,21 +810,22 @@
   // Timeline
 
   function timeline(params) {
-    let group = anime(params);
-    group.duration = 0;
-    group.children = [];
-    group.add = function(instancesParam) {
-      toArray(instancesParam).forEach(insParam => {
-        const offset = insParam.offset;
-        const groupDuration = group.duration;
-        insParam.offset = is.und(offset) ? groupDuration : getRelativeValue(offset, groupDuration);
-        const ins = anime(insParam);
-        if (ins.duration > groupDuration) group.duration = ins.duration;
-        ins.pause();
-        group.children.push(ins);
+    let tl = anime(params);
+    tl.duration = 0;
+    tl.children = [];
+    tl.add = function(instancesParams) {
+      toArray(instancesParams).forEach(insParams => {
+        const offset = insParams.offset;
+        const tlDuration = tl.duration;
+        insParams.autoplay = false;
+        insParams.offset = is.und(offset) ? tlDuration : getRelativeValue(offset, tlDuration);
+        const ins = anime(insParams);
+        if (ins.duration > tlDuration) tl.duration = ins.duration;
+        tl.children.push(ins);
       });
+      return tl;
     }
-    return group;
+    return tl;
   }
 
   anime.version = '2.0.0';
