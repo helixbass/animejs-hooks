@@ -145,9 +145,10 @@ var JSarray = anime({
   </div>
 <script>var cssProperties = anime({
   targets: '#cssProperties .el',
-  left: '80%',
-  opacity: 0.8,
+  width: 280,
+  opacity: .5,
   backgroundColor: '#FFF',
+  borderRadius: 40,
   easing: 'easeInOutQuad'
 });
 </script>
@@ -623,44 +624,31 @@ var JSobjectProp = anime({
   <div class="demo-content">
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square hex"></div>
+      <div class="square el"></div>
     </div>
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square rgb"></div>
+      <div class="square el"></div>
     </div>
     <div class="line">
       <div class="square shadow"></div>
-      <div class="square hsl"></div>
+      <div class="square el"></div>
     </div>
   </div>
-<script>var hex = anime({
-  targets: '#colors .hex',
-  translateX: 250,
-  backgroundColor: '#FFF', // Or #FFFFFF
-  easing: 'linear',
-  duration: 2000
-});
-
-var rgb = anime({
-  targets: '#colors .rgb',
-  translateX: 250,
-  backgroundColor: 'rgb(255, 255, 255)',
-  easing: 'linear',
-  duration: 2000
-});
-
-var hsl = anime({
-  targets: '#colors .hsl',
-  translateX: 250,
-  backgroundColor: 'hsl(360, 100%, 100%)',
-  easing: 'linear',
-  duration: 2000
-});
-</script>
 <script>
-  var colors = anime.timeline();
-  colors.add([hex, rgb, hsl]);
+
+var colors = anime({
+  targets: '#colors .el',
+  translateX: 250,
+  backgroundColor: [
+    {value: '#FFF'}, // Or #FFFFFF
+    {value: 'rgb(255, 0, 0)'},
+    {value: 'hsl(100, 60%, 60%)'}
+  ],
+  easing: 'linear',
+  direction: 'alternate',
+  duration: 2000
+});
 </script>
 </div>
 
@@ -779,26 +767,103 @@ var hsl = anime({
   </div>
 <script>var basicTimeline = anime.timeline();
 
-basicTimeline.add([
-  anime({
+basicTimeline
+  .add({
     targets: '#basicTimeline .square.el',
-    translateX: [ { value: 80 }, { value: 160 }, { value: 250 } ],
-    translateY: [ { value: 30 }, { value: 60 }, { value: 60 } ],
-    duration: 2000
-  }),
-  anime({
-    targets: '#basicTimeline .circle.el',
-    translateX: [ { value: 80 }, { value: 160 }, { value: 250 } ],
-    translateY: [ { value: 30 }, { value: -30 }, { value: -30 } ],
-    duration: 3000
-  }),
-  anime({
-    targets: '#basicTimeline .triangle.el',
-    translateX: [ { value: 80 }, { value: 250 } ],
-    translateY: [ { value: -60 }, { value: -30 }, { value: -30 } ],
-    duration: 3000
+    translateX: 250,
+    easing: 'easeOutExpo',
   })
-]);
+  .add({
+    targets: '#basicTimeline .circle.el',
+    translateX: 250,
+    easing: 'easeOutExpo',
+  })
+  .add({
+    targets: '#basicTimeline .triangle.el',
+    translateX: 250,
+    easing: 'easeOutExpo',
+  });
+
+</script>
+</div>
+
+<div id="relativeOffset" class="demo">
+  <h3 class="demo-title">Relative offset</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+    <div class="line">
+      <div class="circle shadow"></div>
+      <div class="circle el"></div>
+    </div>
+    <div class="line">
+      <div class="triangle shadow"></div>
+      <div class="triangle el"></div>
+    </div>
+  </div>
+<script>var relativeOffset = anime.timeline();
+
+relativeOffset
+  .add({
+    targets: '#relativeOffset .square.el',
+    translateX: 250,
+    easing: 'easeOutExpo',
+  })
+  .add({
+    targets: '#relativeOffset .circle.el',
+    translateX: 250,
+    easing: 'easeOutExpo',
+    offset: '-=600' // Starts 600ms before the previous animation ends
+  })
+  .add({
+    targets: '#relativeOffset .triangle.el',
+    translateX: 250,
+    easing: 'easeOutExpo',
+    offset: '-=800' // Starts 800ms before the previous animation ends
+  });
+
+</script>
+</div>
+
+<div id="absoluteOffset" class="demo">
+  <h3 class="demo-title">Absolute offset</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+    <div class="line">
+      <div class="circle shadow"></div>
+      <div class="circle el"></div>
+    </div>
+    <div class="line">
+      <div class="triangle shadow"></div>
+      <div class="triangle el"></div>
+    </div>
+  </div>
+<script>var absoluteOffset = anime.timeline();
+
+absoluteOffset
+  .add({
+    targets: '#absoluteOffset .square.el',
+    translateX: 250,
+    easing: 'easeOutExpo',
+    offset: 1000 // Starts at 1000ms of the timeline
+  })
+  .add({
+    targets: '#absoluteOffset .circle.el',
+    translateX: 250,
+    easing: 'easeOutExpo',
+    offset: 500 // Starts at 500ms of the timeline
+  })
+  .add({
+    targets: '#absoluteOffset .triangle.el',
+    translateX: 250,
+    easing: 'easeOutExpo',
+    offset: 0 // Starts at 0ms of the timeline
+  });
 
 </script>
 </div>
@@ -820,33 +885,31 @@ basicTimeline.add([
     </div>
   </div>
 <script>var timelineParameters = anime.timeline({
-  direction: 'reverse',
+  direction: 'alternate',
   loop: 'true'
 });
 
-timelineParameters.add([
-  anime({
+timelineParameters
+  .add({
     targets: '#timelineParameters .square.el',
     translateX: [ { value: 80 }, { value: 160 }, { value: 250 } ],
     translateY: [ { value: 30 }, { value: 60 }, { value: 60 } ],
-    duration: 2000,
-    delay: 1000
-  }),
-  anime({
+    duration: 3000
+  })
+  .add({
     targets: '#timelineParameters .circle.el',
     translateX: [ { value: 80 }, { value: 160 }, { value: 250 } ],
     translateY: [ { value: 30 }, { value: -30 }, { value: -30 } ],
     duration: 3000,
-    delay: 1000
-  }),
-  anime({
+    offset: 200
+  })
+  .add({
     targets: '#timelineParameters .triangle.el',
     translateX: [ { value: 80 }, { value: 250 } ],
     translateY: [ { value: -60 }, { value: -30 }, { value: -30 } ],
     duration: 3000,
-    delay: 1000
-  })
-]);
+    offset: 400
+  });
 
 </script>
 </div>
@@ -895,7 +958,7 @@ document.querySelector('#playPause .pause').onclick = playPause.pause;
 </script>
 </div>
 
-<div id="restartAnim" class="demo controls">
+<div id="restartAnim" class="demo">
   <h3 class="demo-title">Restart</h3>
   <div class="demo-content">
     <div class="line">
@@ -919,11 +982,42 @@ document.querySelector('#playPause .pause').onclick = playPause.pause;
   translateX: 250,
   delay: function(el, i, l) { return i * 100; },
   direction: 'alternate',
-  loop: true,
-  autoplay: false
+  loop: true
 });
 
 document.querySelector('#restartAnim .restart').onclick = restartAnim.restart;
+
+</script>
+</div>
+
+<div id="reverseAnim" class="demo controls">
+  <h3 class="demo-title">Reverse</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line">
+      <div class="small square shadow"></div>
+      <div class="small square el"></div>
+    </div>
+    <div class="line player">
+      <button class="reverse">Reverse</button>
+    </div>
+  </div>
+<script>var reverseAnim = anime({
+  targets: '#reverseAnim .el',
+  translateX: 250,
+  duration: 2000,
+  delay: function(el, i, l) { return i * 200; },
+  direction: 'alternate'
+});
+
+document.querySelector('#reverseAnim .reverse').onclick = reverseAnim.reverse;
 
 </script>
 </div>
@@ -988,32 +1082,33 @@ document.querySelector('#seekAnim .progress').oninput = function() {
 <script>var controlsProgressEl = document.querySelector('#TLcontrols .progress');
 
 var TLcontrols = anime.timeline({
-  direction: 'alternate',
   update: function(anim) {
     controlsProgressEl.value = anim.progress;
   }
 });
 
-TLcontrols.add([
-  anime({
+TLcontrols
+  .add({
     targets: '#TLcontrols .square.el',
     translateX: [ { value: 80 }, { value: 160 }, { value: 250 } ],
     translateY: [ { value: 30 }, { value: 60 }, { value: 60 } ],
-    duration: 2000
-  }),
-  anime({
+    duration: 3000,
+    offset: 0
+  })
+  .add({
     targets: '#TLcontrols .circle.el',
     translateX: [ { value: 80 }, { value: 160 }, { value: 250 } ],
     translateY: [ { value: 30 }, { value: -30 }, { value: -30 } ],
-    duration: 3000
-  }),
-  anime({
+    duration: 3000,
+    offset: 0
+  })
+  .add({
     targets: '#TLcontrols .triangle.el',
     translateX: [ { value: 80 }, { value: 250 } ],
     translateY: [ { value: -60 }, { value: -30 }, { value: -30 } ],
-    duration: 3000
-  })
-]);
+    duration: 3000,
+    offset: 0
+  });
 
 document.querySelector('#TLcontrols .play').onclick = TLcontrols.play;
 document.querySelector('#TLcontrols .pause').onclick = TLcontrols.pause;
@@ -1078,6 +1173,7 @@ allCallbacks.update = function(anim) {
     completedLogEl2.value = '';
   }
 }
+
 allCallbacks.begin =  function() { beganLogEl2.value = 'began'; };
 allCallbacks.complete = function() { completedLogEl2.value = 'completed'; };
 
@@ -1135,6 +1231,39 @@ begin.update = function(anim) {
     beganLogEl.value = 'began : ' + anim.began;
   }
 }
+</script>
+</div>
+
+<div id="run" class="demo">
+  <h3 class="demo-title">Run</h3>
+  <div class="demo-content">
+    <div class="logs">
+      <input class="log current-time-log"></input>
+      <input class="log progress-log"></input>
+    </div>
+    <div class="large square shadow"></div>
+    <div class="large square el"></div>
+  </div>
+<script>var runLogEl = document.querySelector('#run .current-time-log');
+var runProgressLogEl = document.querySelector('#run .progress-log');
+
+var run = anime({
+  targets: '#run .el',
+  translateX: 250,
+  delay: 1000,
+  update: function(anim) {
+    if (!anim.began) {
+      runLogEl.value = 'not running';
+    }
+    runProgressLogEl.value = 'progress : ' + Math.round(anim.progress) + '%';
+  },
+  run: function(anim) {
+    runLogEl.value = 'running';
+  },
+  complete: function(anim) {
+    runLogEl.value = 'not running';
+  }
+});
 </script>
 </div>
 
@@ -1373,134 +1502,108 @@ var motionPath = anime({
       <div class="small stretched square InOutBack"></div>
     </div>
   </div>
-<script>var linear = anime({
-  targets: '#penner .linear',
-  translateX: 250,
-  easing: 'linear'
-});
-var InQuad = anime({
-  targets: '#penner .InQuad',
-  translateX: 250,
-  easing: 'easeInQuad'
-});
-var InCubic = anime({
-  targets: '#penner .InCubic',
-  translateX: 250,
-  easing: 'easeInCubic'
-});
-var InQuart = anime({
-  targets: '#penner .InQuart',
-  translateX: 250,
-  easing: 'easeInQuart'
-});
-var InQuint = anime({
-  targets: '#penner .InQuint',
-  translateX: 250,
-  easing: 'easeInQuint'
-});
-var InSine = anime({
-  targets: '#penner .InSine',
-  translateX: 250,
-  easing: 'easeInSine'
-});
-var InExpo = anime({
-  targets: '#penner .InExpo',
-  translateX: 250,
-  easing: 'easeInExpo'
-});
-var InCirc = anime({
-  targets: '#penner .InCirc',
-  translateX: 250,
-  easing: 'easeInCirc'
-});
-var InBack = anime({
-  targets: '#penner .InBack',
-  translateX: 250,
-  easing: 'easeInBack'
-});
-var OutQuad = anime({
-  targets: '#penner .OutQuad',
-  translateX: 250,
-  easing: 'easeOutQuad'
-});
-var OutCubic = anime({
-  targets: '#penner .OutCubic',
-  translateX: 250,
-  easing: 'easeOutCubic'
-});
-var OutQuart = anime({
-  targets: '#penner .OutQuart',
-  translateX: 250,
-  easing: 'easeOutQuart'
-});
-var OutQuint = anime({
-  targets: '#penner .OutQuint',
-  translateX: 250,
-  easing: 'easeOutQuint'
-});
-var OutSine = anime({
-  targets: '#penner .OutSine',
-  translateX: 250,
-  easing: 'easeOutSine'
-});
-var OutExpo = anime({
-  targets: '#penner .OutExpo',
-  translateX: 250,
-  easing: 'easeOutExpo'
-});
-var OutCirc = anime({
-  targets: '#penner .OutCirc',
-  translateX: 250,
-  easing: 'easeOutCirc'
-});
-var OutBack = anime({
-  targets: '#penner .OutBack',
-  translateX: 250,
-  easing: 'easeOutBack'
-});
-var InOutQuad = anime({
-  targets: '#penner .InOutQuad',
-  translateX: 250,
-  easing: 'easeInOutQuad'
-});
-var InOutCubic = anime({
-  targets: '#penner .InOutCubic',
-  translateX: 250,
-  easing: 'easeInOutCubic'
-});
-var InOutQuart = anime({
-  targets: '#penner .InOutQuart',
-  translateX: 250,
-  easing: 'easeInOutQuart'
-});
-var InOutQuint = anime({
-  targets: '#penner .InOutQuint',
-  translateX: 250,
-  easing: 'easeInOutQuint'
-});
-var InOutSine = anime({
-  targets: '#penner .InOutSine',
-  translateX: 250,
-  easing: 'easeInOutSine'
-});
-var InOutExpo = anime({
-  targets: '#penner .InOutExpo',
-  translateX: 250,
-  easing: 'easeInOutExpo'
-});
-var InOutCirc = anime({
-  targets: '#penner .InOutCirc',
-  translateX: 250,
-  easing: 'easeInOutCirc'
-});
-var InOutBack = anime({
-  targets: '#penner .InOutBack',
-  translateX: 250,
-  easing: 'easeInOutBack'
-});
-</script>
 <script>var penner = anime.timeline();
-penner.add([linear, InQuad, InCubic, InQuart, InQuint, InSine, InExpo, InCirc, InBack, OutQuad, OutCubic, OutQuart, OutQuint, OutSine, OutExpo, OutCirc, OutBack, InOutQuad, InOutCubic, InOutQuart, InOutQuint, InOutSine, InOutExpo, InOutCirc, InOutBack]);
+penner
+  .add({
+    targets: '#penner .linear', translateX: 250, offset: 0,
+    easing: 'linear'
+  })
+  .add({
+    targets: '#penner .InQuad', translateX: 250, offset: 0,
+    easing: 'easeInQuad'
+  })
+  .add({
+    targets: '#penner .InCubic', translateX: 250, offset: 0,
+    easing: 'easeInCubic'
+  })
+  .add({
+    targets: '#penner .InQuart', translateX: 250, offset: 0,
+    easing: 'easeInQuart'
+  })
+  .add({
+    targets: '#penner .InQuint', translateX: 250, offset: 0,
+    easing: 'easeInQuint'
+  })
+  .add({
+    targets: '#penner .InSine', translateX: 250, offset: 0,
+    easing: 'easeInSine'
+  })
+  .add({
+    targets: '#penner .InExpo', translateX: 250, offset: 0,
+    easing: 'easeInExpo'
+  })
+  .add({
+    targets: '#penner .InCirc', translateX: 250, offset: 0,
+    easing: 'easeInCirc'
+  })
+  .add({
+    targets: '#penner .InBack', translateX: 250, offset: 0,
+    easing: 'easeInBack'
+  })
+  .add({
+    targets: '#penner .OutQuad', translateX: 250, offset: 0,
+    easing: 'easeOutQuad'
+  })
+  .add({
+    targets: '#penner .OutCubic', translateX: 250, offset: 0,
+    easing: 'easeOutCubic'
+  })
+  .add({
+    targets: '#penner .OutQuart', translateX: 250, offset: 0,
+    easing: 'easeOutQuart'
+  })
+  .add({
+    targets: '#penner .OutQuint', translateX: 250, offset: 0,
+    easing: 'easeOutQuint'
+  })
+  .add({
+    targets: '#penner .OutSine', translateX: 250, offset: 0,
+    easing: 'easeOutSine'
+  })
+  .add({
+    targets: '#penner .OutExpo', translateX: 250, offset: 0,
+    easing: 'easeOutExpo'
+  })
+  .add({
+    targets: '#penner .OutCirc', translateX: 250, offset: 0,
+    easing: 'easeOutCirc'
+  })
+  .add({
+    targets: '#penner .OutBack', translateX: 250, offset: 0,
+    easing: 'easeOutBack'
+  })
+  .add({
+    targets: '#penner .InOutQuad', translateX: 250, offset: 0,
+    easing: 'easeInOutQuad'
+  })
+  .add({
+    targets: '#penner .InOutCubic', translateX: 250, offset: 0,
+    easing: 'easeInOutCubic'
+  })
+  .add({
+    targets: '#penner .InOutQuart', translateX: 250, offset: 0,
+    easing: 'easeInOutQuart'
+  })
+  .add({
+    targets: '#penner .InOutQuint', translateX: 250, offset: 0,
+    easing: 'easeInOutQuint'
+  })
+  .add({
+    targets: '#penner .InOutSine', translateX: 250, offset: 0,
+    easing: 'easeInOutSine'
+  })
+  .add({
+    targets: '#penner .InOutExpo', translateX: 250, offset: 0,
+    easing: 'easeInOutExpo'
+  })
+  .add({
+    targets: '#penner .InOutCirc', translateX: 250, offset: 0,
+    easing: 'easeInOutCirc'
+  })
+  .add({
+    targets: '#penner .InOutBack', translateX: 250, offset: 0,
+    easing: 'easeInOutBack'
+  });
 </script>
 </div>
 
@@ -1552,75 +1655,62 @@ penner.add([linear, InQuad, InCubic, InQuart, InQuint, InSine, InExpo, InCirc, I
       <div class="stretched square elasticity-1000"></div>
     </div>
   </div>
-<script>var elasticity0 = anime({
-  targets: '#elasticity .elasticity-0',
-  translateX: 250,
-  elasticity: 0,
-  duration: 3000
-});
-var elasticity100 = anime({
-  targets: '#elasticity .elasticity-100',
-  translateX: 250,
-  elasticity: 100,
-  duration: 3000
-});
-var elasticity200 = anime({
-  targets: '#elasticity .elasticity-200',
-  translateX: 250,
-  elasticity: 200,
-  duration: 3000
-});
-var elasticity300 = anime({
-  targets: '#elasticity .elasticity-300',
-  translateX: 250,
-  elasticity: 300,
-  duration: 3000
-});
-var elasticity400 = anime({
-  targets: '#elasticity .elasticity-400',
-  translateX: 250,
-  elasticity: 400,
-  duration: 3000
-});
-var elasticity500 = anime({
-  targets: '#elasticity .elasticity-500',
-  translateX: 250,
-  elasticity: 500,
-  duration: 3000
-});
-var elasticity600 = anime({
-  targets: '#elasticity .elasticity-600',
-  translateX: 250,
-  elasticity: 600,
-  duration: 3000
-});
-var elasticity700 = anime({
-  targets: '#elasticity .elasticity-700',
-  translateX: 250,
-  elasticity: 700,
-  duration: 3000
-});
-var elasticity800 = anime({
-  targets: '#elasticity .elasticity-800',
-  translateX: 250,
-  elasticity: 800,
-  duration: 3000
-});
-var elasticity900 = anime({
-  targets: '#elasticity .elasticity-900',
-  translateX: 250,
-  elasticity: 900,
-  duration: 3000
-});
-var elasticity1000 = anime({
-  targets: '#elasticity .elasticity-1000',
-  translateX: 250,
-  elasticity: 1000,
-  duration: 3000
-});
-</script>
 <script>var elasticity = anime.timeline();
-elasticity.add([elasticity0, elasticity100, elasticity200, elasticity300, elasticity400, elasticity500, elasticity600, elasticity700, elasticity800, elasticity900, elasticity1000]);
+elasticity.add({
+  targets: '#elasticity .elasticity-0', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 0,
+})
+.add({
+  targets: '#elasticity .elasticity-100', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 100,
+})
+.add({
+  targets: '#elasticity .elasticity-200', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 200,
+})
+.add({
+  targets: '#elasticity .elasticity-300', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 300,
+})
+.add({
+  targets: '#elasticity .elasticity-400', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 400,
+})
+.add({
+  targets: '#elasticity .elasticity-500', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 500,
+})
+.add({
+  targets: '#elasticity .elasticity-600', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 600,
+})
+.add({
+  targets: '#elasticity .elasticity-700', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 700,
+})
+.add({
+  targets: '#elasticity .elasticity-800', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 800,
+})
+.add({
+  targets: '#elasticity .elasticity-900', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 900,
+})
+.add({
+  targets: '#elasticity .elasticity-1000', translateX: 250, offset: 0,
+  duration: 3000,
+  elasticity: 1000,
+});
 </script>
 </div>
 
