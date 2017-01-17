@@ -84,7 +84,7 @@ The `targets` property defines the elements or JS `Object`s to animate.
 | --- | ---
 | CSS | `opacity`, `backgroundColor`, `fontSize` ...
 | Transforms | `translateX`, `rotate`, `scale` ...
-| `Object` properties | Any `Object` property containing numerical values
+| Object properties | Any `Object` property containing numerical values
 | DOM attributes | Any DOM attributes containing numerical values
 | SVG attributes | Any SVG attributes containing numerical values
 
@@ -358,8 +358,8 @@ anime({
 
 <img src="documentation/assets/img/readme/value-keyframes.gif" width="332" />
 
-Keyframes are defined using an `Array` of property `Object`.<br>
-Instance's `duration`is divided by the number of keyframes of each properties if not specified.
+Keyframes are defined using an `Array` of property Object.<br>
+Instance's `duration` is divided by the number of keyframes of each properties if not specified.
 
 ```javascript
 anime({
@@ -393,16 +393,14 @@ anime({
 
 ## Timeline
 
+### Basic timeline
+
 <img src="documentation/assets/img/readme/timeline.gif" width="332" />
 
-Synchronize animations together.
-
-➜ [Timeline examples](http://anime-js.com/v2/documentation/#basicTimeline)
-
-### Creating a timeline
+Play animations in sequence by creating a timeline:
 
 ```javascript
-let myTimeline = anime.timeline();
+var myTimeline = anime.timeline();
 ```
 
 A timeline accepts the same parameters as an animation: `direction`, `loop` and `autoplay`.
@@ -415,43 +413,90 @@ var myTimeline = anime.timeline({
 });
 ```
 
-### Adding animations to a timeline
-
-Timeline has a .add() function that accepts an `Array` of animations:
+Add animations to the timeline with `.add()` :
 
 ```javascript
-let myTimeline = anime.timeline();
-
-myTimeline.add([
-  anime({
-    target: '.el-01',
-    translateX: 100
-  }),
-  anime({
-    target: '.el-02',
-    translateX: 100,
-    delay: 500
+myTimeline
+  .add({
+    targets: '.square',
+    translateX: 250
   })
-]);
-```
-
-Or
-
-```javascript
-var animation01 = anime({
-  target: '.el-01',
-  translateX: 100
-});
-var animation02 = anime({
-  target: '.el-02',
-  translateX: 100,
-  delay: 500
-});
-
-myTimeline.add([animation01, animation01]);
+  .add({
+    targets: '.circle',
+    translateX: 250
+  })
+  .add({
+    targets: '.triangle',
+    translateX: 250
+  });
 ```
 
 Access timeline children animations with `myTimeline.children`
+
+➜ [Basic timeline example](http://anime-js.com/v2/documentation/#basicTimeline)
+
+### Timeline animations offsets
+
+`offset` defines the starting time of an animation on the timeline.
+
+#### Relative offset
+
+<img src="documentation/assets/img/readme/timeline-relative.gif" width="332" />
+
+Defines starting time relative to the previous animations duration.
+
+| Types | Examples | Infos 
+| --- | --- | --- 
+| `+=` | `'+=100'` | Starts 100ms after the previous animation ends 
+| `-=` | `'-=100'` | Starts 100ms before the previous animation ends 
+| `*=` | `'*=2'` | Starts at 2 times the previous animations duration 
+
+```javascript
+myTimeline
+  .add({
+    targets: '.square',
+    translateX: 250
+  })
+  .add({
+    targets: '.circle',
+    translateX: 250,
+    offset: '-=600' // Starts 600ms before the previous animation ends
+  })
+  .add({
+    targets: '.triangle',
+    translateX: 250,
+    offset: '-=800' // Starts 800ms before the previous animation ends
+  });
+```
+
+➜ [Relative offset example](http://anime-js.com/v2/documentation/#relativeOffset)
+
+#### Absolute offset
+
+<img src="documentation/assets/img/readme/timeline-absolute.gif" width="332" />
+
+Defines an absolute starting time on the timeline with a number.
+
+```javascript
+myTimeline
+  .add({
+    targets: '.square',
+    translateX: 250,
+    offset: 1000 // Starts at 1000ms
+  })
+  .add({
+    targets: '.circle',
+    translateX: 250,
+    offset: 500 // Starts at 500ms
+  })
+  .add({
+    targets: '.triangle',
+    translateX: 250,
+    offset: 0 // Starts at 0ms
+  });
+```
+
+➜ [Absolute offset example](http://anime-js.com/v2/documentation/absoluteOffset)
 
 ## Playback controls
 
@@ -465,7 +510,6 @@ Play, pause, restart, seek animations or timelines.
 var playPauseAnim = anime({
   targets: 'div',
   translateX: 250,
-  delay: function(el, i, l) { return i * 100; },
   direction: 'alternate',
   loop: true,
   autoplay: false // prevent the instance from playing
@@ -485,7 +529,6 @@ playPauseAnim.pause(); //  Manually pause
 var restartAnim = anime({
   targets: 'div',
   translateX: 250,
-  delay: function(el, i, l) { return i * 100; },
   direction: 'alternate',
   loop: true,
   autoplay: false
@@ -495,6 +538,23 @@ restartAnim.restart(); // Restart the animation and reset the loop count / curre
 ```
 
 ➜ [Restart example](http://anime-js.com/v2/documentation/#restartAnim)
+
+### Reverse
+
+<img src="documentation/assets/img/readme/playback-reverse.gif" width="332" />
+
+```javascript
+var restartAnim = anime({
+  targets: 'div',
+  translateX: 250,
+  direction: 'alternate',
+  loop: true
+});
+
+restartAnim.reverse(); // Change the animation direction
+```
+
+➜ [Reverse example](http://anime-js.com/v2/documentation/#reverseAnim)
 
 ### Seek
 
@@ -534,8 +594,7 @@ Execute a function at the beginning, during or when an animation or timeline is 
 
 <img src="documentation/assets/img/readme/callbacks-update.gif" width="332" />
 
-Get current animation time with `myAnimation.currentTime`, return value in ms.<br>
-Get current animation progress with `myAnimation.progress`, return value in %.
+`update()` is called on every frame while the instance is playing.
 
 ```javascript
 var myAnimation = anime({
@@ -543,8 +602,8 @@ var myAnimation = anime({
   translateX: 250,
   delay: 1000,
   update: function(anim) {
-    console.log(anim.currentTime + 'ms');
-    console.log(anim.progress + '%');
+    console.log(anim.currentTime + 'ms'); // Get current animation time with `myAnimation.currentTime`, return value in ms.
+    console.log(anim.progress + '%'); // Get current animation progress with `myAnimation.progress`, return value in %
   }
 });
 ```
@@ -554,6 +613,8 @@ var myAnimation = anime({
 ### Begin
 
 <img src="documentation/assets/img/readme/callbacks-begin.gif" width="332" />
+
+`begin()` is called once after the delay is finished.
 
 ```javascript
 var myAnimation = anime({
@@ -566,27 +627,44 @@ var myAnimation = anime({
 });
 ```
 
-`begin()` is not called if the animation is added to a timeline.
-
 Check if the animation has begun with `myAnimation.began`, return `true` or `false`.
 
 ➜ [Begin example](http://anime-js.com/v2/documentation/#begin)
+
+### Run
+
+<img src="documentation/assets/img/readme/callbacks-run.gif" width="332" />
+
+`run()` is called every frame after the delay is finished.
+
+```javascript
+var myAnimation = anime({
+  targets: '#begin .el',
+  translateX: 250,
+  delay: 1000,
+  run: function(anim) {
+    console.log(anim.currentTime);
+  }
+});
+```
+
+➜ [Run example](http://anime-js.com/v2/documentation/#run)
 
 ### Complete
 
 <img src="documentation/assets/img/readme/callbacks-complete.gif" width="332" />
 
+`complete()` is called once after the animation is finished.
+
 ```javascript
 var myAnimation = anime({
   targets: '#complete .el',
   translateX: 250,
-  complete: function(anim) {
+  Complete: function(anim) {
     console.log(anim.completed);
   }
 });
 ```
-
-`complete()` is not called if the animation is added to a timeline.
 
 Check if the animation has finished with `myAnimation.completed`, return `true` or `false`.
 
