@@ -7,8 +7,9 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 }
 
 html,
-body {
-	background-color: #111016;
+body,
+header {
+	background-color: #111116; /* Black */
 }
 
 body {
@@ -17,9 +18,8 @@ body {
   height: 100%;
   color: white;
   font-family: sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 .color-01 { color: #FF1461; } /* Red */
@@ -27,10 +27,10 @@ body {
 .color-03 { color: #FBF38C; } /* Yellow */
 .color-04 { color: #A6FF8F; } /* Citrus */
 .color-05 { color: #18FF92; } /* Green */
-.color-06 { color: #1CE2B2; }
-.color-07 { color: #5EF3FB; }
-.color-08 { color: #61C3FF; }
+.color-06 { color: #1CE2B2; } /* Darkgreen */
+.color-07 { color: #5EF3FB; } /* Turquoise */
+.color-08 { color: #61C3FF; } /* Lightblue */
 .color-09 { color: #5A87FF; } /* Blue */
-.color-10 { color: #B08CFF; }
-.color-11 { color: #FB89FB; }
-.color-12 { color: #FF48AB; }
+.color-10 { color: #8453E3; } /* Purple */
+.color-11 { color: #C26EFF; } /* Lavender */
+.color-12 { color: #FB89FB; } /* Pink */
