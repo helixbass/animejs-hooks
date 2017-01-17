@@ -25,8 +25,9 @@
   // Defaults
 
   const defaultInstanceSettings = {
-    begin: undefined,
     update: undefined,
+    begin: undefined,
+    run: undefined,
     complete: undefined,
     loop: 0,
     direction: 'normal',
@@ -582,7 +583,7 @@
         animatable: animatable,
         tweens: tweens,
         duration: tweens[arrayLength(tweens) - 1].end,
-        delay: tweens[0].start
+        delay: tweens[0].delay
       }
     }
   }
@@ -673,8 +674,6 @@
 
     function setAnimationsProgress(insTime) {
       let transforms = {};
-      instance.currentTime = insTime;
-      instance.progress = (insTime / instance.duration) * 100;
       const animations = instance.animations;
       for (let i = 0; i < arrayLength(animations); i++) {
         const anim = animations[i];
@@ -697,12 +696,17 @@
       }
     }
 
+    function setCallback(cb) {
+      if (instance[cb]) instance[cb](instance);
+    }
+
     function setInstanceProgress(engineTime) {
-      const insTime = adjustTime(engineTime);
       const insDuration = instance.duration;
       const insDelay = instance.delay;
       const insCurrentTime = instance.currentTime;
-      if (instance.children) syncInstanceChildren(insTime);
+      const insTime = minMaxValue(adjustTime(engineTime), 0, insDuration);
+      instance.currentTime = insTime;
+      instance.progress = (insTime / insDuration) * 100;
       if (insTime <= insDelay && insCurrentTime !== 0) {
         setAnimationsProgress(0);
       }
@@ -710,10 +714,9 @@
         setAnimationsProgress(insTime);
         if (!instance.began) {
           instance.began = true;
-          instance.completed = false;
-          if (instance.begin) instance.begin(instance);
+          setCallback('begin');
         }
-        if (instance.update) instance.update(instance);
+        setCallback('run');
       }
       if (insTime >= insDuration && insCurrentTime !== insDuration) {
         setAnimationsProgress(insDuration);
@@ -726,12 +729,13 @@
         } else {
           instance.remaining = instance.loop;
           instance.completed = true;
-          instance.began = false;
           instance.pause();
-          if (instance.complete) instance.complete(instance);
+          setCallback('complete');
         }
         lastTime = 0;
       }
+      if (instance.children) syncInstanceChildren(insTime);
+      setCallback('update');
     }
 
     instance.tick = function(t) {
