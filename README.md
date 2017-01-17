@@ -1,5 +1,4 @@
-# [anime.js](http://anime-js.com)
-![](http://img.badgesize.io/juliangarnier/anime/master/anime.min.js.svg?style=flat&color=18FF92)
+# [anime.js](http://anime-js.com)![](http://img.badgesize.io/juliangarnier/anime/blob/v2.0/anime.min.js.svg?style=flat&color=18FF92)
 
 <img src="documentation/assets/img/readme/animejs-logo.gif" width="100%" />
 
