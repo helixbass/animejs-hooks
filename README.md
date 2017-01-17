@@ -354,40 +354,12 @@ anime({
 
 ➜ [Function based value example](http://anime-js.com/v2/documentation/#functionBasedPropVal)
 
-## Keyframes
+### Keyframes
 
-### Basic keyframes
-
-<img src="documentation/assets/img/readme/keyframes-basic.gif" width="332" />
+<img src="documentation/assets/img/readme/value-keyframes.gif" width="332" />
 
 Keyframes are defined using an `Array` of property `Object`.<br>
-Animation of multiple values played in a sequence:
-
-```javascript
-anime({
-  targets: 'div',
-  translateX: [
-    { value: 80 },
-    { value: 160 },
-    { value: 250 }
-  ],
-  translateY: [
-    { value: -40 },
-    { value: 40 },
-    { value: 0 }
-  ],
-  duration: 1500, // Duration will be divided by the number of keyframes of each properties, so 500ms each in this example
-  delay: 500 // Delay will be applied only at the first keyframe
-});
-```
-
-➜ [Basic keyframes example](http://anime-js.com/v2/documentation/#basicKeyframes)
-
-### Specific keyframes properties
-
-<img src="documentation/assets/img/readme/keyframes-advanced.gif" width="332" />
-
-Use specific timing and easing functions for each keyframe:
+Instance's `duration`is divided by the number of keyframes of each properties if not specified.
 
 ```javascript
 anime({
@@ -417,7 +389,7 @@ anime({
 });
 ```
 
-➜ [Specific keyframes properties example](http://anime-js.com/v2/documentation/#specificKeyframeTimings)
+➜ [Specific keyframes properties example](http://anime-js.com/v2/documentation/#keyframes)
 
 ## Timeline
 
