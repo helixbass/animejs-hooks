@@ -1012,11 +1012,13 @@ document.querySelector('#restartAnim .restart').onclick = restartAnim.restart;
   targets: '#reverseAnim .el',
   translateX: 250,
   duration: 2000,
-  delay: function(el, i, l) { return i * 200; },
-  direction: 'alternate'
+  delay: function(el, i, l) { return i * 200; }
 });
 
-document.querySelector('#reverseAnim .reverse').onclick = reverseAnim.reverse;
+document.querySelector('#reverseAnim .reverse').onclick = function() {
+  reverseAnim.play();
+  reverseAnim.reverse();
+}
 
 </script>
 </div>
@@ -1081,6 +1083,9 @@ document.querySelector('#seekAnim .progress').oninput = function() {
 <script>var controlsProgressEl = document.querySelector('#TLcontrols .progress');
 
 var TLcontrols = anime.timeline({
+  direction: 'alternate',
+  loop: true,
+  easing: 'linear',
   update: function(anim) {
     controlsProgressEl.value = anim.progress;
   }

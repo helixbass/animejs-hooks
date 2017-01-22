@@ -623,13 +623,7 @@
       animatables: animatables,
       animations: animations,
       duration: getInstanceTimings('duration', animations, tweenSettings),
-      delay: getInstanceTimings('delay', animations, tweenSettings),
-      currentTime: 0,
-      progress: 0,
-      paused: true,
-      began: false,
-      completed: false,
-      remaining: instanceSettings.loop
+      delay: getInstanceTimings('delay', animations, tweenSettings)
     });
   }
 
@@ -658,6 +652,18 @@
 
     let now, startTime, lastTime = 0;
     let instance = createNewInstance(params);
+
+    instance.reset = function() {
+      const iterations = instance.loop;
+      const direction = instance.direction;
+      instance.currentTime = 0;
+      instance.progress = 0;
+      instance.paused = true;
+      instance.began = false;
+      instance.completed = false;
+      instance.reversed = direction === 'reverse';
+      instance.remaining = iterations ? iterations : direction === 'alternate' ? 2 : 0;
+    }
 
     function toggleInstanceDirection() {
       instance.reversed = !instance.reversed;
@@ -700,15 +706,23 @@
       if (instance[cb]) instance[cb](instance);
     }
 
+    function countIteration() {
+      if (instance.remaining && instance.remaining !== true) {
+        instance.remaining--;
+      }
+    }
+
     function setInstanceProgress(engineTime) {
       const insDuration = instance.duration;
       const insDelay = instance.delay;
       const insCurrentTime = instance.currentTime;
+      const insReversed = instance.reversed;
       const insTime = minMaxValue(adjustTime(engineTime), 0, insDuration);
       instance.currentTime = insTime;
       instance.progress = (insTime / insDuration) * 100;
       if (insTime <= insDelay && insCurrentTime !== 0) {
         setAnimationsProgress(0);
+        if (insReversed) countIteration();
       }
       if (insTime > insDelay && insTime < insDuration) {
         setAnimationsProgress(insTime);
@@ -720,14 +734,13 @@
       }
       if (insTime >= insDuration && insCurrentTime !== insDuration) {
         setAnimationsProgress(insDuration);
+        if (!insReversed) countIteration();
       }
       if (engineTime >= insDuration) {
-        if (instance.remaining && !isNaN(parseFloat(instance.remaining))) instance.remaining--;
         if (instance.remaining) {
           startTime = now;
           if (instance.direction === 'alternate') toggleInstanceDirection();
         } else {
-          instance.remaining = instance.loop;
           instance.completed = true;
           instance.pause();
           setCallback('complete');
@@ -760,36 +773,26 @@
       instance.paused = false;
       startTime = 0;
       lastTime = instance.completed ? 0 : adjustTime(instance.currentTime);
-      if (instance.direction === 'reverse' && !instance.reversed) toggleInstanceDirection();
-      if (instance.direction === 'alternate') {
-        if (instance.reversed && !instance.remaining % 2) toggleInstanceDirection();
-        if (!instance.remaining) instance.remaining = 2;
-      }
       activeInstances.push(instance);
       if (!raf) engine();
     }
 
     instance.reverse = function() {
-      instance.pause();
-      const direction = instance.direction;
-      if (direction !== 'alternate') {
-        instance.direction = direction === 'normal' ? 'reverse' : 'normal';
-      }
       toggleInstanceDirection();
-      instance.play();
+      startTime = 0;
+      lastTime = adjustTime(instance.currentTime);
     }
 
     instance.restart = function() {
       instance.pause();
-      if (instance.reversed) toggleInstanceDirection();
-      instance.completed = false;
-      instance.began = false;
-      instance.remaining = instance.loop;
+      instance.reset();
       instance.seek(0);
       instance.play();
     }
 
-    if (instance.autoplay) instance.restart();
+    instance.reset();
+
+    if (instance.autoplay) instance.play();
 
     return instance;
 
