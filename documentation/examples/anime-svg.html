@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SVG | anime.js</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  <link href="../assets/css/anime.css" rel="stylesheet">
+  <script src="../../anime.js"></script>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    .path-anim {
+      position: relative;
+      width: 400px;
+      height: 200px;
+    }
+    .el {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      margin: -4px 0 0 -4px;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="row demo timeline">
+    <div class="path-anim color-06">
+      <svg viewBox="0 0 400 200" fill="none" stroke="currentColor" stroke-width="4">
+        <path d="M20 100 60 100 80 120 100 80 120 140 140 60 160 160 180 40 200 180 220 20 240 160 260 40 280 140 300 60 320 120 340 100 380 100"/>
+      </svg>
+      <div class="el" style="transform: translateX(20px) translateY(100px)"></div>
+    </div>
+    <script>
+    (function() {
+
+      function generateDots() {
+        var current = 100;
+        var d = 'M20 100 60 100 80 ';
+        for (var i = 0; i < 13; i++) {
+          d+= anime.random(20, 180) + ' ' + current + ' ';
+          current = current + 20;
+        }
+        d+= '100 380 100';
+        return d;
+      }
+
+      var pathEl = document.querySelector('path');
+
+      var pathAnim = function() {
+        pathEl.setAttribute('d', generateDots());
+        var path = anime.path(pathEl);
+        anime({
+          targets: pathEl,
+          easing: 'linear',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: 2000,
+          opacity: {
+            value: [1, 0],
+            duration: 100,
+            delay: 1800
+          }
+        });
+        anime({
+          targets: '.el',
+          translateX: path('x'),
+          translateY: path('y'),
+          rotate: path('angle'),
+          scale: [
+            { value: [4, 1], duration: 200 },
+            { value: [1, 0], duration: 200, delay: 1600 }
+          ],
+          easing: 'linear',
+          duration: 2000,
+          complete: pathAnim
+        });
+      }
+
+      pathAnim();
+
+    })();
+    </script>
+  </div>
+</body>
+</html>

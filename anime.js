@@ -542,6 +542,7 @@
       const from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
       const to = getRelativeValue(is.arr(tweenValue) ? tweenValue[1] : tweenValue, from);
       const unit = getUnit(to) || getUnit(from) || getUnit(originalValue);
+      tween.isPath = isPath(tweenValue);
       tween.from = decomposeValue(from, unit);
       tween.to = decomposeValue(to, unit);
       tween.start = previousTween ? previousTween.end : prop.offset;
@@ -558,14 +559,14 @@
 
   function getTweenProgress(tween, time) {
     const elapsed = minMaxValue(time - tween.start - tween.delay, 0, tween.duration)
-    const path = isPath(tween.value);
+    const isPath = tween.isPath;
     let progress = (elapsed / tween.duration);
     const round = tween.round;
     return recomposeValue(tween.to.numbers.map((number, p) => {
       const eased = tween.easing(progress, tween.elasticity);
-      const start = path ? 0 : tween.from.numbers[p];
+      const start = isPath ? 0 : tween.from.numbers[p];
       let value = start + eased * (number - start);
-      if (path) value = getPathProgress(tween.value, value);
+      if (isPath) value = getPathProgress(tween.value, value);
       if (round) value = Math.round(value * round) / round;
       return value;
     }), tween.to.strings);
@@ -662,7 +663,7 @@
       instance.began = false;
       instance.completed = false;
       instance.reversed = direction === 'reverse';
-      instance.remaining = loops ? loops : (direction === 'alternate') ? 2 : 0;
+      instance.remaining = loops ? loops : (direction === 'alternate') ? 2 : 1;
     }
 
     function toggleInstanceDirection() {
