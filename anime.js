@@ -654,7 +654,7 @@
     let instance = createNewInstance(params);
 
     instance.reset = function() {
-      const iterations = instance.loop;
+      const loops = instance.loop;
       const direction = instance.direction;
       instance.currentTime = 0;
       instance.progress = 0;
@@ -662,7 +662,7 @@
       instance.began = false;
       instance.completed = false;
       instance.reversed = direction === 'reverse';
-      instance.remaining = iterations ? iterations : direction === 'alternate' ? 2 : 0;
+      instance.remaining = loops ? loops : (direction === 'alternate') ? 2 : 0;
     }
 
     function toggleInstanceDirection() {
@@ -786,7 +786,6 @@
     instance.restart = function() {
       instance.pause();
       instance.reset();
-      instance.seek(0);
       instance.play();
     }
 
