@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Diretion Testing | anime.js</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  <link href="../assets/css/anime.css" rel="stylesheet">
+  <script src="../../anime.js"></script>
+  <style>
+    body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      height: auto;
+    }
+    article {
+      padding: 2vw;
+      position: relative;
+      width: 33vw;
+      height: 140px;
+      background: currentColor;
+    }
+    h2 {
+      color: #111116;
+    }
+    .el {
+      margin-top: 2vw;
+      width: 2vw;
+      height: 2vw;
+      background: #111116;
+    }
+    input {
+      position: absolute;
+      top: 2vw;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      background: none;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function createTest(title, numberOfTargets, params) {
+      var testEl = document.createElement('article');
+      var testZoneEl = document.createElement('div');
+      var logEl = document.createElement('input');
+      var h2El = document.createElement('h2');
+
+      for (var i = 0; i < numberOfTargets; i++) {
+        var el = document.createElement('div');
+        el.classList.add('el');
+        testZoneEl.appendChild(el);
+      }
+
+      h2El.innerHTML = title;
+      testEl.appendChild(h2El);
+      testEl.appendChild(logEl);
+      testEl.appendChild(testZoneEl);
+      document.body.appendChild(testEl);
+
+      params.targets = testZoneEl.querySelectorAll('div');
+      params.translateX = '26vw';
+      params.begin = function() { testEl.classList.add('color-01') };
+      params.update = function(a) { logEl.value = a.progress + '%' };
+      params.complete = function() { testEl.classList.add('color-04') };
+      anime(params);
+    }
+
+    createTest('Normal', 1, {});
+
+    createTest('Reverse', 1, {
+      direction: 'reverse'
+    });
+
+    createTest('Alternate', 1, {
+      direction: 'alternate'
+    });
+
+    createTest('Normal 1 times', 1, {
+      loop: 1
+    });
+
+    createTest('Reverse 1 times', 1, {
+      direction: 'reverse',
+      loop: 1
+    });
+
+    createTest('Alternate 1 times', 1, {
+      direction: 'alternate',
+      loop: 1
+    });
+
+    createTest('Normal 2 times', 1, {
+      loop: 2
+    });
+
+    createTest('Reverse 2 times', 1, {
+      direction: 'reverse',
+      loop: 2
+    });
+
+    createTest('Alternate 2 times', 1, {
+      direction: 'alternate',
+      loop: 2
+    });
+
+    createTest('Normal 3 times', 1, {
+      loop: 3
+    });
+
+    createTest('Reverse 3 times', 1, {
+      direction: 'reverse',
+      loop: 3
+    });
+
+    createTest('Alternate 3 times', 1, {
+      direction: 'alternate',
+      loop: 3
+    });
+
+    createTest('Normal loop true', 1, {
+      loop: true
+    });
+
+    createTest('Reverse loop true', 1, {
+      direction: 'reverse',
+      loop: true
+    });
+
+    createTest('Alternate loop true', 1, {
+      direction: 'alternate',
+      loop: true
+    });
+
+    createTest('Normal infinite times', 1, {
+      loop: Infinity
+    });
+
+    createTest('Reverse infinite times', 1, {
+      direction: 'reverse',
+      loop: Infinity
+    });
+
+    createTest('Alternate infinite times', 1, {
+      direction: 'alternate',
+      loop: Infinity
+    });
+
+  </script>
+</body>
+</html>

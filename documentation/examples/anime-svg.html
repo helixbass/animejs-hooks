@@ -24,9 +24,9 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 8px;
-      height: 8px;
-      margin: -4px 0 0 -4px;
+      width: 12px;
+      height: 12px;
+      margin: -6px 0 0 -6px;
       background: white;
     }
   </style>
@@ -43,13 +43,16 @@
     (function() {
 
       function generateDots() {
-        var current = 100;
-        var d = 'M20 100 60 100 80 ';
+        var currentX = 70;
+        var d = 'M20 100 50 100 60 ';
         for (var i = 0; i < 13; i++) {
-          d+= anime.random(20, 180) + ' ' + current + ' ';
-          current = current + 20;
+          var highY = anime.random(5, 100);
+          d+= 100 - highY + ' ' + currentX + ' ';
+          currentX += 10;
+          d+= 100 + highY + ' ' + currentX + ' ';
+          currentX += 10;
         }
-        d+= '100 380 100';
+        d+= '100 350 100';
         return d;
       }
 
@@ -59,27 +62,27 @@
         pathEl.setAttribute('d', generateDots());
         var path = anime.path(pathEl);
         anime({
-          targets: pathEl,
-          easing: 'linear',
-          strokeDashoffset: [anime.setDashoffset, 0],
-          duration: 2000,
-          opacity: {
-            value: [1, 0],
-            duration: 100,
-            delay: 1800
-          }
-        });
-        anime({
           targets: '.el',
           translateX: path('x'),
           translateY: path('y'),
           rotate: path('angle'),
           scale: [
             { value: [4, 1], duration: 200 },
-            { value: [1, 0], duration: 200, delay: 1600 }
+            { value: [1, 0], duration: 200, delay: 3000 }
           ],
           easing: 'linear',
-          duration: 2000,
+          duration: 3000
+        });
+        anime({
+          targets: pathEl,
+          easing: 'linear',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: 3000,
+          opacity: {
+            value: [1, 0],
+            duration: 400,
+            delay: 3000
+          },
           complete: pathAnim
         });
       }

@@ -29,7 +29,7 @@
     begin: undefined,
     run: undefined,
     complete: undefined,
-    loop: 0,
+    loop: 1,
     direction: 'normal',
     autoplay: true,
     offset: 0
@@ -655,15 +655,15 @@
     let instance = createNewInstance(params);
 
     instance.reset = function() {
-      const loops = instance.loop;
       const direction = instance.direction;
+      const loops = instance.loop;
       instance.currentTime = 0;
       instance.progress = 0;
       instance.paused = true;
       instance.began = false;
       instance.completed = false;
       instance.reversed = direction === 'reverse';
-      instance.remaining = loops ? loops : (direction === 'alternate') ? 2 : 1;
+      instance.remaining = direction === 'alternate' && loops === 1 ? 2 : loops;
     }
 
     function toggleInstanceDirection() {
