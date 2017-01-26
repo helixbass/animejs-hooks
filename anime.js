@@ -338,6 +338,11 @@
     return Math.min(Math.max(val, min), max);
   }
 
+  function getFunctionValue(val, animatable) {
+    if (!is.fnc(val)) return val;
+    return val(animatable.target, animatable.id, animatable.total);
+  }
+
   function getCSSValue(el, prop) {
     if (prop in el.style) {
       return getComputedStyle(el).getPropertyValue(stringToHyphens(prop)) || '0';
@@ -508,11 +513,6 @@
 
   // Tweens
 
-  function getFunctionValue(val, animatable) {
-    if (!is.fnc(val)) return val;
-    return val(animatable.target, animatable.id, animatable.total);
-  }
-
   function normalizeTweenValues(tween, animatable) {
     let t = {};
     for (let p in tween) {
@@ -572,6 +572,16 @@
     }), tween.to.strings);
   }
 
+  const setTweenProgress = {
+    css: (t, p, v) => t.style[p] = v,
+    attribute: (t, p, v) => t.setAttribute(p, v),
+    object: (t, p, v) => t[p] = v,
+    transform: (t, p, v, transforms, id) => {
+      if (!transforms[id]) transforms[id] = [];
+      transforms[id].push(`${p}(${v})`);
+    }
+  }
+
   // Animations
 
   function createAnimation(animatable, prop) {
@@ -595,16 +605,6 @@
         return createAnimation(animatable, prop);
       });
     })).filter(a => !is.und(a));
-  }
-
-  const setTweenProgress = {
-    css: (t, p, v) => t.style[p] = v,
-    attribute: (t, p, v) => t.setAttribute(p, v),
-    object: (t, p, v) => t[p] = v,
-    transform: (t, p, v, transforms, id) => {
-      if (!transforms[id]) transforms[id] = [];
-      transforms[id].push(`${p}(${v})`);
-    }
   }
 
   // Create Instance
