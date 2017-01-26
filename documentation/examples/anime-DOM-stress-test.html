@@ -31,10 +31,10 @@
 <body></body>
 <script>
 
-  var maxElements = 300;
+  var maxElements = 350;
   var duration = 1500;
   var toAnimate = [];
-  var radius = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
+  var radius = window.innerWidth < window.innerHeight ? window.innerWidth : window.innerHeight;
   var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
 
   var createElements = (function() {
@@ -54,8 +54,8 @@
     var delay = (duration / maxElements) * i;
     anime({
       targets: el,
-      translateX: [0, Math.cos(angle) * (radius / 7)],
-      translateY: [0, Math.sin(angle) * (radius / 7)],
+      translateX: [0, Math.cos(angle) * (radius / 4)],
+      translateY: [0, Math.sin(angle) * (radius / 4)],
       scale: [
         {value: [0, 1], duration: 400, easing: 'easeOutBack'},
         {value: 0, duration: 400, delay: duration - 900, easing: 'easeInBack'}
