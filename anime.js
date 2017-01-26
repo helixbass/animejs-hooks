@@ -614,7 +614,7 @@
     return arrayLength(animations) ? math.apply(Math, animations.map(anim => anim[type])) : tweenSettings[type];
   }
 
-  function createNewInstance(params = {}) {
+  function createNewInstance(params) {
     const instanceSettings = replaceObjectProps(defaultInstanceSettings, params);
     const tweenSettings = replaceObjectProps(defaultTweenSettings, params);
     const animatables = getAnimatables(params.targets);
