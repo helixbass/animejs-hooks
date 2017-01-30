@@ -652,6 +652,9 @@
   function anime(params = {}) {
 
     let now, startTime, lastTime = 0;
+    let resolve = null;
+    let promise = makePromise();
+
     let instance = createNewInstance(params);
 
     instance.reset = function() {
@@ -664,6 +667,10 @@
       instance.completed = false;
       instance.reversed = direction === 'reverse';
       instance.remaining = direction === 'alternate' && loops === 1 ? 2 : loops;
+    }
+
+    function makePromise() {
+      return window.Promise && new Promise(_resolve => resolve = _resolve);
     }
 
     function toggleInstanceDirection() {
@@ -744,6 +751,8 @@
         } else {
           instance.completed = true;
           instance.pause();
+          resolve();
+          promise = makePromise();
           setCallback('complete');
         }
         lastTime = 0;
@@ -789,6 +798,9 @@
       instance.reset();
       instance.play();
     }
+
+    // Attach finished promise to instance
+    instance.finished = promise;
 
     instance.reset();
 

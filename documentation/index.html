@@ -1302,8 +1302,53 @@ complete.update = function(anim) {
 </article>
 <!-- -->
 
+<!-- PROMISES -->
+<article id="promises" class="color-10">
+<header>
+  <h2 class="demos-title">Promises</h2>
+</header>
+
+<div id="finishedPromise" class="demo">
+  <h3 class="demo-title">Finished</h3>
+  <div class="demo-content">
+    <div class="logs">
+      <input class="log finished-log"></input>
+    </div>
+    <div class="large square shadow"></div>
+    <div class="large square el"></div>
+  </div>
+<script>var finishedLogEl = document.querySelector('#finishedPromise .finished-log');
+
+var finishedPromise = anime({
+  targets: '#promises .el',
+  translateX: 250,
+  delay: 1000
+});
+
+var promise = finishedPromise.finished.then(logFinished);
+
+function logFinished() {
+  finishedLogEl.value = 'Promise resolved';
+
+  // Rebind the promise, since this demo can be looped.
+  setTimeout(() => {
+    promise = finishedPromise.finished.then(logFinished);
+  });
+}
+
+finishedPromise.update = function(anim) {
+  if (!anim.completed) {
+    finishedLogEl.value = '';
+  }
+}
+</script>
+</div>
+
+</article>
+<!-- -->
+
 <!-- SVG -->
-<article id="svg" class="color-10">
+<article id="svg" class="color-11">
 <header>
   <h2 class="demos-title">SVG</h2>
 </header>
@@ -1397,7 +1442,7 @@ var motionPath = anime({
 <!-- -->
 
 <!-- EASINGS -->
-<article id="easings" class="color-11">
+<article id="easings" class="color-12">
   <header>
     <h2 class="demos-title">Easings</h2>
   </header>
