@@ -723,7 +723,7 @@
       instance.progress = (insTime / insDuration) * 100;
       if (insTime <= insDelay && insCurrentTime !== 0) {
         setAnimationsProgress(0);
-        if (insReversed) countIteration();
+        if (insReversed && insTime <= 0) countIteration();
       }
       if (insTime > insDelay && insTime < insDuration) {
         setAnimationsProgress(insTime);

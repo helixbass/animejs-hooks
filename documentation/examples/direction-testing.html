@@ -64,6 +64,7 @@
 
       params.targets = testZoneEl.querySelectorAll('div');
       params.translateX = '26vw';
+      params.delay = 1000;
       params.begin = function() { testEl.classList.add('color-01') };
       params.update = function(a) { logEl.value = a.progress + '%' };
       params.complete = function() { testEl.classList.add('color-04') };
