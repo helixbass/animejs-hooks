@@ -55,8 +55,7 @@
   const is = {
     arr: a => Array.isArray(a),
     obj: a => stringContains(Object.prototype.toString.call(a), 'Object'),
-    svg: a => a instanceof SVGElement,
-    dom: a => a.nodeType || is.svg(a),
+    dom: a => a.nodeType || a instanceof SVGElement,
     str: a => typeof a === 'string',
     fnc: a => typeof a === 'function',
     und: a => typeof a === 'undefined',
@@ -351,7 +350,7 @@
 
   function getAnimationType(el, prop) {
     if (is.dom(el) && arrayContains(validTransforms, prop)) return 'transform';
-    if (is.dom(el) && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
+    if (is.dom(el) && (el.getAttribute(prop))) return 'attribute';
     if (is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
     if (el[prop] != null) return 'object';
   }
@@ -723,6 +722,7 @@
       instance.progress = (insTime / insDuration) * 100;
       if (insTime <= insDelay && insCurrentTime !== 0) {
         setAnimationsProgress(0);
+        // console.log('0');
         if (insReversed && insTime <= 0) countIteration();
       }
       if (insTime > insDelay && insTime < insDuration) {
