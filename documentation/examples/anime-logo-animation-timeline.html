@@ -44,8 +44,7 @@
       top: 0;
       left: 240px;
     }
-    .dot-e-in,
-    .dot-e-out {
+    .dot-e {
       bottom: 0;
       right: 0;
     }
@@ -170,14 +169,7 @@
           </g>
         </svg>
       </div>
-      <div class="dot dot-e-in">
-        <svg viewBox="0 0 42 42">
-          <g fill="none" fill-rule="evenodd">
-            <rect width="40" height="40" x="1" y="1" fill="#FFFFFF" rx="20"/>
-          </g>
-        </svg>
-      </div>
-      <div class="dot dot-e-out">
+      <div class="dot dot-e">
         <svg viewBox="0 0 42 42">
           <g fill="none" fill-rule="evenodd">
             <rect width="40" height="40" x="1" y="1" fill="#FFFFFF" rx="20"/>
@@ -205,7 +197,7 @@
 
   logoAnimation
     .add({
-      targets: '.dot-e-in',
+      targets: '.dot-e',
       translateX: { value: -600, duration: 520, delay: 200, easing: 'easeInQuart' },
       scale: [
         { value: [0, 1], duration: 200, easing: 'easeOutBack' },
@@ -233,7 +225,7 @@
       duration: 1
     })
     .add({
-      targets: '.dot-e-out',
+      targets: '.dot-e',
       translateX: { value: [-100, 0], duration: 500, easing: 'easeOutQuart' },
       scale: [
         { value: [0, 1], duration: 200, easing: 'easeOutBack' },

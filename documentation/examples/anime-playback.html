@@ -55,7 +55,7 @@
       simpleTL.add({
         targets: '.timeline .item',
         translateX: 200,
-        delay: function(el, i) { return 50 * i; },
+        delay: function(el, i) { return 1000 + (50 * i); },
         begin: function(a) {
           a.animatables.forEach(function(ani) {
             ani.target.classList.add('color-08');
@@ -70,9 +70,9 @@
 
       simpleTL.add({
         targets: '.timeline .item',
-        translateX: 400,
+        translateX: [200, 400],
         scale: 1.5,
-        delay: function(el, i) { return 50 * i; },
+        delay: function(el, i) { return 1000 + (50 * i); },
         begin: function(a) {
           a.animatables.forEach(function(ani) {
             ani.target.classList.add('color-12');
