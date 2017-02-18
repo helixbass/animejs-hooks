@@ -27,6 +27,6 @@
     "anime.min.js"
   ],
   "dependencies": {
-    "node-minify": "^2.0.2"
+    "google-closure-compiler-js": "^20170124.0.0"
   }
 }

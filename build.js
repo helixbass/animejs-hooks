@@ -1,20 +1,24 @@
-const compressor = require('node-minify');
+const fs = require('fs');
+const compile = require('google-closure-compiler-js').compile;
 
-console.log('Compiling... 😤');
+console.info('Compiling... 😤');
 
-compressor.minify({
-  compressor: 'gcc',
-  input: 'anime.js',
-  output: 'anime.min.js',
-  options: {
-    compilation_level: 'SIMPLE_OPTIMIZATIONS',
-    language_out: 'ECMASCRIPT5'
-  },
-  callback: (err, min) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log('Compilation was a success! 😎 🍺');
-    }
-  }
+fs.unlink('anime.min.js', (err) => {
+
+  fs.readFile('anime.js', {encoding: 'utf-8'}, function(err, data) {
+    if (err) throw err;
+    
+    const flags = {
+      jsCode: [{src: data}],
+      languageIn: 'ES6',
+      languageOut: 'ES5'
+    };
+
+    const out = compile(flags);
+
+    fs.writeFile('anime.min.js', out.compiledCode, function(err) {
+      if (err) throw err;
+      console.info('Compilation was a success! 😎 🍺');
+    });
+  });
 });
