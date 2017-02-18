@@ -647,12 +647,19 @@
     return play;
   })();
 
+
   // Public Instance
 
   function anime(params = {}) {
 
     let now, startTime, lastTime = 0;
+
     let resolve = null;
+
+    function makePromise() {
+      return window.Promise && new Promise(_resolve => resolve = _resolve);
+    }
+
     let promise = makePromise();
 
     let instance = createNewInstance(params);
@@ -667,10 +674,6 @@
       instance.completed = false;
       instance.reversed = direction === 'reverse';
       instance.remaining = direction === 'alternate' && loops === 1 ? 2 : loops;
-    }
-
-    function makePromise() {
-      return window.Promise && new Promise(_resolve => resolve = _resolve);
     }
 
     function toggleInstanceDirection() {
@@ -799,7 +802,6 @@
       instance.play();
     }
 
-    // Attach finished promise to instance
     instance.finished = promise;
 
     instance.reset();
