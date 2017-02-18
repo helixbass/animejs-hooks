@@ -83,8 +83,8 @@
       params.complete = function() { testEl.classList.add('color-04') };
       var animation = anime(params);
       animation.finished.then(function() {
-        promiseEl.value = 'Finished'
-        console.log('Finished');
+        promiseEl.value = 'Promise resolved'
+        console.log('Promise resolved');
       });
       testEl.onclick = function() {
         testEl.classList.remove('color-01');
