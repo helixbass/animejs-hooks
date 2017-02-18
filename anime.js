@@ -646,11 +646,21 @@
     return play;
   })();
 
+
   // Public Instance
 
   function anime(params = {}) {
 
     let now, startTime, lastTime = 0;
+
+    let resolve = null;
+
+    function makePromise() {
+      return window.Promise && new Promise(_resolve => resolve = _resolve);
+    }
+
+    let promise = makePromise();
+
     let instance = createNewInstance(params);
 
     instance.reset = function() {
@@ -744,6 +754,8 @@
         } else {
           instance.completed = true;
           instance.pause();
+          resolve();
+          promise = makePromise();
           setCallback('complete');
         }
         lastTime = 0;
@@ -789,6 +801,8 @@
       instance.reset();
       instance.play();
     }
+
+    instance.finished = promise;
 
     instance.reset();
 

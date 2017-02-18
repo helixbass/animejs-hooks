@@ -30,12 +30,20 @@
       height: 2vw;
       background: #111116;
     }
-    input {
+    .logs {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
       position: absolute;
       top: 1vw;
       left: 0;
       bottom: 0;
+      height: 100%;
       width: 100%;
+    }
+    input {
       text-align: center;
       background: none;
       border: none;
@@ -47,7 +55,9 @@
     function createTest(title, numberOfTargets, params) {
       var testEl = document.createElement('article');
       var testZoneEl = document.createElement('div');
-      var logEl = document.createElement('input');
+      var logsEl = document.createElement('div');
+      var progressEl = document.createElement('input');
+      var promiseEl = document.createElement('input');
       var h2El = document.createElement('h2');
 
       for (var i = 0; i < numberOfTargets; i++) {
@@ -58,7 +68,10 @@
 
       h2El.innerHTML = title;
       testEl.appendChild(h2El);
-      testEl.appendChild(logEl);
+      logsEl.classList.add('logs');
+      logsEl.appendChild(progressEl);
+      logsEl.appendChild(promiseEl);
+      testEl.appendChild(logsEl);
       testEl.appendChild(testZoneEl);
       document.body.appendChild(testEl);
 
@@ -66,9 +79,18 @@
       params.translateX = '26vw';
       params.delay = 1000;
       params.begin = function() { testEl.classList.add('color-01') };
-      params.update = function(a) { logEl.value = a.progress + '%' };
+      params.update = function(a) { progressEl.value = a.progress + '%' };
       params.complete = function() { testEl.classList.add('color-04') };
-      anime(params);
+      var animation = anime(params);
+      animation.finished.then(function() {
+        promiseEl.value = 'Promise resolved'
+        console.log('Promise resolved');
+      });
+      testEl.onclick = function() {
+        testEl.classList.remove('color-01');
+        testEl.classList.remove('color-04');
+        animation.restart();
+      }
     }
 
     createTest('Normal', 1, {});
