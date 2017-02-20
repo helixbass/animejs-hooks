@@ -727,12 +727,13 @@
     function setInstanceProgress(engineTime) {
       const insDuration = instance.duration;
       const insOffset = instance.offset;
+      const insDelay = instance.delay;
       const insCurrentTime = instance.currentTime;
       const insReversed = instance.reversed;
       const insTime = minMaxValue(adjustTime(engineTime), 0, insDuration);
       if (insTime > insOffset && insTime < insDuration) {
         setAnimationsProgress(insTime);
-        if (!instance.began) {
+        if (!instance.began && insTime >= insDelay) {
           instance.began = true;
           setCallback('begin');
         }
