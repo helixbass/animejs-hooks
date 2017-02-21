@@ -108,7 +108,7 @@
     canvasEl.height = window.innerHeight * 2;
     canvasEl.style.width = window.innerWidth + 'px';
     canvasEl.style.height = window.innerHeight + 'px';
-    canvasEl.getContext('2d').scale(2,2)
+    canvasEl.getContext('2d').scale(2, 2);
   }
 
   function updateCoords(e) {
@@ -142,7 +142,7 @@
     p.x = x;
     p.y = y;
     p.color = colors[anime.random(0, colors.length - 1)];
-    p.radius = anime.random(getFontSize(), getFontSize() * 2);
+    p.radius = anime.random(getFontSize(), getFontSize() * 2.25);
     p.draw = function() {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
@@ -176,18 +176,31 @@
     if (!animations.length) mainLoop.pause();
   }
 
+  function getParticulePos(p) {
+    var angle = anime.random(0, 360) * Math.PI / 180;
+    var radius = anime.random(-distance, distance);
+    return {
+      x: p.x + radius * Math.cos(angle),
+      y: p.y + radius * Math.sin(angle)
+    }
+  }
+
   function animateParticules(x, y) {
     var particules = createParticles(x, y);
     var circle = createCircle(x, y);
     targets.push(circle);
-    var particulesAnimation = anime({
-      targets: particules,
-      x: function(p) { return p.x + anime.random(-distance, distance); },
-      y: function(p) { return p.y + anime.random(-distance, distance); },
-      radius: 0.1,
-      duration: function() { return anime.random(1200, 1800); },
-      easing: 'easeOutExpo',
-      complete: removeAnimation
+    particules.forEach(function(p) {
+      var position = getParticulePos(p);
+      var particuleAnimation = anime({
+        targets: p,
+        x: position.x,
+        y: position.y,
+        radius: 0.1,
+        duration: function() { return anime.random(1200, 1800); },
+        easing: 'easeOutExpo',
+        complete: removeAnimation
+      });
+      animations.push(particuleAnimation);
     });
     var circleAnimation = anime({
       targets: circle,
@@ -202,7 +215,6 @@
       easing: 'easeOutExpo',
       complete: removeAnimation
     });
-    animations.push(particulesAnimation);
     animations.push(circleAnimation);
   }
 
@@ -217,24 +229,27 @@
   });
 
   var human = false;
-
-  document.addEventListener(tap, function(e) {
-    human = true;
-    updateCoords(e);
-    animateParticules(x, y);
-    ga('send', 'event', 'Fireworks', 'Click');
-  }, false);
+  var centerX = window.innerWidth / 2;
+  var centerY = window.innerHeight / 2;
 
   function autoClick() {
     if (human) return;
     animateParticules(
-      anime.random(400, window.innerWidth - 400), 
-      anime.random(200, window.innerHeight - 200)
+      anime.random(centerX-50, centerX+50), 
+      anime.random(centerY-50, centerY+50)
     );
-    anime({duration: 200}).finished.then(autoClick);
+    anime({duration: 400}).finished.then(autoClick);
   }
 
   autoClick();
+
+  document.addEventListener(tap, function(e) {
+    human = true;
+    updateCoords(e);
+    mainLoop.play();
+    animateParticules(x, y);
+    ga('send', 'event', 'Fireworks', 'Click');
+  }, false);
 
   window.addEventListener('resize', setCanvasSize, false);
   window.addEventListener('load', setCanvasSize, false);
