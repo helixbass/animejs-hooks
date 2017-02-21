@@ -753,11 +753,13 @@
           startTime = now;
           if (instance.direction === 'alternate') toggleInstanceDirection();
         } else {
-          instance.completed = true;
           instance.pause();
           resolve();
           promise = makePromise();
-          setCallback('complete');
+          if (!instance.completed) {
+            instance.completed = true;
+            setCallback('complete');
+          }
         }
         lastTime = 0;
       }
