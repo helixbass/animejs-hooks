@@ -79,7 +79,7 @@ var fireworks = (function() {
     for (var i = 0; i < numberOfParticules; i++) {
       particules.push(createParticule(x, y));
     }
-    anime({
+    anime.timeline().add({
       targets: particules,
       x: function(p) { return p.endPos.x; },
       y: function(p) { return p.endPos.y; },
@@ -87,8 +87,8 @@ var fireworks = (function() {
       duration: anime.random(1200, 1800),
       easing: 'easeOutExpo',
       update: renderParticule
-    });
-    anime({
+    })
+    .add({
       targets: circle,
       radius: anime.random(128, 192),
       lineWidth: 0,
@@ -99,13 +99,13 @@ var fireworks = (function() {
       },
       duration: anime.random(1200, 1800),
       easing: 'easeOutExpo',
-      update: renderParticule
+      update: renderParticule,
+      offset: 0
     });
   }
 
   var render = anime({
     duration: Infinity,
-    autoplay: false,
     update: function() {
       ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
     }
@@ -113,8 +113,8 @@ var fireworks = (function() {
 
   document.addEventListener(tap, function(e) {
     window.human = true;
-    updateCoords(e);
     render.play();
+    updateCoords(e);
     animateParticules(pointerX, pointerY);
     ga('send', 'event', 'Fireworks', 'Click');
   }, false);

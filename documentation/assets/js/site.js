@@ -183,11 +183,34 @@ var logoAnimation = (function() {
       duration: 750,
       offset: '-=1100'
     })
+    .add({
+      targets: '.version',
+      innerHTML: parseFloat(anime.version, 10),
+      duration: 3000,
+      easing: 'easeInOutCubic',
+      update: function(a) {        
+        var value = a.animatables[0].target.innerHTML;
+        value = parseFloat(value).toFixed(1);
+        a.animatables[0].target.innerHTML = value;
+      },
+      offset: '-=1000'
+    })
+    .add({
+      targets: '.date',
+      innerHTML: function() { 
+        var d = new Date(); 
+        return d.getFullYear(); 
+      },
+      round: 1,
+      duration: 3000,
+      easing: 'easeInOutCubic',
+      offset: '-=3000'
+    })
 
 
   function init() {
     document.body.classList.add('ready');
-    // logoTimeline.seek(2500);
+    // logoTimeline.seek(4700);
     logoTimeline.play();
   }
 
