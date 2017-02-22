@@ -1,4 +1,5 @@
 .content {
+  opacity: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8,6 +9,11 @@
           flex-direction: row;
   width: 100%;
   height: 100%;
+  transition: opacity 1s ease;
+}
+
+body.ready .content {
+  opacity: 1;
 }
 
 /* Headers */

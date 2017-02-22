@@ -36,7 +36,7 @@ var fireworks = (function() {
     p.x = x;
     p.y = y;
     p.color = colors[anime.random(0, colors.length - 1)];
-    p.radius = anime.random(16, 40);
+    p.radius = anime.random(16, 32);
     p.endPos = setParticuleDirection(p);
     p.draw = function() {
       ctx.beginPath();
@@ -90,7 +90,7 @@ var fireworks = (function() {
     })
     .add({
       targets: circle,
-      radius: anime.random(128, 192),
+      radius: anime.random(80, 160),
       lineWidth: 0,
       alpha: {
         value: 0,

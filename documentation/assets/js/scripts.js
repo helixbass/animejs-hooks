@@ -81,6 +81,7 @@ function resetDemos() {
     demo.anim.pause();
     demo.anim.seek(0);
   });
+  document.body.classList.add('ready');
 }
 
 function createDemo(el) {
