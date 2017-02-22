@@ -592,8 +592,6 @@ Execute a function at the beginning, during or when an animation or timeline is 
 
 ### Update
 
-<img src="documentation/assets/img/readme/callbacks-update.gif" width="332" />
-
 `update()` is called on every frame while the instance is playing.
 
 ```javascript
