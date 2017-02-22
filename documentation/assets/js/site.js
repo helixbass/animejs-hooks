@@ -166,36 +166,28 @@ var logoAnimation = (function() {
       offset: 0
     })
     .add({
-      targets: '.logo-animation',
-      translateY: [50, 0],
-      scale: 1,
-      easing: 'easeInOutQuad',
-      offset: '-=250'
-    })
-    .add({
-      targets: ['.description', '.button', '.credits'],
+      targets: ['.logo-animation', '.description', '.links', '.credits'],
       translateY: [50, 0],
       scale: 1,
       opacity: 1,
       easing: 'easeOutExpo',
-      delay: function(el, i) {
+      delay: function(el, i, l) {
         return i * 150
       },
-      offset: '-=500'
+      offset: '-=250'
     })
     .add({
       targets: '.button path',
       strokeDashoffset: [anime.setDashoffset, 0],
       easing: 'easeInOutQuart',
-      duration: 500,
-      delay: function(el, i) { return i * 250; },
-      offset: '-=1250'
+      duration: 750,
+      offset: '-=1100'
     })
 
 
   function init() {
     document.body.classList.add('ready');
-    // logoTimeline.seek(4000);
+    // logoTimeline.seek(2500);
     logoTimeline.play();
   }
 

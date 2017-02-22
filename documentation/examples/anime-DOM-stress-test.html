@@ -21,10 +21,6 @@
   <!-- <script src="../assets/js/anime.1.0.js"></script> -->
   <style>
 
-    body {
-      overflow: hidden;
-    }
-
     .particule {
       position: absolute;
       top: 50%;
@@ -32,9 +28,8 @@
       width: 1rem;
       height: 1rem;
       margin: -.5rem 0 0 -.5rem;
-      background: currentColor;
-      transform: scale(1);
-      border-radius: 50%;
+      border: 1px solid currentColor;
+      transform: scale(0);
     }
 
   </style>
@@ -42,10 +37,11 @@
 <body></body>
 <script>
 
-  var maxElements = 350;
+  var maxElements = 400;
   var duration = 1500;
   var toAnimate = [];
   var radius = window.innerWidth < window.innerHeight ? window.innerWidth : window.innerHeight;
+  var distance = radius / 4 <= 150 ? 150 : radius / 4; 
   var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
 
   var createElements = (function() {
@@ -53,7 +49,7 @@
     for (var i = 0; i < maxElements; i++) {
       var el = document.createElement('div');
       el.classList.add('particule');
-      el.style.background = colors[anime.random(0, 3)];
+      el.style.color = colors[anime.random(0, 3)];
       toAnimate.push(el);
       fragment.appendChild(el);
     }
@@ -62,16 +58,15 @@
 
   var animate = function(el, i) {
     var angle = Math.random() * Math.PI * 2;
-    var delay = (duration / maxElements) * i;
     anime({
       targets: el,
-      translateX: [0, Math.cos(angle) * (radius / 4)],
-      translateY: [0, Math.sin(angle) * (radius / 4)],
+      translateX: [0, Math.cos(angle) * distance],
+      translateY: [0, Math.sin(angle) * distance],
       scale: [
         {value: [0, 1], duration: 400, easing: 'easeOutBack'},
-        {value: 0, duration: 400, delay: duration - 900, easing: 'easeInBack'}
+        {value: 0, duration: 400, delay: duration - 800, easing: 'easeInBack'}
       ],
-      delay: (duration / maxElements) * i,
+      offset: (duration / maxElements) * i,
       duration: duration,
       easing: 'easeOutSine',
       loop: true

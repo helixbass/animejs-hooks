@@ -112,6 +112,7 @@ body.ready { opacity: 1; }
 }
 
 .links {
+  opacity: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -127,7 +128,6 @@ body.ready { opacity: 1; }
 }
 
 .button {
-  opacity: 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -155,6 +155,10 @@ body.ready { opacity: 1; }
   fill: none;
   fill-rule: evenodd;
   stroke: currentColor;
+}
+
+.button.green svg {
+  transform: rotate(180deg);
 }
 
 .credits {

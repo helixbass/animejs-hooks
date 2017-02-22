@@ -40,10 +40,11 @@
         anime.random(centerX-50, centerX+50), 
         anime.random(centerY-50, centerY+50)
       );
-      anime({duration: 400}).finished.then(autoClick);
+      anime({duration: 200}).finished.then(autoClick);
     }
 
     window.addEventListener('load', function() {
+      fireworks.render.play();
       autoClick();
       fireworks.setCanvasSize();
     }, false);
