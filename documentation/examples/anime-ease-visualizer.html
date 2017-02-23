@@ -219,6 +219,7 @@
 
   var pathEl = document.querySelector('.curve');
   var presetsEls = document.querySelectorAll('.options button');
+  var ratio = window.innerWidth >= 980 ? 2 : 1;
 
   var timeline = anime.timeline({
     loop: true
@@ -239,7 +240,7 @@
           { value: [0, 1], delay: 0, duration: 500 },
           { value: 0, delay: 1500, duration: 500 }
         ],
-        translateX: { value: [0, 400], delay: 500, duration: 1500 },
+        translateX: { value: [0, (200 * ratio)], delay: 500, duration: 1500 },
         easing: 'linear',
         offset: 0
       }, {
@@ -248,7 +249,7 @@
           { value: [0, 1], delay: 0, duration: 500 },
           { value: 0, delay: 1500, duration: 500 }
         ],
-        translateY: { value: [0, -400], delay: 500, duration: 1500, easing: easingName },
+        translateY: { value: [0, -(200 * ratio)], delay: 500, duration: 1500, easing: easingName },
         easing: 'linear',
         offset: 0
       }, {
