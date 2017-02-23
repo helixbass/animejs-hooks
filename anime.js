@@ -556,21 +556,6 @@
 
   // Tween progress
 
-  function getTweenProgress(tween, time) {
-    const elapsed = minMaxValue(time - tween.start - tween.delay, 0, tween.duration)
-    const isPath = tween.isPath;
-    let progress = (elapsed / tween.duration);
-    const round = tween.round;
-    return recomposeValue(tween.to.numbers.map((number, p) => {
-      const eased = tween.easing(progress, tween.elasticity);
-      const start = isPath ? 0 : tween.from.numbers[p];
-      let value = start + eased * (number - start);
-      if (isPath) value = getPathProgress(tween.value, value);
-      if (round) value = Math.round(value * round) / round;
-      return value;
-    }), tween.to.strings);
-  }
-
   const setTweenProgress = {
     css: (t, p, v) => t.style[p] = v,
     attribute: (t, p, v) => t.setAttribute(p, v),
@@ -635,8 +620,13 @@
   const engine = (() => {
     function play() { raf = requestAnimationFrame(step); };
     function step(t) {
-      if (arrayLength(activeInstances)) {
-        for (let i = 0; i < arrayLength(activeInstances); i++) activeInstances[i].tick(t);
+      const activeLength = arrayLength(activeInstances);
+      if (activeLength) {
+        let i = 0;
+        while (i < activeLength) {
+          if (activeInstances[i]) activeInstances[i].tick(t);
+          i++;
+        }
         play();
       } else {
         cancelAnimationFrame(raf);
@@ -689,17 +679,28 @@
     }
 
     function setAnimationsProgress(insTime) {
+      let i = 0;
       let transforms = {};
       const animations = instance.animations;
-      for (let i = 0; i < arrayLength(animations); i++) {
+      while (i < arrayLength(animations)) {
         const anim = animations[i];
+        const animatable = anim.animatable;
         const tweens = anim.tweens;
         const tween = tweens.filter(t => (insTime < t.end))[0] || tweens[arrayLength(tweens) - 1];
-        const progress = getTweenProgress(tween, insTime);
-        const animatable = anim.animatable;
-        const setProgress = setTweenProgress[anim.type];
-        setProgress(animatable.target, anim.property, progress, transforms, animatable.id);
+        const isPath = tween.isPath;
+        const round = tween.round;
+        const elapsed = minMaxValue(insTime - tween.start - tween.delay, 0, tween.duration) / tween.duration;
+        const eased = tween.easing(elapsed, tween.elasticity);
+        const progress = recomposeValue(tween.to.numbers.map((number, p) => {
+          const start = isPath ? 0 : tween.from.numbers[p];
+          let value = start + eased * (number - start);
+          if (isPath) value = getPathProgress(tween.value, value);
+          if (round) value = Math.round(value * round) / round;
+          return value;
+        }), tween.to.strings);
+        setTweenProgress[anim.type](animatable.target, anim.property, progress, transforms, animatable.id);
         anim.currentValue = progress;
+        i++;
       }
       if (transforms) {
         let id; for (id in transforms) {
