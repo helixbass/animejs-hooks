@@ -203,6 +203,11 @@ body.ready { opacity: 1; }
           transform: rotate(180deg);
 }
 
+.button path {
+  scale: .9;
+  transform-origin: 50% 50%;
+}
+
 .credits {
   opacity: 0;
   margin-top: 20px;
@@ -210,10 +215,35 @@ body.ready { opacity: 1; }
 }
 
 .credits a {
+  position: relative;
   color: currentColor;
   text-decoration: none;
 }
 
-.credits a:hover {
-  text-decoration: underline;
+.credits a:after {
+  content: "";
+  opacity: 0;
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  border-bottom: 1px solid currentColor;
+  transition: opacity .75s ease;
+} 
+
+/*.credits a:hover:after {
+  opacity: 1;
+  transition: opacity .25s ease;
+}*/
+
+.credits a,
+.credits span {
+  transition: color .75s ease;
+}
+
+.credits a:hover,
+.highlighted {
+  color: white;
+  transition: color .25s ease;
 }

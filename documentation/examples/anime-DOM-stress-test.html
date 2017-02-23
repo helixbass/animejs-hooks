@@ -37,7 +37,7 @@
 <body></body>
 <script>
 
-  var maxElements = 400;
+  var maxElements = Number(location.href.split('?')[1]) || 300;
   var duration = 1500;
   var toAnimate = [];
   var radius = window.innerWidth < window.innerHeight ? window.innerWidth : window.innerHeight;

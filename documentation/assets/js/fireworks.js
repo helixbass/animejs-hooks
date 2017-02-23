@@ -2,7 +2,7 @@ var fireworks = (function() {
 
   var canvasEl = document.querySelector('.fireworks');
   var ctx = canvasEl.getContext('2d');
-  var numberOfParticules = 32;
+  var numberOfParticules = Number(location.href.split('?')[1]) || 40;
   var pointerX = 0;
   var pointerY = 0;
   var tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown';

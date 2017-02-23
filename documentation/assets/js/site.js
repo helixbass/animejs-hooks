@@ -2,33 +2,39 @@ var createBouncyButtons = (function() {
   function createButton(el) {
     var pathEl = el.querySelector('path');
     var spanEl = el.querySelector('span');
-    pathEl.setAttribute('stroke-dashoffset', anime.setDashoffset(pathEl));
-    var animation = anime.timeline({
-      autoplay: false
-    });
-    animation
-    .add({
-      targets: pathEl,
-      d: 'M10,10 C10,10 50,7 90,7 C130,7 170,10 170,10 C170,10 172,20 172,30 C172,40 170,50 170,50 C170,50 130,53 90,53 C50,53 10,50 10,50 C10,50 8,40 8,30 C8,20 10,10 10,10 Z',
-      duration: 150,
-      easing: 'easeInOutSine',
-      offset: 0
-    })
-    .add({
-      targets: spanEl,
-      scale: 1.1,
-      duration: 150,
-      easing: 'easeInOutSine',
-      offset: 0
-    })
-    el.onmouseenter = function() {
-      if (animation.reversed) animation.reverse();
-      animation.play();
+    function hover() {
+      anime.remove([pathEl, spanEl]);
+      anime({
+        targets: pathEl,
+        d: 'M10,10 C10,10 50,7 90,7 C130,7 170,10 170,10 C170,10 172,20 172,30 C172,40 170,50 170,50 C170,50 130,53 90,53 C50,53 10,50 10,50 C10,50 8,40 8,30 C8,20 10,10 10,10 Z',
+        elasticity: 700,
+        offset: 0
+      });
+      anime({
+        targets: spanEl,
+        scale: 1.2,
+        duration: 800,
+        offset: 0
+      });
     }
-    el.onmouseleave = function() {
-      if (!animation.reversed) animation.reverse();
-      animation.play();
+    function down() {
+      anime.remove([pathEl, spanEl]);
+      anime({
+        targets: pathEl,
+        d: 'M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z',
+        elasticity: 700,
+        offset: 0
+      });
+      anime({
+        targets: spanEl,
+        scale: 1,
+        duration: 800,
+        offset: 0
+      });
     }
+    el.onmouseenter = hover;
+    el.onmousedown = down;
+    el.onmouseleave = down;
   }
 
   var buttonEls = document.querySelectorAll('.button');
@@ -177,22 +183,17 @@ var logoAnimation = (function() {
       offset: '-=250'
     })
     .add({
-      targets: '.button path',
-      strokeDashoffset: [anime.setDashoffset, 0],
-      easing: 'easeInOutQuart',
-      duration: 750,
-      offset: '-=1100'
-    })
-    .add({
       targets: '.version',
       innerHTML: parseFloat(anime.version, 10),
-      duration: 3000,
-      easing: 'easeInOutCubic',
+      duration: 2500,
+      easing: 'easeOutCubic',
+      begin: function(a) { a.animatables[0].target.classList.add('highlighted'); },
       update: function(a) {        
         var value = a.animatables[0].target.innerHTML;
         value = parseFloat(value).toFixed(1);
         a.animatables[0].target.innerHTML = value;
       },
+      complete: function(a) { a.animatables[0].target.classList.remove('highlighted'); },
       offset: '-=1000'
     })
     .add({
@@ -202,9 +203,11 @@ var logoAnimation = (function() {
         return d.getFullYear(); 
       },
       round: 1,
-      duration: 3000,
-      easing: 'easeInOutCubic',
-      offset: '-=3000'
+      duration: 2500,
+      easing: 'easeOutCubic',
+      begin: function(a) { a.animatables[0].target.classList.add('highlighted'); },
+      complete: function(a) { a.animatables[0].target.classList.remove('highlighted'); },
+      offset: '-=2500'
     })
 
 
