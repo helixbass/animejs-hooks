@@ -213,7 +213,7 @@ var logoAnimation = (function() {
 
   function init() {
     document.body.classList.add('ready');
-    logoTimeline.seek(4700);
+    // logoTimeline.seek(4700);
     logoTimeline.play();
   }
 

@@ -1,7 +1,7 @@
 /**
  * http://anime-js.com
  * JavaScript animation engine
- * @version v2.0.0
+ * @version v2.0.1
  * @author Julian Garnier
  * @copyright ©2017 Julian Garnier
  * Released under the MIT license
