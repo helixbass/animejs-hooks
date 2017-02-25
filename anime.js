@@ -854,7 +854,7 @@
     return tl;
   }
 
-  anime.version = '2.0.0';
+  anime.version = '2.0.1';
   anime.speed = 1;
   anime.running = activeInstances;
   anime.remove = removeTargets;
