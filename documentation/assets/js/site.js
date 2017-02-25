@@ -12,7 +12,7 @@ var createBouncyButtons = (function() {
       });
       anime({
         targets: spanEl,
-        scale: 1.2,
+        scale: 1.15,
         duration: 800,
         offset: 0
       });
@@ -172,13 +172,13 @@ var logoAnimation = (function() {
       offset: 0
     })
     .add({
-      targets: ['.logo-animation', '.description', '.links', '.credits'],
+      targets: ['.logo-animation', '.description', '.button', '.credits'],
       translateY: [50, 0],
       scale: 1,
       opacity: 1,
       easing: 'easeOutExpo',
       delay: function(el, i, l) {
-        return i * 150
+        return i * 80
       },
       offset: '-=250'
     })
@@ -194,7 +194,7 @@ var logoAnimation = (function() {
         a.animatables[0].target.innerHTML = value;
       },
       complete: function(a) { a.animatables[0].target.classList.remove('highlighted'); },
-      offset: '-=1000'
+      offset: '-=500'
     })
     .add({
       targets: '.date',
@@ -207,13 +207,13 @@ var logoAnimation = (function() {
       easing: 'easeOutCubic',
       begin: function(a) { a.animatables[0].target.classList.add('highlighted'); },
       complete: function(a) { a.animatables[0].target.classList.remove('highlighted'); },
-      offset: '-=2500'
+      offset: '-=2000'
     })
 
 
   function init() {
     document.body.classList.add('ready');
-    // logoTimeline.seek(4700);
+    logoTimeline.seek(4700);
     logoTimeline.play();
   }
 
