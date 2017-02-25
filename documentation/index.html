@@ -1340,7 +1340,7 @@ function logFinished() {
   finishedLogEl.value = 'Promise resolved';
 
   // Rebind the promise, since this demo can be looped.
-  setTimeout(() => {
+  setTimeout(function() {
     promise = finishedPromise.finished.then(logFinished);
   });
 }
