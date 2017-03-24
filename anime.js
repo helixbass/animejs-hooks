@@ -682,7 +682,11 @@
 
     function syncInstanceChildren(time) {
       const children = instance.children;
-      for (let i = 0; i < arrayLength(children); i++) children[i].seek(time);
+      if (time >= instance.currentTime) {
+        for (let i = 0; i < arrayLength(children); i++) children[i].seek(time);
+      } else {
+        for (let i = arrayLength(children); i--;) children[i].seek(time);
+      }
     }
 
     function setAnimationsProgress(insTime) {
@@ -739,6 +743,7 @@
       const insCurrentTime = instance.currentTime;
       const insReversed = instance.reversed;
       const insTime = minMaxValue(adjustTime(engineTime), 0, insDuration);
+      if (instance.children) syncInstanceChildren(insTime);
       if (insTime > insOffset && insTime < insDuration) {
         setAnimationsProgress(insTime);
         if (!instance.began && insTime >= insDelay) {
@@ -771,7 +776,6 @@
         }
         lastTime = 0;
       }
-      if (instance.children) syncInstanceChildren(insTime);
       setCallback('update');
     }
 
@@ -796,12 +800,7 @@
       if (!instance.paused) return;
       instance.paused = false;
       startTime = 0;
-      if (instance.completed) {
-        instance.reset();
-        lastTime = 0;
-      } else {
-        lastTime = adjustTime(instance.currentTime);
-      }
+      lastTime = adjustTime(instance.currentTime);
       activeInstances.push(instance);
       if (!raf) engine();
     }
@@ -832,10 +831,10 @@
 
   function removeTargets(targets) {
     const targetsArray = parseTargets(targets);
-    for (let i = arrayLength(activeInstances)-1; i >= 0; i--) {
+    for (let i = arrayLength(activeInstances); i--;) {
       const instance = activeInstances[i];
       const animations = instance.animations;
-      for (let a = arrayLength(animations)-1; a >= 0; a--) {
+      for (let a = arrayLength(animations); a--;) {
         if (arrayContains(targetsArray, animations[a].animatable.target)) {
           animations.splice(a, 1);
           if (!arrayLength(animations)) instance.pause();
@@ -864,7 +863,8 @@
         tl.children.push(ins);
       });
       tl.reset();
-      if (tl.autoplay) tl.play();
+      tl.seek(0);
+      if (tl.autoplay) tl.restart();
       return tl;
     }
     return tl;

@@ -17,6 +17,7 @@
   <link rel="icon" type="image/png" href="../assets/img/icons/favicon.png" >
   <link href="../assets/css/anime.css" rel="stylesheet">
   <script src="../../anime.js"></script>
+  <!-- <script src="../assets/js/anime.2.0.1.js"></script> -->
   <style>
 
     body {
@@ -68,9 +69,9 @@
   </style>
 </head>
 <body>
-  <div class="el no-offset"></div>
+<!--   <div class="el no-offset"></div>
   <div class="el relative-offset"></div>
-  <div class="el absolute-offset"></div>
+  <div class="el absolute-offset"></div> -->
   <div class="el multiple-targets-01"></div>
   <div class="el multiple-targets-02"></div>
   <div class="el multiple-targets-03"></div>
@@ -90,158 +91,157 @@
 </body>
 <script>
 
-  var noOffset = anime.timeline({
-    autoplay: true
-  });
+  // var noOffset = anime.timeline({
+  //   autoplay: true
+  // });
 
-  noOffset
-    .add({
-      targets: '.no-offset',
-      translateX: -100,
-      translateY: -100,
-      scale: 2,
-      background: '#FF1461',
-      begin: function() { console.log('noOffset animation 1 began')},
-      complete: function() { console.log('noOffset animation 1 completed')}
-    })
-    .add({
-      targets: '.no-offset',
-      translateX: -100,
-      translateY: 100,
-      scale: 3,
-      background: '#18FF92',
-      begin: function() { console.log('noOffset animation 2 began')},
-      complete: function() { console.log('noOffset animation 2 completed')}
-    })
-    .add({
-      targets: '.no-offset',
-      translateX: 100,
-      translateY: 100,
-      rotate: 120,
-      scale: 4,
-      background: '#5A87FF',
-      begin: function() { console.log('noOffset animation 3 began')},
-      complete: function() { console.log('noOffset animation 3 completed')}
-    })
-    .add({
-      targets: '.no-offset',
-      translateX: 100,
-      translateY: -100,
-      scale: 5,
-      background: '#FBF38C',
-      begin: function() { console.log('noOffset animation 4 began')},
-      complete: function() { console.log('noOffset animation 4 completed')}
-    })
-    .add({
-      targets: '.no-offset',
-      translateX: 100,
-      translateY: -100,
-      scale: '+=8',
-      background: '#FBF38C',
-      begin: function() { console.log('noOffset animation 5 began')},
-      complete: function() { console.log('noOffset animation 5 completed')}
-    });
+  // noOffset
+  //   .add({
+  //     targets: '.no-offset',
+  //     translateX: -100,
+  //     translateY: -100,
+  //     scale: 2,
+  //     background: '#FF1461',
+  //     begin: function() { console.log('noOffset animation 1 began')},
+  //     complete: function() { console.log('noOffset animation 1 completed')}
+  //   })
+  //   .add({
+  //     targets: '.no-offset',
+  //     translateX: -100,
+  //     translateY: 100,
+  //     scale: 3,
+  //     background: '#18FF92',
+  //     begin: function() { console.log('noOffset animation 2 began')},
+  //     complete: function() { console.log('noOffset animation 2 completed')}
+  //   })
+  //   .add({
+  //     targets: '.no-offset',
+  //     translateX: 100,
+  //     translateY: 100,
+  //     rotate: 120,
+  //     scale: 4,
+  //     background: '#5A87FF',
+  //     begin: function() { console.log('noOffset animation 3 began')},
+  //     complete: function() { console.log('noOffset animation 3 completed')}
+  //   })
+  //   .add({
+  //     targets: '.no-offset',
+  //     translateX: 100,
+  //     translateY: -100,
+  //     scale: 5,
+  //     background: '#FBF38C',
+  //     begin: function() { console.log('noOffset animation 4 began')},
+  //     complete: function() { console.log('noOffset animation 4 completed')}
+  //   })
+  //   .add({
+  //     targets: '.no-offset',
+  //     translateX: 100,
+  //     translateY: -100,
+  //     scale: '+=8',
+  //     background: '#FBF38C',
+  //     begin: function() { console.log('noOffset animation 5 began')},
+  //     complete: function() { console.log('noOffset animation 5 completed')}
+  //   });
 
-  var relativeOffset = anime.timeline();
+  // var relativeOffset = anime.timeline();
 
-  relativeOffset
-    .add({
-      targets: '.relative-offset',
-      translateX: -100,
-      translateY: -100,
-      scale: 2,
-      background: '#FF1461',
-    })
-    .add({
-      targets: '.relative-offset',
-      translateX: -100,
-      translateY: 100,
-      scale: 3,
-      background: '#18FF92',
-      offset: '-=500'
-    })
-    .add({
-      targets: '.relative-offset',
-      translateX: 100,
-      translateY: 100,
-      rotate: 120,
-      scale: 4,
-      background: '#5A87FF',
-      offset: '-=500'
-    })
-    .add({
-      targets: '.relative-offset',
-      translateX: 100,
-      translateY: -100,
-      scale: 5,
-      background: '#FBF38C',
-      offset: '+=500'
-    })
-    .add({
-      targets: '.relative-offset',
-      translateX: 100,
-      translateY: -100,
-      scale: '+=8',
-      background: '#FBF38C',
-      offset: '+=500'
-    });
+  // relativeOffset
+  //   .add({
+  //     targets: '.relative-offset',
+  //     translateX: -100,
+  //     translateY: -100,
+  //     scale: 2,
+  //     background: '#FF1461',
+  //   })
+  //   .add({
+  //     targets: '.relative-offset',
+  //     translateX: -100,
+  //     translateY: 100,
+  //     scale: 3,
+  //     background: '#18FF92',
+  //     offset: '-=500'
+  //   })
+  //   .add({
+  //     targets: '.relative-offset',
+  //     translateX: 100,
+  //     translateY: 100,
+  //     rotate: 120,
+  //     scale: 4,
+  //     background: '#5A87FF',
+  //     offset: '-=500'
+  //   })
+  //   .add({
+  //     targets: '.relative-offset',
+  //     translateX: 100,
+  //     translateY: -100,
+  //     scale: 5,
+  //     background: '#FBF38C',
+  //     offset: '+=500'
+  //   })
+  //   .add({
+  //     targets: '.relative-offset',
+  //     translateX: 100,
+  //     translateY: -100,
+  //     scale: '+=8',
+  //     background: '#FBF38C',
+  //     offset: '+=500'
+  //   });
 
-  var absoluteOffset = anime.timeline();
+  // var absoluteOffset = anime.timeline();
 
-  absoluteOffset
-    .add({
-      targets: '.absolute-offset',
-      translateX: -100,
-      translateY: -100,
-      scale: 2,
-      background: '#FF1461',
-      offset: 0
-    })
-    .add({
-      targets: '.absolute-offset',
-      translateX: -100,
-      translateY: 100,
-      scale: 3,
-      background: '#18FF92',
-      offset: 1000
-    })
-    .add({
-      targets: '.absolute-offset',
-      translateX: 100,
-      translateY: 100,
-      rotate: 120,
-      scale: 4,
-      background: '#5A87FF',
-      offset: 2000
-    })
-    .add({
-      targets: '.absolute-offset',
-      translateX: 100,
-      translateY: -100,
-      scale: 5,
-      background: '#FBF38C',
-      offset: 3000
-    })
-    .add({
-      targets: '.absolute-offset',
-      translateX: 100,
-      translateY: -100,
-      scale: '+=8',
-      background: '#FBF38C',
-      offset: 4000
-    });
+  // absoluteOffset
+  //   .add({
+  //     targets: '.absolute-offset',
+  //     translateX: -100,
+  //     translateY: -100,
+  //     scale: 2,
+  //     background: '#FF1461',
+  //     offset: 0
+  //   })
+  //   .add({
+  //     targets: '.absolute-offset',
+  //     translateX: -100,
+  //     translateY: 100,
+  //     scale: 3,
+  //     background: '#18FF92',
+  //     offset: 1000
+  //   })
+  //   .add({
+  //     targets: '.absolute-offset',
+  //     translateX: 100,
+  //     translateY: 100,
+  //     rotate: 120,
+  //     scale: 4,
+  //     background: '#5A87FF',
+  //     offset: 2000
+  //   })
+  //   .add({
+  //     targets: '.absolute-offset',
+  //     translateX: 100,
+  //     translateY: -100,
+  //     scale: 5,
+  //     background: '#FBF38C',
+  //     offset: 3000
+  //   })
+  //   .add({
+  //     targets: '.absolute-offset',
+  //     translateX: 100,
+  //     translateY: -100,
+  //     scale: '+=8',
+  //     background: '#FBF38C',
+  //     offset: 4000
+  //   });
 
   var controlsProgressEl = document.querySelector('.controls .progress');
 
   var multipleTargets = anime.timeline({
-    autoplay: true,
-    direction: 'false',
+    autoplay: false,
+    loop: true,
+    direction: 'normal',
     update: function(anim) {
       controlsProgressEl.value = anim.progress;
     }
   });
-
-  multipleTargets.tracker = 'YA';
 
   document.querySelector('.controls .play').onclick = multipleTargets.play;
   document.querySelector('.controls .pause').onclick = multipleTargets.pause;
@@ -253,6 +253,7 @@
       translateY: -100,
       scale: 8,
       background: '#FF1461',
+      duration: 500,
       begin: function() { console.log('multipleTargets animation 1 began')},
       complete: function() { console.log('multipleTargets animation 1 completed')}
     })
@@ -261,6 +262,7 @@
       translateY: -100,
       scale: 8,
       background: '#18FF92',
+      duration: 500,
       begin: function() { console.log('multipleTargets animation 2 began')},
       complete: function() { console.log('multipleTargets animation 2 completed')}
     })
@@ -269,6 +271,7 @@
       translateY: -100,
       scale: 8,
       background: '#5A87FF',
+      duration: 500,
       begin: function() { console.log('multipleTargets animation 3 began')},
       complete: function() { console.log('multipleTargets animation 3 completed')}
     })
@@ -277,6 +280,7 @@
       translateY: -100,
       scale: 8,
       background: '#FBF38C',
+      duration: 500,
       begin: function() { console.log('multipleTargets animation 4 began')},
       complete: function() { console.log('multipleTargets animation 4 completed')}
     })
@@ -285,6 +289,7 @@
       translateY: -100,
       scale: 13,
       background: '#FBF38C',
+      duration: 1000,
       begin: function() { console.log('multipleTargets animation 5 began')},
       complete: function() { console.log('multipleTargets animation 5 completed')}
     });
