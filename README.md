@@ -1,6 +1,6 @@
 # [anime.js](http://anime-js.com) ![](http://img.badgesize.io/juliangarnier/anime/v2.0/anime.min.js.svg?style=flat&color=18FF92)
 
-<img src="documentation/assets/img/readme/animejs-logo.gif" width="100%" />
+<img src="http://anime-js.com/documentation/assets/img/readme/animejs-logo.gif" width="100%" />
 
 >*Anime* `(/ˈæn.ə.meɪ/)` is a lightweight JavaScript animation library. It works with any CSS Properties, individual CSS transforms, SVG or any DOM attributes, and JavaScript Objects.
 
@@ -94,7 +94,7 @@ The `targets` property defines the elements or JS `Object`s to animate.
 
 ### CSS
 
-<img src="documentation/assets/img/readme/prop-css.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/prop-css.gif" width="332" />
 
 Any CSS properties can be animated:
 
@@ -111,7 +111,7 @@ anime({
 
 ### Individual CSS transforms
 
-<img src="documentation/assets/img/readme/prop-transforms.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/prop-transforms.gif" width="332" />
 
 CSS transforms can be animated individually:
 
@@ -128,7 +128,7 @@ anime({
 
 ### JavaScript Object properties
 
-<img src="documentation/assets/img/readme/prop-js-obj.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/prop-js-obj.gif" width="332" />
 
 Any `Object` property containing a numerical value can be animated:
 
@@ -149,7 +149,7 @@ anime({
 
 ### DOM Attributes
 
-<img src="documentation/assets/img/readme/prop-dom-attr.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/prop-dom-attr.gif" width="332" />
 
 Any DOM Attribute containing a numerical values can be animated:
 
@@ -169,7 +169,7 @@ anime({
 
 ### SVG Attributes
 
-<img src="documentation/assets/img/readme/prop-svg-attr.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/prop-svg-attr.gif" width="332" />
 
 Any SVG Attribute containing a numerical values can be animated:
 
@@ -190,7 +190,7 @@ anime({
 
 ## Property parameters
 
-<img src="documentation/assets/img/readme/prop-parameters.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/prop-parameters.gif" width="332" />
 
 Defines duration, delay and easing for each property animations.<br>
 Can be set globally, or individually to each properties:
@@ -228,7 +228,7 @@ anime({
 
 ## Function based property parameters
 
-<img src="documentation/assets/img/readme/fb-parameters.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/fb-parameters.gif" width="332" />
 
 Get different property parameters for every target of the animation.<br>
 The function accepts 3 arguments: `target`, `index`, `targetsLength`.
@@ -258,7 +258,7 @@ anime({
 
 ## Animation parameters
 
-<img src="documentation/assets/img/readme/anim-parameters.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/anim-parameters.gif" width="332" />
 
 Parameters relative to the animation to specify the direction, the number of loops or autoplay.
 
@@ -310,7 +310,7 @@ anime({
 
 ### From > To values
 
-<img src="documentation/assets/img/readme/value-from-to.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/value-from-to.gif" width="332" />
 
 Force the animation to start at a certain value.
 
@@ -329,7 +329,7 @@ anime({
 
 ### Function based values
 
-<img src="documentation/assets/img/readme/value-fb.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/value-fb.gif" width="332" />
 
 Same as [function based property parameters](#function-based-property-parameters).<br>
 Get different values for every target of the animation.<br>
@@ -358,7 +358,7 @@ anime({
 
 ### Keyframes
 
-<img src="documentation/assets/img/readme/value-keyframes.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/value-keyframes.gif" width="332" />
 
 Keyframes are defined using an `Array` of property Object.<br>
 Instance's `duration` is divided by the number of keyframes of each properties if not specified.
@@ -397,7 +397,7 @@ anime({
 
 ### Basic timeline
 
-<img src="documentation/assets/img/readme/timeline.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/timeline.gif" width="332" />
 
 Play animations in sequence by creating a timeline:
 
@@ -443,7 +443,7 @@ Access timeline children animations with `myTimeline.children`
 
 #### Relative offset
 
-<img src="documentation/assets/img/readme/timeline-relative.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/timeline-relative.gif" width="332" />
 
 Defines starting time relative to the previous animations duration.
 
@@ -475,7 +475,7 @@ myTimeline
 
 #### Absolute offset
 
-<img src="documentation/assets/img/readme/timeline-absolute.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/timeline-absolute.gif" width="332" />
 
 Defines an absolute starting time on the timeline with a number.
 
@@ -506,7 +506,7 @@ Play, pause, restart, seek animations or timelines.
 
 ### Play / Pause
 
-<img src="documentation/assets/img/readme/playback-play-pause.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/playback-play-pause.gif" width="332" />
 
 ```javascript
 var playPauseAnim = anime({
@@ -525,7 +525,7 @@ playPauseAnim.pause(); //  Manually pause
 
 ### Restart
 
-<img src="documentation/assets/img/readme/playback-restart.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/playback-restart.gif" width="332" />
 
 ```javascript
 var restartAnim = anime({
@@ -543,7 +543,7 @@ restartAnim.restart(); // Restart the animation and reset the loop count / curre
 
 ### Reverse
 
-<img src="documentation/assets/img/readme/playback-reverse.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/playback-reverse.gif" width="332" />
 
 ```javascript
 var restartAnim = anime({
@@ -560,7 +560,7 @@ restartAnim.reverse(); // Change the animation direction
 
 ### Seek
 
-<img src="documentation/assets/img/readme/playback-seek.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/playback-seek.gif" width="332" />
 
 Change animations or timelines current time.
 
@@ -580,7 +580,7 @@ seekAnim.seek(500); // Set the animation current time to 500ms
 
 ## Callbacks
 
-<img src="documentation/assets/img/readme/callbacks-all.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/callbacks-all.gif" width="332" />
 
 Execute a function at the beginning, during or when an animation or timeline is completed.
 
@@ -674,7 +674,7 @@ Check if the animation has finished with `myAnimation.completed`, return `true` 
 
 ### Motion path
 
-<img src="documentation/assets/img/readme/svg-motion-path.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/svg-motion-path.gif" width="332" />
 
 Translate and rotate DOM elements along an SVG path:
 
@@ -694,7 +694,7 @@ var motionPath = anime({
 
 ### Morphing
 
-<img src="documentation/assets/img/readme/svg-morphing.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/svg-morphing.gif" width="332" />
 
 Animate the transition between two SVG shapes:
 
@@ -717,7 +717,7 @@ Shapes need to have the same number of points.
 
 ### Line drawing
 
-<img src="documentation/assets/img/readme/svg-line-drawing.gif" width="332" />
+<img src="http://anime-js.com/documentation/assets/img/readme/svg-line-drawing.gif" width="332" />
 
 Line drawing animation of an SVG shape:
 
