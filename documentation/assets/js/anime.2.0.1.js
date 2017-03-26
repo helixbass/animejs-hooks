@@ -1,7 +1,7 @@
 /**
  * http://anime-js.com
  * JavaScript animation engine
- * @version v2.0.2
+ * @version v2.0.1
  * @author Julian Garnier
  * @copyright ©2017 Julian Garnier
  * Released under the MIT license
@@ -606,7 +606,6 @@
     const properties = getProperties(instanceSettings, tweenSettings, params);
     const animations = getAnimations(animatables, properties);
     return mergeObjects(instanceSettings, {
-      children: [],
       animatables: animatables,
       animations: animations,
       duration: getInstanceTimings('duration', animations, tweenSettings),
@@ -665,11 +664,6 @@
       instance.completed = false;
       instance.reversed = direction === 'reverse';
       instance.remaining = direction === 'alternate' && loops === 1 ? 2 : loops;
-      for (let i = arrayLength(instance.children); i--; ){
-        const child = instance.children[i];
-        child.seek(child.offset); 
-        child.reset();
-      }
     }
 
     function toggleInstanceDirection() {
@@ -680,13 +674,9 @@
       return instance.reversed ? instance.duration - time : time;
     }
 
-    function syncInstanceChildren(time) {
+    function syncInstanceChildren(insTime) {
       const children = instance.children;
-      if (time >= instance.currentTime) {
-        for (let i = 0; i < arrayLength(children); i++) children[i].seek(time);
-      } else {
-        for (let i = arrayLength(children); i--;) children[i].seek(time);
-      }
+      for (let i = 0; i < arrayLength(children); i++) children[i].seek(insTime);
     }
 
     function setAnimationsProgress(insTime) {
@@ -743,7 +733,6 @@
       const insCurrentTime = instance.currentTime;
       const insReversed = instance.reversed;
       const insTime = minMaxValue(adjustTime(engineTime), 0, insDuration);
-      if (instance.children) syncInstanceChildren(insTime);
       if (insTime > insOffset && insTime < insDuration) {
         setAnimationsProgress(insTime);
         if (!instance.began && insTime >= insDelay) {
@@ -767,10 +756,8 @@
           if (instance.direction === 'alternate') toggleInstanceDirection();
         } else {
           instance.pause();
-          if ('Promise' in window) {
-            resolve();
-            promise = makePromise();
-          }
+          resolve();
+          promise = makePromise();
           if (!instance.completed) {
             instance.completed = true;
             setCallback('complete');
@@ -778,6 +765,7 @@
         }
         lastTime = 0;
       }
+      if (instance.children) syncInstanceChildren(insTime);
       setCallback('update');
     }
 
@@ -802,7 +790,7 @@
       if (!instance.paused) return;
       instance.paused = false;
       startTime = 0;
-      lastTime = adjustTime(instance.currentTime);
+      lastTime = instance.completed ? 0 : adjustTime(instance.currentTime);
       activeInstances.push(instance);
       if (!raf) engine();
     }
@@ -833,10 +821,10 @@
 
   function removeTargets(targets) {
     const targetsArray = parseTargets(targets);
-    for (let i = arrayLength(activeInstances); i--;) {
+    for (let i = arrayLength(activeInstances)-1; i >= 0; i--) {
       const instance = activeInstances[i];
       const animations = instance.animations;
-      for (let a = arrayLength(animations); a--;) {
+      for (let a = arrayLength(animations)-1; a >= 0; a--) {
         if (arrayContains(targetsArray, animations[a].animatable.target)) {
           animations.splice(a, 1);
           if (!arrayLength(animations)) instance.pause();
@@ -849,30 +837,24 @@
 
   function timeline(params) {
     let tl = anime(params);
-    tl.pause();
     tl.duration = 0;
+    tl.children = [];
     tl.add = function(instancesParams) {
-      tl.children.forEach( i => { i.began = true; i.completed = true; });
       toArray(instancesParams).forEach(insParams => {
+        const offset = insParams.offset;
         const tlDuration = tl.duration;
-        const insOffset = insParams.offset;
         insParams.autoplay = false;
-        insParams.offset = is.und(insOffset) ? tlDuration : getRelativeValue(insOffset, tlDuration);
-        tl.seek(insParams.offset);
+        insParams.offset = is.und(offset) ? tlDuration : getRelativeValue(offset, tlDuration);
         const ins = anime(insParams);
         if (ins.duration > tlDuration) tl.duration = ins.duration;
-        ins.began = true;
         tl.children.push(ins);
       });
-      tl.reset();
-      tl.seek(0);
-      if (tl.autoplay) tl.restart();
       return tl;
     }
     return tl;
   }
 
-  anime.version = '2.0.2';
+  anime.version = '2.0.1';
   anime.speed = 1;
   anime.running = activeInstances;
   anime.remove = removeTargets;
