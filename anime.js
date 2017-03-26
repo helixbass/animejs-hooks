@@ -767,8 +767,10 @@
           if (instance.direction === 'alternate') toggleInstanceDirection();
         } else {
           instance.pause();
-          resolve();
-          promise = makePromise();
+          if ('Promise' in window) {
+            resolve();
+            promise = makePromise();
+          }
           if (!instance.completed) {
             instance.completed = true;
             setCallback('complete');
