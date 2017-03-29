@@ -654,7 +654,7 @@ var myAnimation = anime({
 var myAnimation = anime({
   targets: '#complete .el',
   translateX: 250,
-  Complete: function(anim) {
+  complete: function(anim) {
     console.log(anim.completed);
   }
 });
