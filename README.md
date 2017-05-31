@@ -1,6 +1,6 @@
-# [anime.js](http://anime-js.com) ![](http://img.badgesize.io/juliangarnier/anime/v2.0/anime.min.js.svg?style=flat&color=18FF92)
+# [anime.js](http://animejs.com) ![](http://img.badgesize.io/juliangarnier/anime/v2.0/anime.min.js.svg?style=flat&color=18FF92)
 
-<img src="http://anime-js.com/documentation/assets/img/readme/animejs-logo.gif" width="100%" />
+<img src="http://animejs.com/documentation/assets/img/readme/animejs-logo.gif" width="100%" />
 
 >*Anime* `(/ˈæn.ə.meɪ/)` is a lightweight JavaScript animation library. It works with any CSS Properties, individual CSS transforms, SVG or any DOM attributes, and JavaScript Objects.
 
@@ -20,7 +20,7 @@
 
 * [CodePen demos and examples](http://codepen.io/collection/b392d3a52d6abf5b8d9fda4e4cab61ab/)
 * [juliangarnier.com](http://juliangarnier.com)
-* [anime-js.com](http://anime-js.com)
+* [animejs.com](http://animejs.com)
 * [kenzo.com/en/thejunglebook](https://kenzo.com/en/thejunglebook)
 * [Stress test](http://codepen.io/juliangarnier/pen/9aea7f045d7db301eab41bc09dcfc04d?editors=0010)
 
@@ -78,7 +78,7 @@ The `targets` property defines the elements or JS `Object`s to animate.
 | `Object` | `{prop1: 100, prop2: 200}`
 | `Array` | `['div', '.item', domNode]`
 
-➜ [Targets examples](http://anime-js.com/documentation/#cssSelector)
+➜ [Targets examples](http://animejs.com/documentation/#cssSelector)
 
 ## Animatable properties
 
@@ -90,11 +90,11 @@ The `targets` property defines the elements or JS `Object`s to animate.
 | DOM attributes | Any DOM attributes containing numerical values
 | SVG attributes | Any SVG attributes containing numerical values
 
-➜ [Animatable properties examples](http://anime-js.com/documentation/#cssProperties)
+➜ [Animatable properties examples](http://animejs.com/documentation/#cssProperties)
 
 ### CSS
 
-<img src="http://anime-js.com/documentation/assets/img/readme/prop-css.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/prop-css.gif" width="332" />
 
 Any CSS properties can be animated:
 
@@ -107,11 +107,11 @@ anime({
 });
 ```
 
-➜ [CSS properties example](http://anime-js.com/documentation/#cssProperties)
+➜ [CSS properties example](http://animejs.com/documentation/#cssProperties)
 
 ### Individual CSS transforms
 
-<img src="http://anime-js.com/documentation/assets/img/readme/prop-transforms.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/prop-transforms.gif" width="332" />
 
 CSS transforms can be animated individually:
 
@@ -124,11 +124,11 @@ anime({
 });
 ```
 
-➜ [CSS Transforms example](http://anime-js.com/documentation/#CSStransforms)
+➜ [CSS Transforms example](http://animejs.com/documentation/#CSStransforms)
 
 ### JavaScript Object properties
 
-<img src="http://anime-js.com/documentation/assets/img/readme/prop-js-obj.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/prop-js-obj.gif" width="332" />
 
 Any `Object` property containing a numerical value can be animated:
 
@@ -145,11 +145,11 @@ anime({
 });
 ```
 
-➜ [Object properties example](http://anime-js.com/documentation/#JSobjectProp)
+➜ [Object properties example](http://animejs.com/documentation/#JSobjectProp)
 
 ### DOM Attributes
 
-<img src="http://anime-js.com/documentation/assets/img/readme/prop-dom-attr.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/prop-dom-attr.gif" width="332" />
 
 Any DOM Attribute containing a numerical values can be animated:
 
@@ -165,11 +165,11 @@ anime({
 });
 ```
 
-➜ [DOM Attributes example](http://anime-js.com/documentation/#domAttributes)
+➜ [DOM Attributes example](http://animejs.com/documentation/#domAttributes)
 
 ### SVG Attributes
 
-<img src="http://anime-js.com/documentation/assets/img/readme/prop-svg-attr.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/prop-svg-attr.gif" width="332" />
 
 Any SVG Attribute containing a numerical values can be animated:
 
@@ -186,11 +186,11 @@ anime({
 });
 ```
 
-➜ [SVG Attributes example](http://anime-js.com/documentation/#svgAttributes)
+➜ [SVG Attributes example](http://animejs.com/documentation/#svgAttributes)
 
 ## Property parameters
 
-<img src="http://anime-js.com/documentation/assets/img/readme/prop-parameters.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/prop-parameters.gif" width="332" />
 
 Defines duration, delay and easing for each property animations.<br>
 Can be set globally, or individually to each properties:
@@ -224,11 +224,11 @@ anime({
 });
 ```
 
-➜ [Property parameters examples](http://anime-js.com/documentation/#duration)
+➜ [Property parameters examples](http://animejs.com/documentation/#duration)
 
 ## Function based property parameters
 
-<img src="http://anime-js.com/documentation/assets/img/readme/fb-parameters.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/fb-parameters.gif" width="332" />
 
 Get different property parameters for every target of the animation.<br>
 The function accepts 3 arguments: `target`, `index`, `targetsLength`.
@@ -254,11 +254,11 @@ anime({
 });
 ```
 
-➜ [Function based parameters examples](http://anime-js.com/documentation/#functionBasedDuration)
+➜ [Function based parameters examples](http://animejs.com/documentation/#functionBasedDuration)
 
 ## Animation parameters
 
-<img src="http://anime-js.com/documentation/assets/img/readme/anim-parameters.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/anim-parameters.gif" width="332" />
 
 Parameters relative to the animation to specify the direction, the number of loops or autoplay.
 
@@ -279,7 +279,7 @@ anime({
 });
 ```
 
-➜ [Animation parameters examples](http://anime-js.com/documentation/#alternate)
+➜ [Animation parameters examples](http://animejs.com/documentation/#alternate)
 
 ## Property values
 
@@ -295,7 +295,7 @@ Start value is the original target value, or default transforms value.
 | Relative values | `'+=100px'`, `'-=20em'`, `'*=4'` | Add, subtract or multiply the original property value
 | Colors | `'#FFF'`, `'rgb(255,0,0)'`, `'hsl(100, 20%, 80%)'` | Accepts 3 or 6 hex digit, rgb, or hsl values
 
-➜ [Values examples](http://anime-js.com/documentation/#unitlessValue)
+➜ [Values examples](http://animejs.com/documentation/#unitlessValue)
 
 ```javascript
 anime({
@@ -310,7 +310,7 @@ anime({
 
 ### From > To values
 
-<img src="http://anime-js.com/documentation/assets/img/readme/value-from-to.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/value-from-to.gif" width="332" />
 
 Force the animation to start at a certain value.
 
@@ -325,11 +325,11 @@ anime({
 });
 ```
 
-➜ [Specific initial value example](http://anime-js.com/documentation/#specificInitialValue)
+➜ [Specific initial value example](http://animejs.com/documentation/#specificInitialValue)
 
 ### Function based values
 
-<img src="http://anime-js.com/documentation/assets/img/readme/value-fb.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/value-fb.gif" width="332" />
 
 Same as [function based property parameters](#function-based-property-parameters).<br>
 Get different values for every target of the animation.<br>
@@ -354,11 +354,11 @@ anime({
 });
 ```
 
-➜ [Function based value example](http://anime-js.com/documentation/#functionBasedPropVal)
+➜ [Function based value example](http://animejs.com/documentation/#functionBasedPropVal)
 
 ### Keyframes
 
-<img src="http://anime-js.com/documentation/assets/img/readme/value-keyframes.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/value-keyframes.gif" width="332" />
 
 Keyframes are defined using an `Array` of property Object.<br>
 Instance's `duration` is divided by the number of keyframes of each properties if not specified.
@@ -391,13 +391,13 @@ anime({
 });
 ```
 
-➜ [Specific keyframes properties example](http://anime-js.com/documentation/#keyframes)
+➜ [Specific keyframes properties example](http://animejs.com/documentation/#keyframes)
 
 ## Timeline
 
 ### Basic timeline
 
-<img src="http://anime-js.com/documentation/assets/img/readme/timeline.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/timeline.gif" width="332" />
 
 Play animations in sequence by creating a timeline:
 
@@ -435,7 +435,7 @@ myTimeline
 
 Access timeline children animations with `myTimeline.children`
 
-➜ [Basic timeline example](http://anime-js.com/documentation/#basicTimeline)
+➜ [Basic timeline example](http://animejs.com/documentation/#basicTimeline)
 
 ### Timeline animations offsets
 
@@ -443,7 +443,7 @@ Access timeline children animations with `myTimeline.children`
 
 #### Relative offset
 
-<img src="http://anime-js.com/documentation/assets/img/readme/timeline-relative.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/timeline-relative.gif" width="332" />
 
 Defines starting time relative to the previous animations duration.
 
@@ -471,11 +471,11 @@ myTimeline
   });
 ```
 
-➜ [Relative offset example](http://anime-js.com/documentation/#relativeOffset)
+➜ [Relative offset example](http://animejs.com/documentation/#relativeOffset)
 
 #### Absolute offset
 
-<img src="http://anime-js.com/documentation/assets/img/readme/timeline-absolute.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/timeline-absolute.gif" width="332" />
 
 Defines an absolute starting time on the timeline with a number.
 
@@ -498,7 +498,7 @@ myTimeline
   });
 ```
 
-➜ [Absolute offset example](http://anime-js.com/documentation/absoluteOffset)
+➜ [Absolute offset example](http://animejs.com/documentation/absoluteOffset)
 
 ## Playback controls
 
@@ -506,7 +506,7 @@ Play, pause, restart, seek animations or timelines.
 
 ### Play / Pause
 
-<img src="http://anime-js.com/documentation/assets/img/readme/playback-play-pause.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/playback-play-pause.gif" width="332" />
 
 ```javascript
 var playPauseAnim = anime({
@@ -521,11 +521,11 @@ playPauseAnim.play(); //  Manually play
 playPauseAnim.pause(); //  Manually pause
 ```
 
-➜ [Play / Pause example](http://anime-js.com/documentation/#playPause)
+➜ [Play / Pause example](http://animejs.com/documentation/#playPause)
 
 ### Restart
 
-<img src="http://anime-js.com/documentation/assets/img/readme/playback-restart.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/playback-restart.gif" width="332" />
 
 ```javascript
 var restartAnim = anime({
@@ -539,11 +539,11 @@ var restartAnim = anime({
 restartAnim.restart(); // Restart the animation and reset the loop count / current direction
 ```
 
-➜ [Restart example](http://anime-js.com/documentation/#restartAnim)
+➜ [Restart example](http://animejs.com/documentation/#restartAnim)
 
 ### Reverse
 
-<img src="http://anime-js.com/documentation/assets/img/readme/playback-reverse.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/playback-reverse.gif" width="332" />
 
 ```javascript
 var restartAnim = anime({
@@ -556,11 +556,11 @@ var restartAnim = anime({
 restartAnim.reverse(); // Change the animation direction
 ```
 
-➜ [Reverse example](http://anime-js.com/documentation/#reverseAnim)
+➜ [Reverse example](http://animejs.com/documentation/#reverseAnim)
 
 ### Seek
 
-<img src="http://anime-js.com/documentation/assets/img/readme/playback-seek.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/playback-seek.gif" width="332" />
 
 Change animations or timelines current time.
 
@@ -576,11 +576,11 @@ var seekAnim = anime({
 seekAnim.seek(500); // Set the animation current time to 500ms
 ```
 
-➜ [Seek example](http://anime-js.com/documentation/#seekAnim)
+➜ [Seek example](http://animejs.com/documentation/#seekAnim)
 
 ## Callbacks
 
-<img src="http://anime-js.com/documentation/assets/img/readme/callbacks-all.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/callbacks-all.gif" width="332" />
 
 Execute a function at the beginning, during or when an animation or timeline is completed.
 
@@ -590,7 +590,7 @@ Execute a function at the beginning, during or when an animation or timeline is 
 | begin | `function` | animation `Object` | Called after animation delay is over
 | complete | `function` | animation `Object` | Called only after all the loops are completed
 
-➜ [Callbacks examples](http://anime-js.com/documentation/#allCallbacks)
+➜ [Callbacks examples](http://animejs.com/documentation/#allCallbacks)
 
 ### Update
 
@@ -608,7 +608,7 @@ var myAnimation = anime({
 });
 ```
 
-➜ [Update example](http://anime-js.com/documentation/#update)
+➜ [Update example](http://animejs.com/documentation/#update)
 
 ### Begin
 
@@ -627,7 +627,7 @@ var myAnimation = anime({
 
 Check if the animation has begun with `myAnimation.began`, return `true` or `false`.
 
-➜ [Begin example](http://anime-js.com/documentation/#begin)
+➜ [Begin example](http://animejs.com/documentation/#begin)
 
 ### Run
 
@@ -644,7 +644,7 @@ var myAnimation = anime({
 });
 ```
 
-➜ [Run example](http://anime-js.com/documentation/#run)
+➜ [Run example](http://animejs.com/documentation/#run)
 
 ### Complete
 
@@ -662,19 +662,19 @@ var myAnimation = anime({
 
 Check if the animation has finished with `myAnimation.completed`, return `true` or `false`.
 
-➜ [Complete example](http://anime-js.com/documentation/#complete)
+➜ [Complete example](http://animejs.com/documentation/#complete)
 
 ## Promises
 
 `myAnimation.finished` returns a Promise object which will resolve once the animation has finished running.
 
-➜ [Promises example](http://anime-js.com/documentation/#finishedPromise)
+➜ [Promises example](http://animejs.com/documentation/#finishedPromise)
 
 ## SVG
 
 ### Motion path
 
-<img src="http://anime-js.com/documentation/assets/img/readme/svg-motion-path.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/svg-motion-path.gif" width="332" />
 
 Translate and rotate DOM elements along an SVG path:
 
@@ -690,11 +690,11 @@ var motionPath = anime({
 });
 ```
 
-➜ [Motion path example](http://anime-js.com/documentation/#motionPath)
+➜ [Motion path example](http://animejs.com/documentation/#motionPath)
 
 ### Morphing
 
-<img src="http://anime-js.com/documentation/assets/img/readme/svg-morphing.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/svg-morphing.gif" width="332" />
 
 Animate the transition between two SVG shapes:
 
@@ -713,11 +713,11 @@ var svgAttributes = anime({
 
 Shapes need to have the same number of points.
 
-➜ [Morphing example](http://anime-js.com/documentation/#morphing)
+➜ [Morphing example](http://animejs.com/documentation/#morphing)
 
 ### Line drawing
 
-<img src="http://anime-js.com/documentation/assets/img/readme/svg-line-drawing.gif" width="332" />
+<img src="http://animejs.com/documentation/assets/img/readme/svg-line-drawing.gif" width="332" />
 
 Line drawing animation of an SVG shape:
 
@@ -728,7 +728,7 @@ anime({
 });
 ```
 
-➜ [Line drawing example](http://anime-js.com/documentation/#lineDrawing)
+➜ [Line drawing example](http://animejs.com/documentation/#lineDrawing)
 
 ## Easing functions
 
@@ -757,7 +757,7 @@ Penner's equations:
 | easeInBack | easeOutBack | easeInOutBack
 | easeInElastic | easeOutElastic | easeInOutElastic
 
-➜ [Built in easing functions examples](http://anime-js.com/documentation/#penner)
+➜ [Built in easing functions examples](http://animejs.com/documentation/#penner)
 
 Usage:
 
@@ -780,7 +780,7 @@ anime({
 });
 ```
 
-➜ [Elasticity examples](http://anime-js.com/documentation/#elasticity)
+➜ [Elasticity examples](http://animejs.com/documentation/#elasticity)
 
 ### Custom Bézier curves
 
@@ -796,7 +796,7 @@ anime({
 
 Custom Bézier curves coordinates can be generated here https://matthewlein.com/ceaser/
 
-➜ [Custom Bézier curves example](http://anime-js.com/documentation/#customBezier)
+➜ [Custom Bézier curves example](http://animejs.com/documentation/#customBezier)
 
 ### Defining custom functions
 
@@ -826,7 +826,7 @@ anime({
 });
 ```
 
-➜ [Custom easing functions example](http://anime-js.com/documentation/#customEasingFunction)
+➜ [Custom easing functions example](http://animejs.com/documentation/#customEasingFunction)
 
 ## Helpers
 
@@ -871,7 +871,7 @@ Accepts either a DOM node or CSS selector.
 var path = anime.path('svg path', 'translateX'); // Return path(attribute)
 ```
 
-➜ [Motion path example](http://anime-js.com/documentation/#motionPath)
+➜ [Motion path example](http://animejs.com/documentation/#motionPath)
 
 ### anime.setDashoffset(pathEl)
 
@@ -885,7 +885,7 @@ anime({
 });
 ```
 
-➜ [Line drawing example](http://anime-js.com/documentation/#lineDrawing)
+➜ [Line drawing example](http://animejs.com/documentation/#lineDrawing)
 
 ### anime.easings
 
@@ -912,7 +912,7 @@ var timeline = anime.timeline();
 timeline.add([instance1, instance2, ...]);
 ```
 
-➜ [Timeline examples](http://anime-js.com/documentation/#basicTimeline)
+➜ [Timeline examples](http://animejs.com/documentation/#basicTimeline)
 
 ### anime.random(x, y)
 
