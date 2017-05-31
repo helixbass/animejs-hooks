@@ -72,7 +72,7 @@ The `targets` property defines the elements or JS `Object`s to animate.
 
 | Types | Examples
 | --- | ---
-| CSS Selectors | `'div'`, `'.item'`, `'path'`
+| CSS Selectors | `'div'`, `'.item'`, `'path'`, `'#el path'` ...
 | DOM Element | `document.querySelector('.item')`
 | NodeList | `document.querySelectorAll('.item')`
 | `Object` | `{prop1: 100, prop2: 200}`
@@ -119,7 +119,7 @@ CSS transforms can be animated individually:
 anime({
   targets: 'div',
   translateX: 250, // Animate all divs translateX property to 250px
-  scale: 2, // Animate all divs scale to 1.5
+  scale: 2, // Animate all divs scale to 2
   rotate: '1turn' // Animate all divs rotation to 1 turn
 });
 ```
@@ -236,7 +236,6 @@ The function accepts 3 arguments: `target`, `index`, `targetsLength`.
 ```javascript
 anime({
   targets: 'div',
-  translateX: 100,
   translateX: 250,
   rotate: 180,
   duration: function(target) {
@@ -291,7 +290,7 @@ Start value is the original target value, or default transforms value.
 | Types | Examples | Infos
 | --- | --- | ---
 | Number | `100` | Automatically add original or default unit if needed
-| String | `'10em'`, `'1turn'`, `'M21 1v160'` | Must contains at least one numerical value
+| String | `'10em'`, `'1turn'`, `'M21 1v160'`, `'50%'` | Must contains at least one numerical value
 | Relative values | `'+=100px'`, `'-=20em'`, `'*=4'` | Add, subtract or multiply the original property value
 | Colors | `'#FFF'`, `'rgb(255,0,0)'`, `'hsl(100, 20%, 80%)'` | Accepts 3 or 6 hex digit, rgb, or hsl values
 
@@ -348,7 +347,6 @@ anime({
     return (l - i) + .25;
   },
   rotate: function() { return anime.random(-360, 360); },
-  duration: function() { return anime.random(1200, 1800); },
   duration: function() { return anime.random(800, 1600); },
   delay: function() { return anime.random(0, 1000); }
 });
@@ -447,11 +445,11 @@ Access timeline children animations with `myTimeline.children`
 
 Defines starting time relative to the previous animations duration.
 
-| Types | Examples | Infos 
-| --- | --- | --- 
-| `+=` | `'+=100'` | Starts 100ms after the previous animation ends 
-| `-=` | `'-=100'` | Starts 100ms before the previous animation ends 
-| `*=` | `'*=2'` | Starts at 2 times the previous animations duration 
+| Types | Examples | Infos
+| --- | --- | ---
+| `+=` | `'+=100'` | Starts 100ms after the previous animation ends
+| `-=` | `'-=100'` | Starts 100ms before the previous animation ends
+| `*=` | `'*=2'` | Starts at 2 times the previous animations duration
 
 ```javascript
 myTimeline
@@ -546,14 +544,14 @@ restartAnim.restart(); // Restart the animation and reset the loop count / curre
 <img src="http://animejs.com/documentation/assets/img/readme/playback-reverse.gif" width="332" />
 
 ```javascript
-var restartAnim = anime({
+var reverseAnim = anime({
   targets: 'div',
   translateX: 250,
   direction: 'alternate',
   loop: true
 });
 
-restartAnim.reverse(); // Change the animation direction
+reverseAnim.reverse(); // Change the animation direction
 ```
 
 ➜ [Reverse example](http://animejs.com/documentation/#reverseAnim)
@@ -598,7 +596,7 @@ Execute a function at the beginning, during or when an animation or timeline is 
 
 ```javascript
 var myAnimation = anime({
-  targets: '#callbacks .el',
+  targets: '#update .el',
   translateX: 250,
   delay: 1000,
   update: function(anim) {
@@ -635,7 +633,7 @@ Check if the animation has begun with `myAnimation.began`, return `true` or `fal
 
 ```javascript
 var myAnimation = anime({
-  targets: '#begin .el',
+  targets: '#run .el',
   translateX: 250,
   delay: 1000,
   run: function(anim) {
@@ -699,7 +697,7 @@ var motionPath = anime({
 Animate the transition between two SVG shapes:
 
 ```html
-<svg class=".shape" width="128" height="128" viewBox="0 0 128 128">
+<svg class="shape" width="128" height="128" viewBox="0 0 128 128">
   <polygon points="64 68.64 8.574 100 63.446 67.68 64 4 64.554 67.68 119.426 100"></polygon>
 </svg>
 ```
@@ -724,7 +722,7 @@ Line drawing animation of an SVG shape:
 ```javascript
 anime({
   targets: '.shape path',
-	strokeDashoffset: [anime.setDashoffset, 0]
+  strokeDashoffset: [anime.setDashoffset, 0]
 });
 ```
 
@@ -764,8 +762,8 @@ Usage:
 ```javascript
 anime({
   targets: 'div',
-	translateX: 100,
-	easing: 'easeOutExpo' // Default 'easeOutElastic'
+  translateX: 100,
+  easing: 'easeOutExpo' // Default 'easeOutElastic'
 });
 ```
 
@@ -774,9 +772,9 @@ Elasticity of Elastic easings can be configured with the `elasticity` parameters
 ```javascript
 anime({
   targets: 'div',
-	translateX: 100,
-	easing: 'easeOutElastic',
-	elasticity: 600 // Default 500, range [0-1000]
+  translateX: 100,
+  easing: 'easeOutElastic',
+  elasticity: 600 // Default 500, range [0-1000]
 });
 ```
 
@@ -789,12 +787,12 @@ Define a Bézier curve with an `Array` of 4 coordinates:
 ```javascript
 anime({
   targets: 'div',
-	translateX: 100,
-	easing: [.91,-0.54,.29,1.56],
+  translateX: 100,
+  easing: [.91,-0.54,.29,1.56]
 });
 ```
 
-Custom Bézier curves coordinates can be generated here https://matthewlein.com/ceaser/
+Custom Bézier curves coordinates can be generated here <https://matthewlein.com/ceaser/>
 
 ➜ [Custom Bézier curves example](http://animejs.com/documentation/#customBezier)
 
@@ -811,8 +809,8 @@ anime.easings['myCustomEasingName'] = function(t) {
 // Usage
 anime({
   targets: 'div',
-	translateX: 100,
-	easing: 'myCustomEasingName'
+  translateX: 100,
+  easing: 'myCustomEasingName'
 });
 
 // add custom Bézier curve function
@@ -821,8 +819,8 @@ anime.easings['myCustomCurve'] = anime.bezier([.91,-0.54,.29,1.56]);
 // Usage
 anime({
   targets: 'div',
-	translateX: 100,
-	easing: 'myCustomCurve'
+  translateX: 100,
+  easing: 'myCustomCurve'
 });
 ```
 
@@ -851,7 +849,7 @@ anime.running;
 Remove one or multiple targets from the animation.
 
 ```javascript
-anime.remove('.item-2'); // Remove all divs with the class '.item-2'
+anime.remove('.item-2'); // Remove all elements with the class 'item-2'
 ```
 
 ### anime.getValue(target, property)
@@ -881,7 +879,7 @@ Sets the 'stroke-dasharray' to the total path length and return its value.
 ```javascript
 anime({
   targets: '.shape path',
-	strokeDashoffset: [anime.pathDashoffset, 0]
+  strokeDashoffset: [anime.pathDashoffset, 0]
 });
 ```
 
@@ -926,4 +924,4 @@ anime.random(10, 40); // Will return a random number between 10 and 40
 
 [MIT License](LICENSE.md). © 2017 [Julian Garnier](http://juliangarnier.com).
 
-Thanks to [Animate Plus](https://github.com/bendc/animateplus) and [Velocity](https://github.com/julianshapiro/velocity) that inspired `anime.js` API, [BezierEasing](https://github.com/gre/bezier-easing) and [jQuery UI](https://jqueryui.com/) for the easing system. [Tim Branyen](https://github.com/tbranyen) For the Promise implementation. 
+Thanks to [Animate Plus](https://github.com/bendc/animateplus) and [Velocity](https://github.com/julianshapiro/velocity) that inspired `anime.js` API, [BezierEasing](https://github.com/gre/bezier-easing) and [jQuery UI](https://jqueryui.com/) for the easing system. [Tim Branyen](https://github.com/tbranyen) For the Promise implementation.
