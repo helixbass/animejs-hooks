@@ -52,6 +52,157 @@
     return str.indexOf(text) > -1;
   }
 
+  const cssColorNames = {
+    aliceblue: '#f0f8ff',
+    antiquewhite: '#faebd7',
+    aqua: '#00ffff',
+    aquamarine: '#7fffd4',
+    azure: '#f0ffff',
+    beige: '#f5f5dc',
+    bisque: '#ffe4c4',
+    black: '#000000',
+    blanchedalmond: '#ffebcd',
+    blue: '#0000ff',
+    blueviolet: '#8a2be2',
+    brown: '#a52a2a',
+    burlywood: '#deb887',
+    cadetblue: '#5f9ea0',
+    chartreuse: '#7fff00',
+    chocolate: '#d2691e',
+    coral: '#ff7f50',
+    cornflowerblue: '#6495ed',
+    cornsilk: '#fff8dc',
+    crimson: '#dc143c',
+    cyan: '#00ffff',
+    darkblue: '#00008b',
+    darkcyan: '#008b8b',
+    darkgoldenrod: '#b8860b',
+    darkgray: '#a9a9a9',
+    darkgreen: '#006400',
+    darkgrey: '#a9a9a9',
+    darkkhaki: '#bdb76b',
+    darkmagenta: '#8b008b',
+    darkolivegreen: '#556b2f',
+    darkorange: '#ff8c00',
+    darkorchid: '#9932cc',
+    darkred: '#8b0000',
+    darksalmon: '#e9967a',
+    darkseagreen: '#8fbc8f',
+    darkslateblue: '#483d8b',
+    darkslategray: '#2f4f4f',
+    darkslategrey: '#2f4f4f',
+    darkturquoise: '#00ced1',
+    darkviolet: '#9400d3',
+    deeppink: '#ff1493',
+    deepskyblue: '#00bfff',
+    dimgray: '#696969',
+    dimgrey: '#696969',
+    dodgerblue: '#1e90ff',
+    firebrick: '#b22222',
+    floralwhite: '#fffaf0',
+    forestgreen: '#228b22',
+    fuchsia: '#ff00ff',
+    gainsboro: '#dcdcdc',
+    ghostwhite: '#f8f8ff',
+    gold: '#ffd700',
+    goldenrod: '#daa520',
+    gray: '#808080',
+    green: '#008000',
+    greenyellow: '#adff2f',
+    grey: '#808080',
+    honeydew: '#f0fff0',
+    hotpink: '#ff69b4',
+    indianred: '#cd5c5c',
+    indigo: '#4b0082',
+    ivory: '#fffff0',
+    khaki: '#f0e68c',
+    lavender: '#e6e6fa',
+    lavenderblush: '#fff0f5',
+    lawngreen: '#7cfc00',
+    lemonchiffon: '#fffacd',
+    lightblue: '#add8e6',
+    lightcoral: '#f08080',
+    lightcyan: '#e0ffff',
+    lightgoldenrodyellow: '#fafad2',
+    lightgray: '#d3d3d3',
+    lightgreen: '#90ee90',
+    lightgrey: '#d3d3d3',
+    lightpink: '#ffb6c1',
+    lightsalmon: '#ffa07a',
+    lightseagreen: '#20b2aa',
+    lightskyblue: '#87cefa',
+    lightslategray: '#778899',
+    lightslategrey: '#778899',
+    lightsteelblue: '#b0c4de',
+    lightyellow: '#ffffe0',
+    lime: '#00ff00',
+    limegreen: '#32cd32',
+    linen: '#faf0e6',
+    magenta: '#ff00ff',
+    maroon: '#800000',
+    mediumaquamarine: '#66cdaa',
+    mediumblue: '#0000cd',
+    mediumorchid: '#ba55d3',
+    mediumpurple: '#9370db',
+    mediumseagreen: '#3cb371',
+    mediumslateblue: '#7b68ee',
+    mediumspringgreen: '#00fa9a',
+    mediumturquoise: '#48d1cc',
+    mediumvioletred: '#c71585',
+    midnightblue: '#191970',
+    mintcream: '#f5fffa',
+    mistyrose: '#ffe4e1',
+    moccasin: '#ffe4b5',
+    navajowhite: '#ffdead',
+    navy: '#000080',
+    oldlace: '#fdf5e6',
+    olive: '#808000',
+    olivedrab: '#6b8e23',
+    orange: '#ffa500',
+    orangered: '#ff4500',
+    orchid: '#da70d6',
+    palegoldenrod: '#eee8aa',
+    palegreen: '#98fb98',
+    paleturquoise: '#afeeee',
+    palevioletred: '#db7093',
+    papayawhip: '#ffefd5',
+    peachpuff: '#ffdab9',
+    peru: '#cd853f',
+    pink: '#ffc0cb',
+    plum: '#dda0dd',
+    powderblue: '#b0e0e6',
+    purple: '#800080',
+    rebeccapurple: '#663399',
+    red: '#ff0000',
+    rosybrown: '#bc8f8f',
+    royalblue: '#4169e1',
+    saddlebrown: '#8b4513',
+    salmon: '#fa8072',
+    sandybrown: '#f4a460',
+    seagreen: '#2e8b57',
+    seashell: '#fff5ee',
+    sienna: '#a0522d',
+    silver: '#c0c0c0',
+    skyblue: '#87ceeb',
+    slateblue: '#6a5acd',
+    slategray: '#708090',
+    slategrey: '#708090',
+    snow: '#fffafa',
+    springgreen: '#00ff7f',
+    steelblue: '#4682b4',
+    tan: '#d2b48c',
+    teal: '#008080',
+    thistle: '#d8bfd8',
+    tomato: '#ff6347',
+    turquoise: '#40e0d0',
+    violet: '#ee82ee',
+    wheat: '#f5deb3',
+    white: '#ffffff',
+    whitesmoke: '#f5f5f5',
+    yellow: '#ffff00',
+    yellowgreen: '#9acd32',
+  }
+
   const is = {
     arr: a => Array.isArray(a),
     obj: a => stringContains(Object.prototype.toString.call(a), 'Object'),
@@ -60,10 +211,11 @@
     str: a => typeof a === 'string',
     fnc: a => typeof a === 'function',
     und: a => typeof a === 'undefined',
-    hex: a => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(a),
+    hex: a => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)|(^#[0-9A-F]{8})|(^#[0-9A-F]{4}$)/i.test(a),
     rgb: a => /^rgb/.test(a),
     hsl: a => /^hsl/.test(a),
-    col: a => (is.hex(a) || is.rgb(a) || is.hsl(a))
+    cssColorName: a => cssColorNames[a],
+    col: a => (is.hex(a) || is.rgb(a) || is.hsl(a) || is.cssColorName(a)),
   }
 
   // BezierEasing https://github.com/gre/bezier-easing
@@ -237,7 +389,8 @@
     return arr.reduce((a, b) => a.concat(is.arr(b) ? flattenArray(b) : b), []);
   }
 
-  function toArray(o) {
+  function toArray(o, {isHook} = {}) {
+    if (isHook) return [o];
     if (is.arr(o)) return o;
     if (is.str(o)) o = selectString(o) || o;
     if (o instanceof NodeList || o instanceof HTMLCollection) return [].slice.call(o);
@@ -274,21 +427,50 @@
 
   // Colors
 
-  function hexToRgb(hexValue) {
-    const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    const hex = hexValue.replace(rgx, (m, r, g, b) => r + r + g + g + b + b );
-    const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    const r = parseInt(rgb[1], 16);
-    const g = parseInt(rgb[2], 16);
-    const b = parseInt(rgb[3], 16);
-    return `rgb(${r},${g},${b})`;
+  function cssColorNameToRgba(colorName) {
+    return hexToRgba(cssColorNames[colorName]);
   }
 
-  function hslToRgb(hslValue) {
+  function hexToRgba(hexValue) {
+    const rgx =  /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    const rgxa = /^#?([a-f\d])([a-f\d])([a-f\d])([a-f\d])$/i;
+    const rgb =  /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
+    if (rgx.exec(hexValue)) {
+      hexValue = hexValue.replace(rgx, (m, r, g, b) => r + r + g + g + b + b + 'FF');
+    } else if (rgxa.exec(hexValue)) {
+      hexValue = hexValue.replace(rgxa, (m, r, g, b, a) => r + r + g + g + b + b + a + a);
+    } else if (rgb.exec(hexValue)) {
+      hexValue = hexValue.replace(rgb, (m, r, g, b) => r + g + b + 'FF');
+    }
+    const rgba = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexValue);
+    const r = parseInt(rgba[1], 16);
+    const g = parseInt(rgba[2], 16);
+    const b = parseInt(rgba[3], 16);
+    const a = +((parseInt(rgba[4], 16) / 255).toFixed(2));
+    return `rgba(${r},${g},${b},${a})`;
+  }
+
+  function rgbToRgba(rgbValue) {
+    const rgb = /rgb\((\d+,\s*[\d.]+%,\s*[\d.]+%)\)/g.exec(rgbValue);
+    if (rgb) {
+      return `rgba(${rgb[1]},1)`
+    }
+    return rgbValue;
+  }
+  function hslToRgba(hslValue) {
     const hsl = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(hslValue);
-    const h = parseInt(hsl[1]) / 360;
-    const s = parseInt(hsl[2]) / 100;
-    const l = parseInt(hsl[3]) / 100;
+    if (hsl) {
+      const h = parseInt(hsl[1]) / 360;
+      const s = parseInt(hsl[2]) / 100;
+      const l = parseInt(hsl[3]) / 100;
+      const a = 1;
+    } else {
+      const hsla = /hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(hslValue);
+      const h = parseInt(hsl[1]) / 360;
+      const s = parseInt(hsl[2]) / 100;
+      const l = parseInt(hsl[3]) / 100;
+      const a = hsl[4];
+    }
     function hue2rgb(p, q, t) {
       if (t < 0) t += 1;
       if (t > 1) t -= 1;
@@ -307,13 +489,14 @@
       g = hue2rgb(p, q, h);
       b = hue2rgb(p, q, h - 1/3);
     }
-    return `rgb(${r * 255},${g * 255},${b * 255})`;
+    return `rgba(${r * 255},${g * 255},${b * 255},${a})`;
   }
 
-  function colorToRgb(val) {
-    if (is.rgb(val)) return val;
-    if (is.hex(val)) return hexToRgb(val);
-    if (is.hsl(val)) return hslToRgb(val);
+  function colorToRgba(val) {
+    if (is.rgb(val)) return rgbToRgba(val);
+    if (is.hex(val)) return hexToRgba(val);
+    if (is.hsl(val)) return hslToRgba(val);
+    if (is.cssColorName(val)) return cssColorNameToRgba(val);
   }
 
   // Units
@@ -343,9 +526,15 @@
     return val(animatable.target, animatable.id, animatable.total);
   }
 
+  let cssHooks = {};
+
   function getCSSValue(el, prop) {
     if (prop in el.style) {
-      return getComputedStyle(el).getPropertyValue(stringToHyphens(prop)) || '0';
+      let cssValue = getComputedStyle(el).getPropertyValue(stringToHyphens(prop)) || '0';
+      if (prop in cssHooks) {
+        return cssHooks[prop].parse({cssValue});
+      }
+      return cssValue;
     }
   }
 
@@ -376,7 +565,7 @@
   function getOriginalTargetValue(target, propName) {
     switch (getAnimationType(target, propName)) {
       case 'transform': return getTransformValue(target, propName);
-      case 'css': return getCSSValue(target, propName);
+      case 'css': return getCSSValue(target, propName); // TODO: don't re-call getCSSValue() here
       case 'attribute': return target.getAttribute(propName);
     }
     return target[propName] || 0;
@@ -395,7 +584,7 @@
   }
 
   function validateValue(val, unit) {
-    if (is.col(val)) return colorToRgb(val);
+    if (is.col(val)) return colorToRgba(val);
     const originalUnit = getUnit(val);
     const unitLess = originalUnit ? val.substr(0, arrayLength(val) - arrayLength(originalUnit)) : val;
     return unit ? unitLess + unit : unitLess;
@@ -472,7 +661,7 @@
 
   // Properties
 
-  function normalizePropertyTweens(prop, tweenSettings) {
+  function normalizePropertyTweens(prop, tweenSettings, {isHook}) {
     let settings = cloneObject(tweenSettings);
     if (is.arr(prop)) {
       const l = arrayLength(prop);
@@ -485,7 +674,7 @@
         prop = {value: prop};
       }
     }
-    return toArray(prop).map((v, i) => {
+    return toArray(prop, {isHook}).map((v, i) => {
       // Default delay value should be applied only on the first tween
       const delay = !i ? tweenSettings.delay : 0;
       // Use path object as a tween value
@@ -504,7 +693,7 @@
         properties.push({
           name: p,
           offset: settings['offset'],
-          tweens: normalizePropertyTweens(params[p], tweenSettings)
+          tweens: normalizePropertyTweens(params[p], tweenSettings, {isHook: p in cssHooks})
         });
       }
     }
@@ -543,8 +732,8 @@
       const to = getRelativeValue(is.arr(tweenValue) ? tweenValue[1] : tweenValue, from);
       const unit = getUnit(to) || getUnit(from) || getUnit(originalValue);
       tween.isPath = isPath(tweenValue);
-      tween.from = decomposeValue(from, unit);
-      tween.to = decomposeValue(to, unit);
+      tween.from = cssHooks[prop.name] ? from : decomposeValue(from, unit);
+      tween.to =   cssHooks[prop.name] ? cssHooks[prop.name].parseTo({to, from: tween.from}) : decomposeValue(to, unit);
       tween.start = previousTween ? previousTween.end : prop.offset;
       tween.end = tween.start + tween.delay + tween.duration;
       tween.easing = normalizeEasing(tween.easing);
@@ -702,13 +891,16 @@
         const round = tween.round;
         const elapsed = minMaxValue(insTime - tween.start - tween.delay, 0, tween.duration) / tween.duration;
         const eased = tween.easing(elapsed, tween.elasticity);
-        const progress = recomposeValue(tween.to.numbers.map((number, p) => {
-          const start = isPath ? 0 : tween.from.numbers[p];
-          let value = start + eased * (number - start);
-          if (isPath) value = getPathProgress(tween.value, value);
-          if (round) value = Math.round(value * round) / round;
-          return value;
-        }), tween.to.strings);
+        const progress =
+          cssHooks[anim.property] ?
+          cssHooks[anim.property].get({to: tween.to, from: tween.from, eased, el: anim.animatable.target}) :
+            recomposeValue(tween.to.numbers.map((number, p) => {
+            const start = isPath ? 0 : tween.from.numbers[p];
+            let value = start + eased * (number - start);
+            if (isPath) value = getPathProgress(tween.value, value);
+            if (round && p < 3) value = Math.round(value * round) / round;
+            return value;
+          }), tween.to.strings);
         setTweenProgress[anim.type](animatable.target, anim.property, progress, transforms, animatable.id);
         anim.currentValue = progress;
         i++;
@@ -883,6 +1075,7 @@
   anime.easings = easings;
   anime.timeline = timeline;
   anime.random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+  anime.cssHooks = cssHooks;
 
   return anime;
 
