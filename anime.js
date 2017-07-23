@@ -213,6 +213,7 @@
     und: a => typeof a === 'undefined',
     hex: a => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)|(^#[0-9A-F]{8})|(^#[0-9A-F]{4}$)/i.test(a),
     rgb: a => /^rgb/.test(a),
+    rgba: a => /^rgba/.test(a),
     hsl: a => /^hsl/.test(a),
     cssColorName: a => cssColorNames[a],
     col: a => (is.hex(a) || is.rgb(a) || is.hsl(a) || is.cssColorName(a)),
@@ -632,6 +633,9 @@
   // Decompose / recompose functions adapted from Animate Plus https://github.com/bendc/animateplus
 
   function decomposeValue(val, unit) {
+    if (is.rgb(val) && ! is.rgba(val)) {
+      val = rgbToRgba(val);
+    }
     const rgx = /-?\d*\.?\d+/g;
     const value = validateValue((isPath(val) ? val.totalLength : val), unit) + '';
     return {
