@@ -452,7 +452,7 @@
   }
 
   function rgbToRgba(rgbValue) {
-    const rgb = /rgb\((\d+,\s*[\d.]+%,\s*[\d.]+%)\)/g.exec(rgbValue);
+    const rgb = /rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(rgbValue);
     if (rgb) {
       return `rgba(${rgb[1]},1)`
     }
@@ -534,6 +534,9 @@
       let cssValue = getComputedStyle(el).getPropertyValue(stringToHyphens(prop)) || '0';
       if (prop in cssHooks) {
         return cssHooks[prop].parse({cssValue});
+      }
+      if (is.rgb(cssValue) && ! is.rgba(cssValue)) {
+        cssValue = rgbToRgba(cssValue);
       }
       return cssValue;
     }
@@ -633,9 +636,6 @@
   // Decompose / recompose functions adapted from Animate Plus https://github.com/bendc/animateplus
 
   function decomposeValue(val, unit) {
-    if (is.rgb(val) && ! is.rgba(val)) {
-      val = rgbToRgba(val);
-    }
     const rgx = /-?\d*\.?\d+/g;
     const value = validateValue((isPath(val) ? val.totalLength : val), unit) + '';
     return {
