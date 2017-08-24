@@ -1054,7 +1054,11 @@
         const insOffset = insParams.offset;
         insParams.autoplay = false;
         insParams.offset = is.und(insOffset) ? tlDuration : getRelativeValue(insOffset, tlDuration);
-        tl.seek(insParams.offset);
+        tl.seek(
+          insParams.seekIgnoreOffset
+            ? tlDuration
+            : insParams.offset
+        );
         const ins = anime(insParams);
         if (ins.duration > tlDuration) tl.duration = ins.duration;
         ins.began = true;
