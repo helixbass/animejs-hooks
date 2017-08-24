@@ -1,11 +1,11 @@
 {
-  "name": "animejs",
-  "version": "2.0.2",
+  "name": "animejs-hooks",
+  "version": "0.1.0",
   "description": "JavaScript animation engine",
   "main": "anime.min.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/juliangarnier/anime.git"
+    "url": "https://github.com/helixbass/animejs-hooks.git"
   },
   "keywords": [
     "anime",
@@ -16,12 +16,15 @@
     "SVG",
     "canvas"
   ],
-  "author": "Julian Garnier <hello@julian.gr>",
+  "authors": [
+    "Julian Garnier <hello@julian.gr>",
+    "Julian Rosse <julian@helixbass.net>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/juliangarnier/anime/issues"
+    "url": "https://github.com/helixbass/animejs-hooks/issues"
   },
-  "homepage": "http://animejs.com",
+  "homepage": "http://github.com/helixbass/animejs-hooks",
   "files": [
     "anime.js",
     "anime.min.js"
