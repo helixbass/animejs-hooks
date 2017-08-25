@@ -211,7 +211,7 @@
     str: a => typeof a === 'string',
     fnc: a => typeof a === 'function',
     und: a => typeof a === 'undefined',
-    hex: a => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)|(^#[0-9A-F]{8})|(^#[0-9A-F]{4}$)/i.test(a),
+    hex: a => /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)|(^#[0-9A-F]{8}$)|(^#[0-9A-F]{4}$)/i.test(a),
     rgb: a => /^rgb/.test(a),
     rgba: a => /^rgba/.test(a),
     hsl: a => /^hsl/.test(a),
